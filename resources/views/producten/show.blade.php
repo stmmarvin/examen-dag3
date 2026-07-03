@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="py-8 bg-gray-100 min-h-screen">
-        <div style="max-width: 800px; margin-left: 2rem; padding-left: 1.5rem; padding-right: 1.5rem;">
+    <div class="py-10 bg-gray-50 min-h-screen">
+        <div style="max-width: 850px; margin-left: 3rem; padding-left: 2rem; padding-right: 2rem;">
             
             <!-- Breadcrumb -->
             <div class="mb-8">
