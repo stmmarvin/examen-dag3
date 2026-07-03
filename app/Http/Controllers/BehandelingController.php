@@ -11,37 +11,37 @@ use Illuminate\Support\Facades\DB;
 class BehandelingController extends Controller
 {
     /**
-     * Display a listing of behandelingen
-     * Filters behandelingen based on selected category from dropdown
+     * Toon overzicht van alle behandelingen
+     * Filtert behandelingen op basis van geselecteerde categorie
      */
     public function index(Request $request)
     {
         $query = Behandeling::query();
         $filter = $request->input('filter', 'alle');
 
-        // Apply filter if specific category selected
+        // Filter toepassen als specifieke categorie geselecteerd
         if ($filter != 'alle') {
             $query->where('naam', $filter);
         }
 
-        // Paginate results and preserve filter parameter
+        // Pagineer resultaten en behoud filter parameter
         $behandelingen = $query->paginate(5)->appends(['filter' => $filter]);
 
-        // Get unique behandeling names for dropdown options
+        // Haal unieke behandeling namen op voor dropdown
         $behandelingNames = Behandeling::distinct()->pluck('naam');
 
         return view('behandelingen.index', compact('behandelingen', 'behandelingNames', 'filter'));
     }
 
     /**
-     * Display products for a specific behandeling
-     * Shows all products linked via pivot table
+     * Toon producten voor een specifieke behandeling
+     * Haalt alle producten op via pivot tabel
      */
     public function producten($id)
     {
         $behandeling = Behandeling::findOrFail($id);
         
-        // Get products with quantity needed from pivot table
+        // Haal producten op met benodigd aantal uit pivot tabel
         $producten = DB::table('producten')
             ->join('behandeling_product', 'producten.id', '=', 'behandeling_product.product_id')
             ->where('behandeling_product.behandeling_id', $id)
