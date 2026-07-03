@@ -130,16 +130,16 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="mt-8 flex justify-end gap-4">
+                <div class="mt-10 flex justify-end gap-4">
                     <a 
                         href="{{ route('producten.edit', $product->id) }}" 
-                        class="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-md font-medium transition"
+                        class="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-md font-semibold transition shadow-sm hover:shadow-md"
                     >
                         Wijzigen
                     </a>
                     <a 
                         href="{{ route('producten.index') }}" 
-                        class="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white px-8 py-2 rounded-md font-medium transition"
+                        class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-10 py-3 rounded-md font-semibold transition"
                     >
                         Terug
                     </a>
