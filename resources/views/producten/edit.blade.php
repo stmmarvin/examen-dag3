@@ -50,12 +50,12 @@
                     <!-- Row 1 -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 12px;">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Product <span class="text-red-600">*</span></label>
-                            <input type="text" name="naam" value="{{ old('naam', $product->naam) }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm" required>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Product</label>
+                            <input type="text" value="{{ $product->naam }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Merk</label>
-                            <input type="text" name="merk" value="{{ old('merk', $product->merk) }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm">
+                            <input type="text" value="{{ $product->merk }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                     </div>
 
@@ -63,11 +63,11 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 12px;">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Omschrijving</label>
-                            <input type="text" name="omschrijving" value="{{ old('omschrijving', $product->omschrijving) }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm">
+                            <input type="text" value="{{ $product->omschrijving }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">EAN-code</label>
-                            <input type="text" name="ean_code" value="{{ old('ean_code', $product->ean_code) }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm">
+                            <input type="text" value="{{ $product->ean_code }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                     </div>
 
@@ -75,11 +75,11 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 12px;">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Inkoopprijs</label>
-                            <input type="number" step="0.01" name="inkoop_prijs" value="{{ old('inkoop_prijs', $product->inkoop_prijs) }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm">
+                            <input type="text" value="{{ $product->inkoop_prijs ? 'EUR ' . number_format($product->inkoop_prijs, 2, ',', '.') : '-' }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Aantal op voorraad</label>
-                            <input type="number" name="aantal_op_voorraad" value="{{ old('aantal_op_voorraad', $product->voorraad->aantal_op_voorraad ?? 0) }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm">
+                            <input type="text" value="{{ $product->voorraad->aantal_op_voorraad ?? 0 }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 12px;">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Huidige verkoopprijs</label>
-                            <input type="number" step="0.01" name="verkoop_prijs" value="{{ old('verkoop_prijs', $product->verkoop_prijs) }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm">
+                            <input type="text" value="{{ $product->verkoop_prijs ? 'EUR ' . number_format($product->verkoop_prijs, 2, ',', '.') : '-' }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Leverancier</label>
@@ -99,7 +99,7 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 12px;">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Houdbaarheidsdatum</label>
-                            <input type="date" name="houdbaarheidsdatum" value="{{ old('houdbaarheidsdatum', $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('Y-m-d') : '') }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm">
+                            <input type="text" value="{{ $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('d-m-Y') : '-' }}" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm bg-gray-100" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Plaats leverancier</label>

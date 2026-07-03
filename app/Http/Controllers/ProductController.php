@@ -60,17 +60,9 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        // Validate the input
+        // Validate the input - only nieuwe_houdbaarheidsdatum
         $validated = $request->validate([
-            'naam' => 'required|string|max:255',
-            'omschrijving' => 'nullable|string',
-            'merk' => 'nullable|string|max:255',
-            'ean_code' => 'nullable|string|max:50',
-            'houdbaarheidsdatum' => 'nullable|date',
             'nieuwe_houdbaarheidsdatum' => 'required|date',
-            'inkoop_prijs' => 'nullable|numeric|min:0',
-            'verkoop_prijs' => 'nullable|numeric|min:0',
-            'aantal_op_voorraad' => 'nullable|integer|min:0',
         ]);
 
         // Validate that nieuwe_houdbaarheidsdatum is max 7 days later than current houdbaarheidsdatum
@@ -87,23 +79,10 @@ class ProductController extends Controller
             }
         }
 
-        // Update product
+        // Update only houdbaarheidsdatum
         $product->update([
-            'naam' => $validated['naam'],
-            'omschrijving' => $validated['omschrijving'],
-            'merk' => $validated['merk'],
-            'ean_code' => $validated['ean_code'],
             'houdbaarheidsdatum' => $request->nieuwe_houdbaarheidsdatum,
-            'inkoop_prijs' => $validated['inkoop_prijs'],
-            'verkoop_prijs' => $validated['verkoop_prijs'],
         ]);
-
-        // Update voorraad if it exists
-        if ($product->voorraad && $request->filled('aantal_op_voorraad')) {
-            $product->voorraad->update([
-                'aantal_op_voorraad' => $validated['aantal_op_voorraad']
-            ]);
-        }
 
         return redirect()->route('producten.show', $product->id)->with('success', 'Houdbaarheidsdatum bijgewerkt');
     }

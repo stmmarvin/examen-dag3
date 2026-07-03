@@ -17,7 +17,7 @@
                 <span class="text-white text-sm font-medium whitespace-nowrap">Klanten</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Afspraken</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Behandelingen</span>
-                <span class="text-white text-sm font-medium whitespace-nowrap">Producten</span>
+                <a href="{{ route('producten.index') }}" class="text-white hover:text-red-200 transition text-sm font-medium whitespace-nowrap">Producten</a>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Bestellingen</span>
             </div>
 
