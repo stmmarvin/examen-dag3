@@ -34,7 +34,7 @@
             </form>
 
             <section class="overflow-hidden rounded-lg bg-white shadow-sm">
-                <div class="relative flex flex-col gap-3 px-4 py-4 md:min-h-16 md:justify-center">
+                <div class="relative flex min-h-20 flex-col gap-3 px-4 py-3">
                     <p class="text-sm text-slate-500">Gevonden medewerkers - {{ $medewerkers->total() }} medewerker(s)</p>
 
                     @if ($medewerkers->hasPages())
@@ -67,7 +67,7 @@
                         Er zijn geen medewerkers bekend met de geselecteerde specialisatie
                     </div>
                 @else
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto px-5 pb-3 pt-2">
                     <table class="min-w-full border-collapse text-left text-sm">
                         <thead class="bg-red-700 text-white">
                             <tr>
