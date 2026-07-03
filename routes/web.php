@@ -20,6 +20,7 @@ Route::get('/dashboard', function () {
 Route::get('/medewerkers', function () {
     $specialisatie = request('specialisatie');
 
+    // Haalt medewerkers op, eventueel gefilterd op de gekozen specialisatie.
     $medewerkers = Medewerker::query()
         ->with('contacten')
         ->when($specialisatie, function ($query) use ($specialisatie) {
@@ -30,6 +31,7 @@ Route::get('/medewerkers', function () {
         ->paginate(4)
         ->withQueryString();
 
+    // Deze opties staan vast, zodat Permanent ook altijd zichtbaar is.
     $specialisaties = collect([
         'Extensions',
         'Kleuren',
@@ -46,6 +48,7 @@ Route::get('/medewerkers', function () {
 })->middleware(['auth', 'verified'])->name('medewerkers.index');
 
 Route::get('/medewerkers/{medewerker}', function (Medewerker $medewerker) {
+    // Laadt de contactgegevens en het account bij deze medewerker.
     $medewerker->load(['contacten', 'user']);
 
     return view('medewerkers.show', [
@@ -71,6 +74,7 @@ Route::get('/medewerkers/{medewerker}/wijzigen', function (Medewerker $medewerke
 })->middleware(['auth', 'verified'])->name('medewerkers.edit');
 
 Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker $medewerker) {
+    // Controleert alle velden voordat er iets wordt opgeslagen.
     $validator = Validator::make($request->all(), [
         'naam' => ['required', 'string', 'max:255'],
         'specialisatie' => ['required', 'string', 'in:Extensions,Kleuren,Knippen,Permanent,Stylen', new GeenPermanentVoorMinderjarige($request->input('geboortedatum'))],
@@ -87,7 +91,9 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
 
     $data = $validator->validate();
 
+    // Slaat medewerker en contact samen op. Als iets fout gaat, wordt alles teruggedraaid.
     DB::transaction(function () use ($data, $medewerker) {
+        // Splitst de volledige naam naar voornaam, tussenvoegsel en achternaam.
         $naamdelen = preg_split('/\s+/', trim($data['naam']));
         $voornaam = array_shift($naamdelen) ?: $data['naam'];
         $achternaam = array_pop($naamdelen) ?: '';
@@ -103,6 +109,7 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
             'DatumGewijzigd' => now(),
         ]);
 
+        // Gebruikt het bestaande contact, of maakt er een aan als die nog mist.
         $contact = $medewerker->contacten()->first() ?? new Contact([
             'DatumAangemaakt' => now(),
             'IsActief' => true,
@@ -120,6 +127,7 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
         ]);
 
         $contact->save();
+        // Zorgt dat dit contact gekoppeld blijft aan de medewerker.
         $medewerker->contacten()->syncWithoutDetaching([$contact->Id]);
     });
 

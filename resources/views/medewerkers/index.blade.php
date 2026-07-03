@@ -9,6 +9,7 @@
 
             <h1 class="mb-3 text-2xl font-bold text-red-700">Overzicht medewerkers</h1>
 
+            {{-- Filtert de lijst op specialisatie via de URL. --}}
             <form method="GET" action="{{ route('medewerkers.index') }}" class="mb-4 rounded-lg bg-white p-4 shadow-sm">
                 <div class="flex flex-col gap-3 md:ml-auto md:max-w-xl md:flex-row md:items-end">
                     <label class="flex-1">
@@ -37,6 +38,7 @@
                 <div class="relative flex {{ $medewerkers->hasPages() ? 'min-h-20' : 'min-h-12' }} flex-col gap-3 px-4 py-3">
                     <p class="text-sm text-slate-500">Gevonden medewerkers - {{ $medewerkers->total() }} medewerker(s)</p>
 
+                    {{-- Eigen paginering, zodat het lijkt op het wireframe. --}}
                     @if ($medewerkers->hasPages())
                         <div class="flex items-center justify-center gap-2 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
                             @if ($medewerkers->onFirstPage())
@@ -79,6 +81,7 @@
                         <tbody class="divide-y divide-slate-200 text-slate-700">
                             @forelse ($medewerkers as $medewerker)
                                 @php
+                                    // Pakt het eerste contact dat aan deze medewerker gekoppeld is.
                                     $contact = $medewerker->contacten->first();
                                     $adres = collect([
                                         $contact?->Straatnaam,
@@ -95,12 +98,14 @@
                                     <td class="break-words px-3 py-3">{{ $contact?->Mobiel ?? '-' }}</td>
                                     <td class="break-words px-3 py-3">{{ $contact?->Email ?? '-' }}</td>
                                     <td class="px-3 py-3 text-left">
+                                        {{-- Opent de detailpagina van deze medewerker. --}}
                                         <a href="{{ route('medewerkers.show', $medewerker) }}" class="inline-block rounded-md border border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">Details</a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="8" class="px-3 py-8 text-center font-semibold text-slate-600">
+                                        {{-- Deze melding komt bij filters zonder resultaten. --}}
                                         Er zijn geen medewerkers bekend met de geselecteerde specialisatie
                                     </td>
                                 </tr>

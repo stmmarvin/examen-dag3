@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="flex min-h-[calc(100vh-4rem)] flex-col bg-slate-100 py-10">
         <div class="mx-auto w-full max-w-[1700px] flex-1 px-4 sm:px-6 lg:px-8">
+            {{-- Succesmelding na het opslaan van wijzigingen. --}}
             @if (session('status'))
                 <div class="mb-4 max-w-[1580px] rounded-md border border-green-200 bg-green-100 px-4 py-4 text-sm text-green-800">
                     {{ session('status') }}
@@ -19,6 +20,7 @@
                 Medewerkerdetail <span class="text-slate-500">{{ $medewerker->volledige_naam }}</span>
             </h1>
 
+            {{-- Toont alle gegevens van de gekozen medewerker. --}}
             <section class="max-w-3xl rounded-lg bg-white p-4 shadow-lg">
                 <table class="w-full border-collapse text-left text-sm">
                     <tbody class="divide-y divide-slate-200 text-slate-700">

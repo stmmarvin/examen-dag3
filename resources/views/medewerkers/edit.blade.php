@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="flex min-h-[calc(100vh-4rem)] flex-col bg-slate-100 py-10">
         <div class="mx-auto w-full max-w-[1700px] flex-1 px-4 sm:px-6 lg:px-8">
+            {{-- Algemene foutmelding als opslaan niet lukt. --}}
             @if ($errors->any())
                 <div class="mb-4 max-w-4xl rounded-md border border-red-200 bg-red-100 px-4 py-4 text-sm text-red-800">
                     Medewerkergegevens zijn niet bijgewerkt.
@@ -19,6 +20,7 @@
                 Medewerker wijzigen <span class="text-slate-500">{{ $medewerker->volledige_naam }}</span>
             </h1>
 
+            {{-- Dit formulier slaat de wijzigingen echt op in de database. --}}
             <form method="POST" action="{{ route('medewerkers.update', $medewerker) }}" class="max-w-4xl rounded-lg bg-white p-6 shadow-lg">
                 @csrf
                 @method('PATCH')
@@ -56,6 +58,7 @@
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Account e-mail</span>
+                        {{-- Disabled: tonen mag, aanpassen niet. --}}
                         <input type="email" value="{{ $medewerker->user?->email ?? $contact?->Email }}" disabled class="w-full rounded-md border-slate-300 bg-slate-100 text-sm text-slate-500 shadow-sm">
                     </label>
 
