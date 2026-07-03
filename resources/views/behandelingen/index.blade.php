@@ -13,12 +13,12 @@
 
                 {{-- Filter sectie met dropdown en knoppen --}}
                 <div class="bg-gray-50 p-6 rounded mb-6">
-                    <form method="GET" action="{{ route('behandelingen.index') }}" class="flex items-end gap-4">
+                    <form method="GET" action="{{ route('behandelingen.index') }}" class="flex items-end gap-4" aria-label="Behandeling filter formulier">
                         <div class="flex-1">
                             <label for="filter" class="block text-sm font-medium text-gray-700 mb-2">
                                 Behandeling selecteren
                             </label>
-                            <select name="filter" id="filter" class="w-full border-gray-300 rounded shadow-sm focus:border-red-500 focus:ring-red-500">
+                            <select name="filter" id="filter" class="w-full border-gray-300 rounded shadow-sm focus:border-red-500 focus:ring-red-500" aria-label="Selecteer behandeling categorie">
                                 <option value="alle">Alle behandelingen</option>
                                 @foreach($behandelingNames as $naam)
                                     <option value="{{ $naam }}" {{ request('filter') == $naam ? 'selected' : '' }}>
@@ -28,10 +28,10 @@
                                 <option value="overig" {{ request('filter') == 'overig' ? 'selected' : '' }}>Overig</option>
                             </select>
                         </div>
-                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded text-sm transition duration-200">
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded text-sm transition duration-200" aria-label="Filter toepassen">
                             Maak selectie
                         </button>
-                        <a href="{{ route('behandelingen.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1.5 rounded text-sm inline-block transition duration-200">
+                        <a href="{{ route('behandelingen.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1.5 rounded text-sm inline-block transition duration-200" aria-label="Filter resetten">
                             Reset
                         </a>
                     </form>
