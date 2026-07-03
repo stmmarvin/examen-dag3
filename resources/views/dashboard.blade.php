@@ -18,7 +18,7 @@
                     <!-- Accounts Card -->
                     <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
                         <h3 class="text-lg font-bold mb-2 text-gray-800">Accounts</h3>
-                        <p class="text-gray-500 mb-6 text-sm leading-relaxed">Beheer gebruikersaccounts en rolniveringen.</p>
+                        <p class="text-gray-500 mb-6 text-sm leading-relaxed">Beheer gebruikersaccounts en roltoewijzingen.</p>
                         <button class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
                             Openen
                         </button>
