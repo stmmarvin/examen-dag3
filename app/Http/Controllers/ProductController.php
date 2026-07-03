@@ -10,35 +10,36 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['categorie']);
+        $query = Product::query();
         
         // Filter op categorie indien geselecteerd
-        if ($request->filled('categorie')) {
-            $query->where('categorie_id', $request->categorie);
+        if ($request->filled('CategorieId')) {
+            $query->where('CategorieId', $request->CategorieId);
         }
         
-        $producten = $query->orderBy('naam')->paginate(15);
+        $producten = $query->orderBy('Naam')->paginate(15);
+        $categorieen = Categorie::orderBy('Naam')->get();
         
-        return view('producten.index', compact('producten'));
+        return view('producten.index', compact('producten', 'categorieen'));
     }
 
     public function create()
     {
-        $categorieen = collect(); // Lege collectie - Categorie tabel bestaat niet
+        $categorieen = Categorie::orderBy('Naam')->get();
         return view('producten.create', compact('categorieen'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'categorie_id' => 'nullable|exists:categorieen,id',
-            'naam' => 'required|string|max:255',
-            'omschrijving' => 'nullable|string',
-            'merk' => 'nullable|string|max:255',
-            'ean_code' => 'nullable|string|max:50',
-            'houdbaarheidsdatum' => 'nullable|date',
-            'inkoop_prijs' => 'nullable|numeric|min:0',
-            'verkoop_prijs' => 'nullable|numeric|min:0',
+            'CategorieId' => 'nullable|exists:Categorie,Id',
+            'Naam' => 'required|string|max:255',
+            'Omschrijving' => 'nullable|string',
+            'Merk' => 'nullable|string|max:255',
+            'EANcode' => 'nullable|string|max:50',
+            'Houdbaarheidsdatum' => 'nullable|date',
+            'InkoopPrijs' => 'nullable|numeric|min:0',
+            'VerkoopPrijs' => 'nullable|numeric|min:0',
         ]);
 
         Product::create($validated);
@@ -48,13 +49,12 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $product->load(['categorie']);
         return view('producten.show', compact('product'));
     }
 
     public function edit(Product $product)
     {
-        $categorieen = collect(); // Lege collectie - Categorie tabel bestaat niet
+        $categorieen = Categorie::orderBy('Naam')->get();
         return view('producten.edit', compact('product', 'categorieen'));
     }
 
@@ -66,8 +66,8 @@ class ProductController extends Controller
         ]);
 
         // Validate that nieuwe_houdbaarheidsdatum is max 7 days later than current houdbaarheidsdatum
-        if ($product->houdbaarheidsdatum) {
-            $currentDate = $product->houdbaarheidsdatum;
+        if ($product->Houdbaarheidsdatum) {
+            $currentDate = $product->Houdbaarheidsdatum;
             $newDate = \Carbon\Carbon::parse($request->nieuwe_houdbaarheidsdatum);
             $maxAllowedDate = $currentDate->copy()->addDays(7);
 
@@ -80,11 +80,11 @@ class ProductController extends Controller
         }
 
         // Update only houdbaarheidsdatum
-        $product->update([
-            'houdbaarheidsdatum' => $request->nieuwe_houdbaarheidsdatum,
-        ]);
+        $product->Houdbaarheidsdatum = $request->nieuwe_houdbaarheidsdatum;
+        $product->DatumGewijzigd = now();
+        $product->save();
 
-        return redirect()->route('producten.show', $product->id)->with('success', 'Houdbaarheidsdatum bijgewerkt');
+        return redirect()->route('producten.show', $product->Id)->with('success', 'Houdbaarheidsdatum bijgewerkt');
     }
 
     public function destroy(Product $product)

@@ -20,12 +20,16 @@
                             Categorie selecteren
                         </label>
                         <select 
-                            name="categorie" 
+                            name="CategorieId" 
                             id="categorie" 
                             class="w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring-red-500"
                         >
                             <option value="">Alle categorieën</option>
-                            {{-- Categorie tabel bestaat niet in database --}}
+                            @foreach($categorieen as $categorie)
+                                <option value="{{ $categorie->Id }}" {{ request('CategorieId') == $categorie->Id ? 'selected' : '' }}>
+                                    {{ $categorie->Naam }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <button 
@@ -80,30 +84,34 @@
                         @forelse($producten as $product)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $product->naam }}
+                                    {{ $product->Naam }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {{ $product->categorie->naam ?? '-' }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {{ $product->merk ?? '-' }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {{ $product->ean_code ?? '-' }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    @if($product->verkoop_prijs)
-                                        EUR {{ number_format($product->verkoop_prijs, 2, ',', '.') }}
+                                    @if($product->CategorieId)
+                                        {{ \App\Models\Categorie::find($product->CategorieId)?->Naam ?? '-' }}
                                     @else
                                         -
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {{ $product->voorraad->aantal_op_voorraad ?? '-' }}
+                                    {{ $product->Merk ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    {{ $product->EANcode ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    @if($product->VerkoopPrijs)
+                                        EUR {{ number_format($product->VerkoopPrijs, 2, ',', '.') }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    {{ $product->voorraad ? $product->voorraad->AantalOpVoorraad : '-' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <a 
-                                        href="{{ route('producten.show', $product->id) }}" 
+                                        href="{{ route('producten.show', $product->Id) }}" 
                                         class="inline-block border-2 border-blue-500 text-blue-500 px-4 py-1 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition"
                                     >
                                         Details

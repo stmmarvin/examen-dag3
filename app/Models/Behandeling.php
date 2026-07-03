@@ -13,29 +13,33 @@ class Behandeling extends Model
 {
     use HasFactory;
 
-    protected $table = 'behandelingen';
-    protected $primaryKey = 'id';
-    public $timestamps = true;
+    protected $table = 'Behandeling';
+    protected $primaryKey = 'Id';
+    public $timestamps = false;
 
     protected $fillable = [
-        'naam',
-        'beschrijving',
-        'duur',
-        'prijs',
+        'Naam',
+        'Omschrijving',
+        'Duurminuten',
+        'Prijs',
+        'IsActief',
+        'Opmerking',
+        'DatumAangemaakt',
+        'DatumGewijzigd',
     ];
 
     protected $casts = [
-        'prijs' => 'decimal:2',
+        'Prijs' => 'decimal:2',
+        'IsActief' => 'boolean',
+        'DatumAangemaakt' => 'datetime',
+        'DatumGewijzigd' => 'datetime',
     ];
 
     /**
-     * Many-to-many relatie met Product
-     * Een behandeling kan meerdere producten gebruiken
+     * Relatie met voorraad via BehandelingPerVoorraad pivot tabel
      */
-    public function producten()
+    public function voorraadItems()
     {
-        return $this->belongsToMany(Product::class, 'behandeling_product', 'behandeling_id', 'product_id')
-                    ->withPivot('aantal')
-                    ->withTimestamps();
+        return $this->belongsToMany(Voorraad::class, 'BehandelingPerVoorraad', 'BehandelingId', 'VoorraadId');
     }
 }

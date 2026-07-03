@@ -99,7 +99,7 @@
                                     <td class="break-words px-3 py-3">{{ $contact?->Email ?? '-' }}</td>
                                     <td class="px-3 py-3 text-left">
                                         {{-- Opent de detailpagina van deze medewerker. --}}
-                                        <a href="{{ route('medewerkers.show', $medewerker) }}" class="inline-block rounded-md border border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">Details</a>
+                                        <a href="{{ route('medewerkers.show', $medewerker) }}" class="inline-block rounded-md border-2 border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white hover:border-blue-500">Details</a>
                                     </td>
                                 </tr>
                             @empty

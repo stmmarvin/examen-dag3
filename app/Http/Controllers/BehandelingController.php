@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Behandeling;
 use App\Models\Product;
-use App\Models\Voorraad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,32 +20,35 @@ class BehandelingController extends Controller
 
         // Filter toepassen als specifieke categorie geselecteerd
         if ($filter != 'alle') {
-            $query->where('naam', $filter);
+            $query->where('Naam', $filter);
         }
 
         // Pagineer resultaten en behoud filter parameter
         $behandelingen = $query->paginate(5)->appends(['filter' => $filter]);
 
         // Haal unieke behandeling namen op voor dropdown
-        $behandelingNames = Behandeling::distinct()->pluck('naam');
+        $behandelingNames = Behandeling::distinct()->pluck('Naam');
 
         return view('behandelingen.index', compact('behandelingen', 'behandelingNames', 'filter'));
     }
 
     /**
      * Toon producten voor een specifieke behandeling
-     * Haalt alle producten op via pivot tabel
+     * Haalt alle producten op via pivot tabel BehandelingPerVoorraad
      */
     public function producten($id)
     {
+        // Haal behandeling op
         $behandeling = Behandeling::findOrFail($id);
         
-        // Haal producten op met benodigd aantal uit pivot tabel
-        $producten = DB::table('producten')
-            ->join('behandeling_product', 'producten.id', '=', 'behandeling_product.product_id')
-            ->where('behandeling_product.behandeling_id', $id)
-            ->select('producten.*', 'behandeling_product.aantal as aantal_benodigd')
-            ->get();
+        // Haal producten op via Voorraad relatie (BehandelingPerVoorraad)
+        $producten = DB::select("
+            SELECT p.*, v.AantalOpVoorraad
+            FROM `Product` p
+            INNER JOIN `Voorraad` v ON p.Id = v.ProductId
+            INNER JOIN `BehandelingPerVoorraad` bv ON v.Id = bv.VoorraadId
+            WHERE bv.BehandelingId = ?
+        ", [$id]);
 
         return view('behandelingen.producten', compact('behandeling', 'producten'));
     }
@@ -87,10 +89,9 @@ class BehandelingController extends Controller
     {
         $product = Product::findOrFail($productId);
 
-        // Bereken minimale prijs (inkoopprijs is 50% van huidige verkoopprijs)
-        $purchasePrice = $product->prijs * 0.5;
-        $minPrice = $purchasePrice * 1.30;
-        $maxPrice = 130.00; // Maximaal 130% van de huidige verkoopprijs
+        // Bereken minimale prijs (30% marge boven inkoopprijs)
+        $minPrice = $product->InkoopPrijs * 1.30;
+        $maxPrice = 130.00; // Maximaal EUR 130.00
 
         // Valideer dat nieuwe prijs minimale marge haalt
         $request->validate([
@@ -113,7 +114,8 @@ class BehandelingController extends Controller
         ]);
 
         // Werk productprijs bij
-        $product->prijs = $request->verkoopprijs;
+        $product->VerkoopPrijs = $request->verkoopprijs;
+        $product->DatumGewijzigd = now();
         $product->save();
 
         return redirect()->route('behandelingen.product.detail', [$behandelingId, $productId])

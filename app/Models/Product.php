@@ -42,26 +42,10 @@ class Product extends Model
     ];
 
     /**
-     * Relatie met Categorie
-     */
-    public function categorie()
-    {
-        return $this->belongsTo(Categorie::class, 'CategorieId', 'Id');
-    }
-
-    /**
      * Relatie met Voorraad
      */
     public function voorraad()
     {
         return $this->hasOne(Voorraad::class, 'ProductId', 'Id');
-    }
-
-    /**
-     * Helper om aantal op voorraad te krijgen
-     */
-    public function getAantalOpVoorraadAttribute()
-    {
-        return $this->voorraad ? $this->voorraad->AantalOpVoorraad : 0;
     }
 }
