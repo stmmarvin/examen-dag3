@@ -44,34 +44,34 @@
             <div class="bg-white rounded shadow-md p-10 border border-gray-200">
                 <div>
                     
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Product</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->naam }}</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Merk</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->merk ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Omschrijving</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->omschrijving ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">EAN-code</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->ean_code ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Houdbaarheidsdatum</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">
                             {{ $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('d-m-Y') : '-' }}
                         </div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Inkoopprijs</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">
                             @if($product->inkoop_prijs)
@@ -82,7 +82,7 @@
                         </div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Verkoopprijs</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">
                             @if($product->verkoop_prijs)
@@ -93,37 +93,37 @@
                         </div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Aantal op voorraad</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->voorraad->aantal_op_voorraad ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Leverancier</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">BarberCare Nederland</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Postcode leverancier</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">4811AA</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Plaats leverancier</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">Breda</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">E-mail leverancier</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">bestellingen@barbercare-nederland.nl</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Mobiel leverancier</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">+31 623456124</div>
                     </div>
 
-                    <div class="flex py-4" style="gap: 10px;">
+                    <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Opmerking</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">Geschikt voor verkoop na baardtrimbehandelingen.</div>
                     </div>
