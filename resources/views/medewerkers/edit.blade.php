@@ -1,6 +1,12 @@
 <x-app-layout>
     <div class="flex min-h-[calc(100vh-4rem)] flex-col bg-slate-100 py-10">
         <div class="mx-auto w-full max-w-[1700px] flex-1 px-4 sm:px-6 lg:px-8">
+            @if ($errors->any())
+                <div class="mb-4 max-w-4xl rounded-md border border-red-200 bg-red-100 px-4 py-4 text-sm text-red-800">
+                    Medewerkergegevens zijn niet bijgewerkt.
+                </div>
+            @endif
+
             <div class="mb-6 text-sm">
                 <a href="{{ route('dashboard') }}" class="font-semibold text-red-600 hover:text-red-700">Home</a>
                 <span class="mx-2 text-slate-400">/</span>
@@ -17,12 +23,6 @@
                 @csrf
                 @method('PATCH')
 
-                @if ($errors->any())
-                    <div class="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
-                        Controleer de verplichte velden en probeer het opnieuw.
-                    </div>
-                @endif
-
                 <div class="grid gap-4 md:grid-cols-2">
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Naam <span class="text-red-700">*</span></span>
@@ -32,7 +32,7 @@
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Specialisatie <span class="text-red-700">*</span></span>
-                        <select name="specialisatie" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                        <select name="specialisatie" class="w-full rounded-md text-sm shadow-sm focus:border-red-600 focus:ring-red-600 @error('specialisatie') border-red-500 text-red-700 @else border-slate-300 @enderror">
                             @foreach ($specialisaties as $specialisatie)
                                 <option value="{{ $specialisatie }}" @selected(old('specialisatie', $medewerker->Specialisatie) === $specialisatie)>
                                     {{ $specialisatie }}
