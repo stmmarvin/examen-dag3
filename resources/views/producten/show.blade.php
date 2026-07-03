@@ -148,7 +148,7 @@
             </div>
 
             <!-- Footer -->
-            <div class="text-center text-gray-400 text-sm mt-8">
+            <div class="text-center text-gray-500 text-xs mt-12 py-4 border-t border-gray-300">
                 © 2026 Kniploket Tiko - Alle rechten voorbehouden
             </div>
         </div>
