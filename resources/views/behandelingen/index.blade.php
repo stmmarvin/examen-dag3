@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-8 bg-gray-50 min-h-screen">
         <div class="max-w-7xl mx-auto px-6">
-            <!-- Breadcrumb -->
+            {{-- Breadcrumb navigatie --}}
             <nav class="text-sm mb-6 text-gray-600">
                 <a href="{{ route('dashboard') }}" class="hover:text-gray-800">Home</a>
                 <span class="mx-2">/</span>
@@ -11,7 +11,7 @@
             <div class="bg-white rounded-lg shadow p-8">
                 <h1 class="text-3xl font-bold mb-8 text-gray-800">Overzicht behandelingen</h1>
 
-                <!-- Filter Section -->
+                {{-- Filter sectie met dropdown en knoppen --}}
                 <div class="bg-gray-50 p-6 rounded mb-6">
                     <form method="GET" action="{{ route('behandelingen.index') }}" class="flex items-end gap-4">
                         <div class="flex-1">
@@ -37,22 +37,23 @@
                     </form>
                 </div>
 
+                {{-- Melding als categorie niet gevonden --}}
                 @if(request('filter') == 'overig' && $behandelingen->isEmpty())
                     <div class="bg-yellow-50 border border-yellow-300 text-yellow-800 px-4 py-3 rounded">
                         Er zijn geen behandelingen bekend met deze categorie
                     </div>
                 @else
-                    <!-- Info -->
+                    {{-- Resultaat informatie --}}
                     <p class="text-sm text-gray-600 mb-4">
                         Gevonden behandelingen - {{ $behandelingen->total() }} behandeling(en)
                     </p>
 
-                    <!-- Pagination Top -->
+                    {{-- Paginatie boven tabel --}}
                     <div class="flex justify-center mb-4">
                         {{ $behandelingen->onEachSide(1)->links() }}
                     </div>
 
-                    <!-- Table -->
+                    {{-- Behandelingen tabel --}}
                     <div class="overflow-x-auto border border-gray-200 rounded">
                         <table class="w-full">
                             <thead>
