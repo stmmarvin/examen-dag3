@@ -41,7 +41,7 @@
             @endif
 
             <!-- Product Details Card -->
-            <div class="bg-white rounded shadow-sm p-8">
+            <div class="bg-white rounded shadow-md p-10 border border-gray-200">
                 <div>
                     
                     <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
