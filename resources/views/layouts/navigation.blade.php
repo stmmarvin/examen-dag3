@@ -14,7 +14,9 @@
                 <span class="text-white text-sm font-medium whitespace-nowrap">Accounts</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Medewerkers</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Beschikbaarheid</span>
-                <span class="text-white text-sm font-medium whitespace-nowrap">Klanten</span>
+                <a href="{{ route('klanten.index') }}" class="{{ request()->routeIs('klanten.*') ? 'bg-gray-500 text-white' : 'text-white hover:bg-gray-500' }} rounded px-3 py-2 text-sm font-medium whitespace-nowrap transition">
+                    Klanten
+                </a>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Afspraken</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Behandelingen</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Producten</span>
