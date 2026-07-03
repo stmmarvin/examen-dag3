@@ -2,9 +2,9 @@
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Grote container kaart -->
-            <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg shadow-lg p-12">
+            <div class="bg-gray-50 rounded-2xl shadow-lg p-12">
                 <div class="mb-6 bg-yellow-400 text-black px-4 py-2 rounded inline-block font-semibold text-sm">
-                    Kapsalon applicatie
+                    Kapsalonapplicatie
                 </div>
 
                 <h1 class="text-4xl font-bold mb-2 text-gray-700">Eigenaar</h1>
