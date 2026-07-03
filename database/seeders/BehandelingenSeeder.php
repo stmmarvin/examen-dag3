@@ -54,7 +54,7 @@ class BehandelingenSeeder extends Seeder
             [
                 'naam' => 'Hydrating Shampoo',
                 'beschrijving' => 'Milde salonshampoo voor dagelijks gebruik.',
-                'prijs' => 14.95,
+                'prijs' => 14.40,
                 'voorraad' => 40,
                 'sku' => '0871234500001',
                 'created_at' => now(),
@@ -63,7 +63,7 @@ class BehandelingenSeeder extends Seeder
             [
                 'naam' => 'Repair Conditioner',
                 'beschrijving' => 'Voedende conditioner voor beschadigd haar.',
-                'prijs' => 16.95,
+                'prijs' => 16.80,
                 'voorraad' => 28,
                 'sku' => '0871234500002',
                 'created_at' => now(),
@@ -72,7 +72,7 @@ class BehandelingenSeeder extends Seeder
             [
                 'naam' => 'Scalp Balance Masker',
                 'beschrijving' => 'Kalmerend haarmasker voor gevoelige hoofdhuid.',
-                'prijs' => 19.95,
+                'prijs' => 19.50,
                 'voorraad' => 18,
                 'sku' => '0871234500003',
                 'created_at' => now(),
