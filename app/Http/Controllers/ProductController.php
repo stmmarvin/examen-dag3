@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categorieen = Categorie::orderBy('naam')->get();
+        $categorieen = collect(); // Lege collectie - Categorie tabel bestaat niet
         return view('producten.create', compact('categorieen'));
     }
 
@@ -54,7 +54,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categorieen = Categorie::orderBy('naam')->get();
+        $categorieen = collect(); // Lege collectie - Categorie tabel bestaat niet
         return view('producten.edit', compact('product', 'categorieen'));
     }
 

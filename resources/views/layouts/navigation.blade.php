@@ -12,14 +12,20 @@
             <!-- Navigation Links - Centered -->
             <div class="flex items-center space-x-8">
                 <span class="text-white text-sm font-medium whitespace-nowrap">Accounts</span>
-                <span class="text-white text-sm font-medium whitespace-nowrap">Medewerkers</span>
+                <a href="{{ route('medewerkers.index') }}" class="{{ request()->routeIs('medewerkers.*') ? 'bg-red-700' : '' }} text-white hover:bg-red-700 rounded px-3 py-2 text-sm font-medium whitespace-nowrap transition">
+                    Medewerkers
+                </a>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Beschikbaarheid</span>
-                <a href="{{ route('klanten.index') }}" class="{{ request()->routeIs('klanten.*') ? 'bg-gray-500 text-white' : 'text-white hover:bg-gray-500' }} rounded px-3 py-2 text-sm font-medium whitespace-nowrap transition">
+                <a href="{{ route('klanten.index') }}" class="{{ request()->routeIs('klanten.*') ? 'bg-red-700' : '' }} text-white hover:bg-red-700 rounded px-3 py-2 text-sm font-medium whitespace-nowrap transition">
                     Klanten
                 </a>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Afspraken</span>
-                <span class="text-white text-sm font-medium whitespace-nowrap">Behandelingen</span>
-                <a href="{{ route('producten.index') }}" class="text-white hover:text-red-200 transition text-sm font-medium whitespace-nowrap">Producten</a>
+                <a href="{{ route('behandelingen.index') }}" class="{{ request()->routeIs('behandelingen.*') ? 'bg-red-700' : '' }} text-white hover:bg-red-700 rounded px-3 py-2 text-sm font-medium whitespace-nowrap transition">
+                    Behandelingen
+                </a>
+                <a href="{{ route('producten.index') }}" class="{{ request()->routeIs('producten.*') ? 'bg-red-700' : '' }} text-white hover:bg-red-700 rounded px-3 py-2 text-sm font-medium whitespace-nowrap transition">
+                    Producten
+                </a>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Bestellingen</span>
             </div>
 

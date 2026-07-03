@@ -25,11 +25,7 @@
                             class="w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring-red-500"
                         >
                             <option value="">Alle categorieën</option>
-                            @foreach(\App\Models\Categorie::orderBy('naam')->get() as $cat)
-                                <option value="{{ $cat->id }}" {{ request('categorie') == $cat->id ? 'selected' : '' }}>
-                                    {{ $cat->naam }}
-                                </option>
-                            @endforeach
+                            {{-- Categorie tabel bestaat niet in database --}}
                         </select>
                     </div>
                     <button 

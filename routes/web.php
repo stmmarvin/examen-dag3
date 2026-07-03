@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BehandelingController;
+use App\Http\Controllers\KlantController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Contact;
 use App\Models\Medewerker;
@@ -152,28 +155,28 @@ Route::middleware('auth')->group(function () {
 
     // Behandelingen routes - User Stories 5 & 6
     // Overzicht van alle behandelingen met filter optie
-    Route::get('/behandelingen', [App\Http\Controllers\BehandelingController::class, 'index'])->name('behandelingen.index');
+    Route::get('/behandelingen', [BehandelingController::class, 'index'])->name('behandelingen.index');
     
     // Toon producten voor specifieke behandeling
-    Route::get('/behandelingen/{id}/producten', [App\Http\Controllers\BehandelingController::class, 'producten'])->name('behandelingen.producten');
+    Route::get('/behandelingen/{id}/producten', [BehandelingController::class, 'producten'])->name('behandelingen.producten');
     
     // Toon productdetails
-    Route::get('/behandelingen/{behandelingId}/producten/{productId}', [App\Http\Controllers\BehandelingController::class, 'productDetail'])->name('behandelingen.product.detail');
+    Route::get('/behandelingen/{behandelingId}/producten/{productId}', [BehandelingController::class, 'productDetail'])->name('behandelingen.product.detail');
     
     // Toon product wijzig formulier
-    Route::get('/behandelingen/{behandelingId}/producten/{productId}/edit', [App\Http\Controllers\BehandelingController::class, 'editProduct'])->name('behandelingen.product.edit');
+    Route::get('/behandelingen/{behandelingId}/producten/{productId}/edit', [BehandelingController::class, 'editProduct'])->name('behandelingen.product.edit');
     
     // Werk productprijs bij (minimaal 30% marge)
-    Route::put('/behandelingen/{behandelingId}/producten/{productId}', [App\Http\Controllers\BehandelingController::class, 'updateProduct'])->name('behandelingen.product.update');
+    Route::put('/behandelingen/{behandelingId}/producten/{productId}', [BehandelingController::class, 'updateProduct'])->name('behandelingen.product.update');
 
     // Producten routes
-    Route::get('/producten', [App\Http\Controllers\ProductController::class, 'index'])->name('producten.index');
-    Route::get('/producten/nieuw', [App\Http\Controllers\ProductController::class, 'create'])->name('producten.create');
-    Route::post('/producten', [App\Http\Controllers\ProductController::class, 'store'])->name('producten.store');
-    Route::get('/producten/{product}', [App\Http\Controllers\ProductController::class, 'show'])->name('producten.show');
-    Route::get('/producten/{product}/wijzigen', [App\Http\Controllers\ProductController::class, 'edit'])->name('producten.edit');
-    Route::put('/producten/{product}', [App\Http\Controllers\ProductController::class, 'update'])->name('producten.update');
-    Route::delete('/producten/{product}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('producten.destroy');
+    Route::get('/producten', [ProductController::class, 'index'])->name('producten.index');
+    Route::get('/producten/nieuw', [ProductController::class, 'create'])->name('producten.create');
+    Route::post('/producten', [ProductController::class, 'store'])->name('producten.store');
+    Route::get('/producten/{product}', [ProductController::class, 'show'])->name('producten.show');
+    Route::get('/producten/{product}/wijzigen', [ProductController::class, 'edit'])->name('producten.edit');
+    Route::put('/producten/{product}', [ProductController::class, 'update'])->name('producten.update');
+    Route::delete('/producten/{product}', [ProductController::class, 'destroy'])->name('producten.destroy');
 });
 
 require __DIR__.'/auth.php';

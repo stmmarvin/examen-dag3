@@ -6,20 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Categorie Model
- * Representeert een product categorie
+ * Voorraad Model
+ * Representeert voorraad van een product
  */
-class Categorie extends Model
+class Voorraad extends Model
 {
     use HasFactory;
 
-    protected $table = 'Categorie';
+    protected $table = 'Voorraad';
     protected $primaryKey = 'Id';
     public $timestamps = false;
 
     protected $fillable = [
-        'Naam',
-        'Omschrijving',
+        'ProductId',
+        'AantalOpVoorraad',
+        'Aantaluitgegeven',
+        'Aantalbijgekomen',
         'IsActief',
         'Opmerking',
         'DatumAangemaakt',
@@ -35,8 +37,8 @@ class Categorie extends Model
     /**
      * Relatie met Product
      */
-    public function producten()
+    public function product()
     {
-        return $this->hasMany(Product::class, 'CategorieId', 'Id');
+        return $this->belongsTo(Product::class, 'ProductId', 'Id');
     }
 }
