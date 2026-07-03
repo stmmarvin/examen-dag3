@@ -56,6 +56,7 @@
                     {{-- Behandelingen tabel --}}
                     <div class="overflow-x-auto border border-gray-200 rounded">
                         <table class="w-full">
+                            <caption class="sr-only">Overzicht van behandelingen met filters en acties</caption>
                             <thead>
                                 <tr class="bg-red-600 text-white">
                                     <th class="px-4 py-3 text-left font-semibold text-sm">Soort</th>
