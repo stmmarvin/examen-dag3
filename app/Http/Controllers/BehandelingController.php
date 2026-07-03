@@ -90,6 +90,7 @@ class BehandelingController extends Controller
         // Bereken minimale prijs (inkoopprijs is 50% van huidige verkoopprijs)
         $purchasePrice = $product->prijs * 0.5;
         $minPrice = $purchasePrice * 1.30;
+        $maxPrice = 9999.99; // Database limiet voor DECIMAL(10,2)
 
         // Valideer dat nieuwe prijs minimale marge haalt
         $request->validate([
@@ -97,6 +98,7 @@ class BehandelingController extends Controller
                 'required',
                 'numeric',
                 'min:0',
+                'max:' . $maxPrice,
                 function ($attribute, $value, $fail) use ($minPrice) {
                     if ($value < $minPrice) {
                         $fail('Verkoopprijs moet minimaal 30 procent boven de inkoopprijs liggen. Minimale prijs: EUR ' . number_format($minPrice, 2));
@@ -107,6 +109,7 @@ class BehandelingController extends Controller
             'verkoopprijs.required' => 'Verkoopprijs is verplicht.',
             'verkoopprijs.numeric' => 'Verkoopprijs moet een geldig bedrag zijn.',
             'verkoopprijs.min' => 'Verkoopprijs moet minimaal 0 zijn.',
+            'verkoopprijs.max' => 'Verkoopprijs mag niet hoger zijn dan EUR ' . number_format($maxPrice, 2) . '. Dit is onrealistisch voor een salonproduct.',
         ]);
 
         // Werk productprijs bij
