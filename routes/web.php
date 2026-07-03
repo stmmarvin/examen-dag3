@@ -40,6 +40,31 @@ Route::get('/medewerkers', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('medewerkers.index');
 
+Route::get('/medewerkers/{medewerker}', function (Medewerker $medewerker) {
+    $medewerker->load(['contacten', 'user']);
+
+    return view('medewerkers.show', [
+        'medewerker' => $medewerker,
+        'contact' => $medewerker->contacten->first(),
+    ]);
+})->middleware(['auth', 'verified'])->name('medewerkers.show');
+
+Route::get('/medewerkers/{medewerker}/wijzigen', function (Medewerker $medewerker) {
+    $medewerker->load(['contacten', 'user']);
+
+    return view('medewerkers.edit', [
+        'medewerker' => $medewerker,
+        'contact' => $medewerker->contacten->first(),
+        'specialisaties' => collect([
+            'Extensions',
+            'Kleuren',
+            'Knippen',
+            'Permanent',
+            'Stylen',
+        ]),
+    ]);
+})->middleware(['auth', 'verified'])->name('medewerkers.edit');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

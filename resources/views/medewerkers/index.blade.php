@@ -95,7 +95,7 @@
                                     <td class="break-words px-3 py-3">{{ $contact?->Mobiel ?? '-' }}</td>
                                     <td class="break-words px-3 py-3">{{ $contact?->Email ?? '-' }}</td>
                                     <td class="px-3 py-3 text-left">
-                                        <button type="button" class="rounded-md border border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">Details</button>
+                                        <a href="{{ route('medewerkers.show', $medewerker) }}" class="inline-block rounded-md border border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">Details</a>
                                     </td>
                                 </tr>
                             @empty
