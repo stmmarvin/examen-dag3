@@ -1,6 +1,12 @@
 <x-app-layout>
     <div class="flex min-h-[calc(100vh-4rem)] flex-col bg-slate-100 py-10">
         <div class="mx-auto w-full max-w-[1700px] flex-1 px-4 sm:px-6 lg:px-8">
+            @if (session('status'))
+                <div class="mb-4 max-w-[1580px] rounded-md border border-green-200 bg-green-100 px-4 py-4 text-sm text-green-800">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div class="mb-6 text-sm">
                 <a href="{{ route('dashboard') }}" class="font-semibold text-red-600 hover:text-red-700">Home</a>
                 <span class="mx-2 text-slate-400">/</span>
@@ -12,12 +18,6 @@
             <h1 class="mb-3 text-2xl font-bold text-red-700">
                 Medewerkerdetail <span class="text-slate-500">{{ $medewerker->volledige_naam }}</span>
             </h1>
-
-            @if (session('status'))
-                <div class="mb-4 max-w-3xl rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
-                    {{ session('status') }}
-                </div>
-            @endif
 
             <section class="max-w-3xl rounded-lg bg-white p-4 shadow-lg">
                 <table class="w-full border-collapse text-left text-sm">

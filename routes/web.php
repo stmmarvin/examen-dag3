@@ -121,7 +121,7 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
 
     return redirect()
         ->route('medewerkers.show', $medewerker)
-        ->with('status', 'De medewerker is succesvol gewijzigd.');
+        ->with('status', 'Medewerkergegevens bijgewerkt.');
 })->middleware(['auth', 'verified'])->name('medewerkers.update');
 
 Route::middleware('auth')->group(function () {
