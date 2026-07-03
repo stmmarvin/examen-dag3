@@ -13,6 +13,12 @@
                 Medewerkerdetail <span class="text-slate-500">{{ $medewerker->volledige_naam }}</span>
             </h1>
 
+            @if (session('status'))
+                <div class="mb-4 max-w-3xl rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <section class="max-w-3xl rounded-lg bg-white p-4 shadow-lg">
                 <table class="w-full border-collapse text-left text-sm">
                     <tbody class="divide-y divide-slate-200 text-slate-700">

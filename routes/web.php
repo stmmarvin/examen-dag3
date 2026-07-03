@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Contact;
 use App\Models\Medewerker;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -64,6 +67,62 @@ Route::get('/medewerkers/{medewerker}/wijzigen', function (Medewerker $medewerke
         ]),
     ]);
 })->middleware(['auth', 'verified'])->name('medewerkers.edit');
+
+Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker $medewerker) {
+    $data = $request->validate([
+        'naam' => ['required', 'string', 'max:255'],
+        'specialisatie' => ['required', 'string', 'in:Extensions,Kleuren,Knippen,Permanent,Stylen'],
+        'geboortedatum' => ['required', 'date'],
+        'contact_email' => ['required', 'email', 'max:255'],
+        'straatnaam' => ['required', 'string', 'max:255'],
+        'huisnummer' => ['required', 'string', 'max:10'],
+        'toevoeging' => ['nullable', 'string', 'max:10'],
+        'postcode' => ['required', 'string', 'max:10'],
+        'plaats' => ['required', 'string', 'max:100'],
+        'mobiel' => ['required', 'string', 'max:20'],
+        'opmerking' => ['nullable', 'string', 'max:255'],
+    ]);
+
+    DB::transaction(function () use ($data, $medewerker) {
+        $naamdelen = preg_split('/\s+/', trim($data['naam']));
+        $voornaam = array_shift($naamdelen) ?: $data['naam'];
+        $achternaam = array_pop($naamdelen) ?: '';
+        $tussenvoegsel = $naamdelen ? implode(' ', $naamdelen) : null;
+
+        $medewerker->update([
+            'Voornaam' => $voornaam,
+            'Tussenvoegsel' => $tussenvoegsel,
+            'Achternaam' => $achternaam,
+            'Specialisatie' => $data['specialisatie'],
+            'Geboortedatum' => $data['geboortedatum'],
+            'Opmerking' => $data['opmerking'],
+            'DatumGewijzigd' => now(),
+        ]);
+
+        $contact = $medewerker->contacten()->first() ?? new Contact([
+            'DatumAangemaakt' => now(),
+            'IsActief' => true,
+        ]);
+
+        $contact->fill([
+            'Straatnaam' => $data['straatnaam'],
+            'Huisnummer' => $data['huisnummer'],
+            'Toevoeging' => $data['toevoeging'],
+            'Postcode' => $data['postcode'],
+            'Plaats' => $data['plaats'],
+            'Email' => $data['contact_email'],
+            'Mobiel' => $data['mobiel'],
+            'DatumGewijzigd' => now(),
+        ]);
+
+        $contact->save();
+        $medewerker->contacten()->syncWithoutDetaching([$contact->Id]);
+    });
+
+    return redirect()
+        ->route('medewerkers.show', $medewerker)
+        ->with('status', 'De medewerker is succesvol gewijzigd.');
+})->middleware(['auth', 'verified'])->name('medewerkers.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
