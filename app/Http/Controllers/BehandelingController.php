@@ -99,10 +99,14 @@ class BehandelingController extends Controller
                 'min:0',
                 function ($attribute, $value, $fail) use ($minPrice) {
                     if ($value < $minPrice) {
-                        $fail('Verkoopprijs moet minimaal 30 procent boven de inkoopprijs liggen.');
+                        $fail('Verkoopprijs moet minimaal 30 procent boven de inkoopprijs liggen. Minimale prijs: EUR ' . number_format($minPrice, 2));
                     }
                 },
             ],
+        ], [
+            'verkoopprijs.required' => 'Verkoopprijs is verplicht.',
+            'verkoopprijs.numeric' => 'Verkoopprijs moet een geldig bedrag zijn.',
+            'verkoopprijs.min' => 'Verkoopprijs moet minimaal 0 zijn.',
         ]);
 
         // Werk productprijs bij
