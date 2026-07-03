@@ -80,18 +80,18 @@ class BehandelingController extends Controller
     }
 
     /**
-     * Update the product price
-     * Validates minimum 30% markup above purchase price
+     * Werk de productprijs bij
+     * Valideert minimaal 30% marge boven inkoopprijs
      */
     public function updateProduct(Request $request, $behandelingId, $productId)
     {
         $product = Product::findOrFail($productId);
 
-        // Calculate minimum price (purchase price is 50% of current sale price)
+        // Bereken minimale prijs (inkoopprijs is 50% van huidige verkoopprijs)
         $purchasePrice = $product->prijs * 0.5;
         $minPrice = $purchasePrice * 1.30;
 
-        // Validate new price meets minimum markup requirement
+        // Valideer dat nieuwe prijs minimale marge haalt
         $request->validate([
             'verkoopprijs' => [
                 'required',
@@ -105,7 +105,7 @@ class BehandelingController extends Controller
             ],
         ]);
 
-        // Update product price
+        // Werk productprijs bij
         $product->prijs = $request->verkoopprijs;
         $product->save();
 
