@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="min-h-screen bg-slate-100 py-10">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8">
             <div class="mb-6 text-sm">
                 <a href="{{ route('dashboard') }}" class="font-semibold text-red-600 hover:text-red-700">Home</a>
                 <span class="mx-2 text-slate-400">/</span>
@@ -67,18 +67,18 @@
                         Er zijn geen medewerkers bekend met de geselecteerde specialisatie
                     </div>
                 @else
-                    <div class="overflow-x-auto px-5 pb-3 pt-2">
-                    <table class="min-w-full border-collapse text-left text-sm">
+                    <div class="px-5 pb-3 pt-2">
+                    <table class="w-full table-fixed border-collapse text-left text-sm">
                         <thead class="bg-red-700 text-white">
                             <tr>
-                                <th class="px-4 py-3 font-bold">Naam</th>
-                                <th class="px-4 py-3 font-bold">Specialisatie</th>
-                                <th class="px-4 py-3 font-bold">Adres</th>
-                                <th class="px-4 py-3 font-bold">Postcode</th>
-                                <th class="px-4 py-3 font-bold">Woonplaats</th>
-                                <th class="px-4 py-3 font-bold">Mobiel</th>
-                                <th class="px-4 py-3 font-bold">Contact e-mail</th>
-                                <th class="px-4 py-3 text-center font-bold">Actie</th>
+                                <th class="w-[14%] px-3 py-3 font-bold">Naam</th>
+                                <th class="w-[12%] px-3 py-3 font-bold">Specialisatie</th>
+                                <th class="w-[21%] px-3 py-3 font-bold">Adres</th>
+                                <th class="w-[9%] px-3 py-3 font-bold">Postcode</th>
+                                <th class="w-[11%] px-3 py-3 font-bold">Woonplaats</th>
+                                <th class="w-[12%] px-3 py-3 font-bold">Mobiel</th>
+                                <th class="w-[15%] px-3 py-3 font-bold">Contact e-mail</th>
+                                <th class="w-[6%] px-3 py-3 text-center font-bold">Actie</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-200 text-slate-700">
@@ -92,15 +92,15 @@
                                 @endphp
 
                                 <tr>
-                                    <td class="whitespace-nowrap px-4 py-3">{{ $medewerker->volledige_naam }}</td>
-                                    <td class="whitespace-nowrap px-4 py-3">{{ $medewerker->Specialisatie ?? '-' }}</td>
-                                    <td class="whitespace-nowrap px-4 py-3">{{ $adres ?: '-' }}</td>
-                                    <td class="whitespace-nowrap px-4 py-3">{{ $contact?->Postcode ?? '-' }}</td>
-                                    <td class="whitespace-nowrap px-4 py-3">{{ $contact?->Plaats ?? '-' }}</td>
-                                    <td class="whitespace-nowrap px-4 py-3">{{ $contact?->Mobiel ?? '-' }}</td>
-                                    <td class="whitespace-nowrap px-4 py-3">{{ $contact?->Email ?? '-' }}</td>
-                                    <td class="px-4 py-3 text-center">
-                                        <button type="button" class="rounded-md border border-blue-500 px-4 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">Details</button>
+                                    <td class="break-words px-3 py-3">{{ $medewerker->volledige_naam }}</td>
+                                    <td class="break-words px-3 py-3">{{ $medewerker->Specialisatie ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $adres ?: '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $contact?->Postcode ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $contact?->Plaats ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $contact?->Mobiel ?? '-' }}</td>
+                                    <td class="break-all px-3 py-3">{{ $contact?->Email ?? '-' }}</td>
+                                    <td class="px-3 py-3 text-center">
+                                        <button type="button" class="rounded-md border border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">Details</button>
                                     </td>
                                 </tr>
                             @endforeach
