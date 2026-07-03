@@ -12,20 +12,22 @@ class BehandelingController extends Controller
 {
     /**
      * Display a listing of behandelingen
+     * Filters behandelingen based on selected category from dropdown
      */
     public function index(Request $request)
     {
         $query = Behandeling::query();
         $filter = $request->input('filter', 'alle');
 
-        // Filter if a specific behandeling is selected
+        // Apply filter if specific category selected
         if ($filter != 'alle') {
             $query->where('naam', $filter);
         }
 
+        // Paginate results and preserve filter parameter
         $behandelingen = $query->paginate(5)->appends(['filter' => $filter]);
 
-        // Get all unique behandeling names for the dropdown
+        // Get unique behandeling names for dropdown options
         $behandelingNames = Behandeling::distinct()->pluck('naam');
 
         return view('behandelingen.index', compact('behandelingen', 'behandelingNames', 'filter'));
@@ -33,12 +35,13 @@ class BehandelingController extends Controller
 
     /**
      * Display products for a specific behandeling
+     * Shows all products linked via pivot table
      */
     public function producten($id)
     {
         $behandeling = Behandeling::findOrFail($id);
         
-        // Get products associated with this behandeling through the pivot table
+        // Get products with quantity needed from pivot table
         $producten = DB::table('producten')
             ->join('behandeling_product', 'producten.id', '=', 'behandeling_product.product_id')
             ->where('behandeling_product.behandeling_id', $id)
@@ -78,16 +81,17 @@ class BehandelingController extends Controller
 
     /**
      * Update the product price
+     * Validates minimum 30% markup above purchase price
      */
     public function updateProduct(Request $request, $behandelingId, $productId)
     {
         $product = Product::findOrFail($productId);
 
-        // Calculate minimum price (30% above purchase price, assuming purchase is 50% of current sale price)
+        // Calculate minimum price (purchase price is 50% of current sale price)
         $purchasePrice = $product->prijs * 0.5;
         $minPrice = $purchasePrice * 1.30;
 
-        // Validate the new price
+        // Validate new price meets minimum markup requirement
         $request->validate([
             'verkoopprijs' => [
                 'required',
@@ -101,7 +105,7 @@ class BehandelingController extends Controller
             ],
         ]);
 
-        // Update the product
+        // Update product price
         $product->prijs = $request->verkoopprijs;
         $product->save();
 
