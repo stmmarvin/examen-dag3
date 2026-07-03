@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Medewerker;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,7 +13,30 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/medewerkers', function () {
-    return view('medewerkers.index');
+    $specialisatie = request('specialisatie');
+
+    $medewerkers = Medewerker::query()
+        ->with('contacten')
+        ->when($specialisatie, function ($query) use ($specialisatie) {
+            $query->where('Specialisatie', $specialisatie);
+        })
+        ->orderBy('Achternaam')
+        ->orderBy('Voornaam')
+        ->paginate(10)
+        ->withQueryString();
+
+    $specialisaties = Medewerker::query()
+        ->whereNotNull('Specialisatie')
+        ->where('Specialisatie', '!=', '')
+        ->distinct()
+        ->orderBy('Specialisatie')
+        ->pluck('Specialisatie');
+
+    return view('medewerkers.index', [
+        'medewerkers' => $medewerkers,
+        'specialisaties' => $specialisaties,
+        'geselecteerdeSpecialisatie' => $specialisatie,
+    ]);
 })->middleware(['auth', 'verified'])->name('medewerkers.index');
 
 Route::middleware('auth')->group(function () {
