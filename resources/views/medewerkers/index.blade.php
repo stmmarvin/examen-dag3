@@ -86,7 +86,7 @@
                                     ])->filter()->implode(' ');
                                 @endphp
 
-                                <tr>
+                                <tr class="transition hover:bg-slate-100">
                                     <td class="break-words px-3 py-3">{{ $medewerker->volledige_naam }}</td>
                                     <td class="break-words px-3 py-3">{{ $medewerker->Specialisatie ?? '-' }}</td>
                                     <td class="break-words px-3 py-3">{{ $adres ?: '-' }}</td>
