@@ -19,15 +19,29 @@ class Product extends Model
 
     protected $fillable = [
         'naam',
-        'beschrijving',
-        'prijs',
-        'voorraad',
-        'sku',
+        'categorie_id',
+        'omschrijving',
+        'merk',
+        'ean_code',
+        'houdbaarheidsdatum',
+        'inkoop_prijs',
+        'verkoop_prijs',
     ];
 
     protected $casts = [
-        'prijs' => 'decimal:2',
+        'inkoop_prijs' => 'decimal:2',
+        'verkoop_prijs' => 'decimal:2',
+        'houdbaarheidsdatum' => 'date',
     ];
+
+    /**
+     * Relatie met Categorie
+     * Een product behoort tot één categorie
+     */
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class, 'categorie_id');
+    }
 
     /**
      * Many-to-many relatie met Behandeling
