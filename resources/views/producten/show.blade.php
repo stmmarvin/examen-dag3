@@ -74,9 +74,9 @@
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Inkoopprijs</div>
-                        <div style="flex: 1;" class="text-sm text-gray-700">
+                        <div style="flex: 1;" class="text-sm font-semibold text-green-700">
                             @if($product->inkoop_prijs)
-                                EUR {{ number_format($product->inkoop_prijs, 2, ',', '.') }}
+                                € {{ number_format($product->inkoop_prijs, 2, ',', '.') }}
                             @else
                                 -
                             @endif
@@ -85,9 +85,9 @@
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Verkoopprijs</div>
-                        <div style="flex: 1;" class="text-sm text-gray-700">
+                        <div style="flex: 1;" class="text-sm font-semibold text-green-700">
                             @if($product->verkoop_prijs)
-                                EUR {{ number_format($product->verkoop_prijs, 2, ',', '.') }}
+                                € {{ number_format($product->verkoop_prijs, 2, ',', '.') }}
                             @else
                                 -
                             @endif
