@@ -16,7 +16,7 @@
                 <span class="text-white text-sm font-medium whitespace-nowrap">Beschikbaarheid</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Klanten</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Afspraken</span>
-                <span class="text-white text-sm font-medium whitespace-nowrap">Behandelingen</span>
+                <a href="{{ route('behandelingen.index') }}" class="text-white text-sm font-medium whitespace-nowrap hover:text-red-200 transition">Behandelingen</a>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Producten</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Bestellingen</span>
             </div>

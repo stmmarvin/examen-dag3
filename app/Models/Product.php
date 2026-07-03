@@ -9,41 +9,26 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'Product';
-    protected $primaryKey = 'Id';
-    public $timestamps = false;
+    protected $table = 'producten';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
-        'CategorieId',
-        'Naam',
-        'Omschrijving',
-        'Merk',
-        'EANcode',
-        'Houdbaarheidsdatum',
-        'InkoopPrijs',
-        'VerkoopPrijs',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'naam',
+        'beschrijving',
+        'prijs',
+        'voorraad',
+        'sku',
     ];
 
     protected $casts = [
-        'Houdbaarheidsdatum' => 'date',
-        'InkoopPrijs' => 'decimal:2',
-        'VerkoopPrijs' => 'decimal:2',
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'prijs' => 'decimal:2',
     ];
 
-    public function categorie()
+    public function behandelingen()
     {
-        return $this->belongsTo(Categorie::class, 'CategorieId', 'Id');
-    }
-
-    public function voorraad()
-    {
-        return $this->hasOne(Voorraad::class, 'ProductId', 'Id');
+        return $this->belongsToMany(Behandeling::class, 'behandeling_product', 'product_id', 'behandeling_id')
+                    ->withPivot('aantal')
+                    ->withTimestamps();
     }
 }

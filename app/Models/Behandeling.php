@@ -9,35 +9,25 @@ class Behandeling extends Model
 {
     use HasFactory;
 
-    protected $table = 'Behandeling';
-    protected $primaryKey = 'Id';
-    public $timestamps = false;
+    protected $table = 'behandelingen';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
-        'Naam',
-        'Omschrijving',
-        'Duurminuten',
-        'Prijs',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'naam',
+        'beschrijving',
+        'duur',
+        'prijs',
     ];
 
     protected $casts = [
-        'IsActief' => 'boolean',
-        'Prijs' => 'decimal:2',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'prijs' => 'decimal:2',
     ];
 
-    public function medewerkers()
+    public function producten()
     {
-        return $this->belongsToMany(Medewerker::class, 'MedewerkerPerBehandeling', 'BehandelingId', 'MedewerkerId');
-    }
-
-    public function voorraad()
-    {
-        return $this->belongsToMany(Voorraad::class, 'BehandelingPerVoorraad', 'BehandelingId', 'VoorraadId');
+        return $this->belongsToMany(Product::class, 'behandeling_product', 'behandeling_id', 'product_id')
+                    ->withPivot('aantal')
+                    ->withTimestamps();
     }
 }
