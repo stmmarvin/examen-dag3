@@ -34,7 +34,7 @@
             </form>
 
             <section class="overflow-hidden rounded-lg bg-white shadow-sm">
-                <div class="relative flex min-h-20 flex-col gap-3 px-4 py-3">
+                <div class="relative flex {{ $medewerkers->hasPages() ? 'min-h-20' : 'min-h-12' }} flex-col gap-3 px-4 py-3">
                     <p class="text-sm text-slate-500">Gevonden medewerkers - {{ $medewerkers->total() }} medewerker(s)</p>
 
                     @if ($medewerkers->hasPages())
@@ -62,12 +62,7 @@
                     @endif
                 </div>
 
-                @if ($medewerkers->isEmpty())
-                    <div class="border-t border-slate-200 px-4 py-8 text-center font-semibold text-slate-600">
-                        Er zijn geen medewerkers bekend met de geselecteerde specialisatie
-                    </div>
-                @else
-                    <div class="px-5 pb-3 pt-2">
+                <div class="px-5 pb-3 pt-2">
                     <table class="w-full table-fixed border-collapse text-left text-sm">
                         <thead class="bg-red-700 text-white">
                             <tr>
@@ -77,12 +72,12 @@
                                 <th class="w-[8%] px-3 py-3 font-bold">Postcode</th>
                                 <th class="w-[10%] px-3 py-3 font-bold">Woonplaats</th>
                                 <th class="w-[11%] px-3 py-3 font-bold">Mobiel</th>
-                                <th class="w-[19%] px-3 py-3 font-bold">Contact e-mail</th>
-                                <th class="w-[6%] px-3 py-3 text-center font-bold">Actie</th>
+                                <th class="w-[18%] px-3 py-3 font-bold">Contact e-mail</th>
+                                <th class="w-[7%] px-3 py-3 text-left font-bold">Actie</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-200 text-slate-700">
-                            @foreach ($medewerkers as $medewerker)
+                            @forelse ($medewerkers as $medewerker)
                                 @php
                                     $contact = $medewerker->contacten->first();
                                     $adres = collect([
@@ -99,15 +94,20 @@
                                     <td class="break-words px-3 py-3">{{ $contact?->Plaats ?? '-' }}</td>
                                     <td class="break-words px-3 py-3">{{ $contact?->Mobiel ?? '-' }}</td>
                                     <td class="break-words px-3 py-3">{{ $contact?->Email ?? '-' }}</td>
-                                    <td class="px-3 py-3 text-center">
+                                    <td class="px-3 py-3 text-left">
                                         <button type="button" class="rounded-md border border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">Details</button>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="px-3 py-8 text-center font-semibold text-slate-600">
+                                        Er zijn geen medewerkers bekend met de geselecteerde specialisatie
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
-                    </div>
-                @endif
+                </div>
             </section>
 
         </div>

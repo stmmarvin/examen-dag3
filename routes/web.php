@@ -25,12 +25,13 @@ Route::get('/medewerkers', function () {
         ->paginate(4)
         ->withQueryString();
 
-    $specialisaties = Medewerker::query()
-        ->whereNotNull('Specialisatie')
-        ->where('Specialisatie', '!=', '')
-        ->distinct()
-        ->orderBy('Specialisatie')
-        ->pluck('Specialisatie');
+    $specialisaties = collect([
+        'Extensions',
+        'Kleuren',
+        'Knippen',
+        'Permanent',
+        'Stylen',
+    ]);
 
     return view('medewerkers.index', [
         'medewerkers' => $medewerkers,
