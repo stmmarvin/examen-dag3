@@ -56,7 +56,7 @@
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Account e-mail</span>
-                        <input type="email" value="{{ $medewerker->user?->email }}" disabled class="w-full rounded-md border-slate-300 bg-slate-100 text-sm text-slate-500 shadow-sm">
+                        <input type="email" value="{{ $medewerker->user?->email ?? $contact?->Email }}" disabled class="w-full rounded-md border-slate-300 bg-slate-100 text-sm text-slate-500 shadow-sm">
                     </label>
 
                     <label>
