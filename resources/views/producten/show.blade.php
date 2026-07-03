@@ -12,9 +12,9 @@
             </div>
 
             <!-- Header -->
-            <h1 class="text-3xl font-bold mb-6">
+            <h1 class="text-4xl font-bold mb-8">
                 <span class="text-red-600">Productdetail</span>
-                <span class="text-gray-400">{{ $product->naam }}</span>
+                <span class="text-gray-500">{{ $product->naam }}</span>
             </h1>
 
             <!-- Success Message -->
