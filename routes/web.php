@@ -16,8 +16,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/klanten', [KlantController::class, 'index'])->name('klanten.index');
     Route::get('/klanten/details', [KlantController::class, 'details'])->name('klanten.details');
     Route::get('/klanten/details/wijzigen', [KlantController::class, 'detailsEdit'])->name('klanten.details.edit');
-    Route::redirect('/klanten/5', '/klanten/details');
-    Route::redirect('/klanten/5/wijzigen', '/klanten/details/wijzigen');
+    Route::get('/klanten/5', fn () => redirect('/klanten/details'));
+    Route::get('/klanten/5/wijzigen', fn () => redirect('/klanten/details/wijzigen'));
     Route::get('/klanten/{id}', [KlantController::class, 'show'])->name('klanten.show');
     Route::get('/klanten/{id}/wijzigen', [KlantController::class, 'edit'])->name('klanten.edit');
     Route::patch('/klanten/{id}', [KlantController::class, 'update'])->name('klanten.update');

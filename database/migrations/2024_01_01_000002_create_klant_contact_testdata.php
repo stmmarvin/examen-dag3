@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -8,63 +9,123 @@ return new class extends Migration
 {
     public function up(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        }
 
-        if (! Schema::hasTable('Klant')) {
-            DB::statement("
-                CREATE TABLE `Klant` (
-                  `Id` INT PRIMARY KEY AUTO_INCREMENT,
-                  `UserId` BIGINT UNSIGNED NULL,
-                  `Voornaam` VARCHAR(255) NOT NULL,
-                  `Tussenvoegsel` VARCHAR(50) NULL,
-                  `Achternaam` VARCHAR(255) NOT NULL,
-                  `Relatienummer` VARCHAR(50) NULL,
-                  `Bijzonderheden` TEXT NULL,
-                  `IsActief` BIT DEFAULT b'1',
-                  `Opmerking` VARCHAR(255) NULL,
-                  `DatumAangemaakt` DATETIME(6) NULL,
-                  `DatumGewijzigd` DATETIME(6) NULL,
-                  FOREIGN KEY (`UserId`) REFERENCES `users`(`id`) ON DELETE SET NULL
-                )
-            ");
+        if (! Schema::hasTable('user')) {
+            Schema::create('user', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('email')->unique();
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->string('rolename', 20);
+                $table->rememberToken();
+                $table->timestamps();
+            });
+        }
+
+        if (! Schema::hasTable('klant')) {
+            if (DB::getDriverName() === 'mysql') {
+                DB::statement("
+                    CREATE TABLE `klant` (
+                      `Id` BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+                      `UserId` BIGINT UNSIGNED NULL,
+                      `Voornaam` VARCHAR(255) NOT NULL,
+                      `Tussenvoegsel` VARCHAR(50) NULL,
+                      `Achternaam` VARCHAR(255) NOT NULL,
+                      `Relatienummer` VARCHAR(50) NULL,
+                      `Bijzonderheden` TEXT NULL,
+                      `IsActief` BIT DEFAULT b'1',
+                      `Opmerking` VARCHAR(255) NULL,
+                      `DatumAangemaakt` DATETIME(6) NULL,
+                      `DatumGewijzigd` DATETIME(6) NULL,
+                      FOREIGN KEY (`UserId`) REFERENCES `user`(`id`) ON DELETE SET NULL
+                    )
+                ");
+            } else {
+                Schema::create('klant', function (Blueprint $table) {
+                    $table->id('Id');
+                    $table->foreignId('UserId')->nullable()->constrained('user')->nullOnDelete();
+                    $table->string('Voornaam');
+                    $table->string('Tussenvoegsel', 50)->nullable();
+                    $table->string('Achternaam');
+                    $table->string('Relatienummer', 50)->nullable();
+                    $table->text('Bijzonderheden')->nullable();
+                    $table->boolean('IsActief')->default(true);
+                    $table->string('Opmerking')->nullable();
+                    $table->dateTime('DatumAangemaakt', 6)->nullable();
+                    $table->dateTime('DatumGewijzigd', 6)->nullable();
+                });
+            }
         }
 
         if (! Schema::hasTable('Contact')) {
-            DB::statement("
-                CREATE TABLE `Contact` (
-                  `Id` INT PRIMARY KEY AUTO_INCREMENT,
-                  `Straatnaam` VARCHAR(255) NULL,
-                  `Huisnummer` VARCHAR(10) NULL,
-                  `Toevoeging` VARCHAR(10) NULL,
-                  `Postcode` VARCHAR(10) NULL,
-                  `Plaats` VARCHAR(100) NULL,
-                  `Email` VARCHAR(255) NULL,
-                  `Mobiel` VARCHAR(20) NULL,
-                  `IsActief` BIT DEFAULT b'1',
-                  `Opmerking` VARCHAR(255) NULL,
-                  `DatumAangemaakt` DATETIME(6) NULL,
-                  `DatumGewijzigd` DATETIME(6) NULL
-                )
-            ");
+            if (DB::getDriverName() === 'mysql') {
+                DB::statement("
+                    CREATE TABLE `Contact` (
+                      `Id` INT PRIMARY KEY AUTO_INCREMENT,
+                      `Straatnaam` VARCHAR(255) NULL,
+                      `Huisnummer` VARCHAR(10) NULL,
+                      `Toevoeging` VARCHAR(10) NULL,
+                      `Postcode` VARCHAR(10) NULL,
+                      `Plaats` VARCHAR(100) NULL,
+                      `Email` VARCHAR(255) NULL,
+                      `Mobiel` VARCHAR(20) NULL,
+                      `IsActief` BIT DEFAULT b'1',
+                      `Opmerking` VARCHAR(255) NULL,
+                      `DatumAangemaakt` DATETIME(6) NULL,
+                      `DatumGewijzigd` DATETIME(6) NULL
+                    )
+                ");
+            } else {
+                Schema::create('Contact', function (Blueprint $table) {
+                    $table->id('Id');
+                    $table->string('Straatnaam')->nullable();
+                    $table->string('Huisnummer', 10)->nullable();
+                    $table->string('Toevoeging', 10)->nullable();
+                    $table->string('Postcode', 10)->nullable();
+                    $table->string('Plaats', 100)->nullable();
+                    $table->string('Email')->nullable();
+                    $table->string('Mobiel', 20)->nullable();
+                    $table->boolean('IsActief')->default(true);
+                    $table->string('Opmerking')->nullable();
+                    $table->dateTime('DatumAangemaakt', 6)->nullable();
+                    $table->dateTime('DatumGewijzigd', 6)->nullable();
+                });
+            }
         }
 
         if (! Schema::hasTable('KlantPerContact')) {
-            DB::statement("
-                CREATE TABLE `KlantPerContact` (
-                  `Id` INT PRIMARY KEY AUTO_INCREMENT,
-                  `KlantId` INT NOT NULL,
-                  `ContactId` INT NOT NULL,
-                  `IsActief` BIT DEFAULT b'1',
-                  `Opmerking` VARCHAR(255) NULL,
-                  `DatumAangemaakt` DATETIME(6) NULL,
-                  `DatumGewijzigd` DATETIME(6) NULL,
-                  FOREIGN KEY (`KlantId`) REFERENCES `Klant`(`Id`) ON DELETE CASCADE,
-                  FOREIGN KEY (`ContactId`) REFERENCES `Contact`(`Id`) ON DELETE CASCADE
-                )
-            ");
+            if (DB::getDriverName() === 'mysql') {
+                DB::statement("
+                    CREATE TABLE `KlantPerContact` (
+                      `Id` INT PRIMARY KEY AUTO_INCREMENT,
+                      `KlantId` BIGINT UNSIGNED NOT NULL,
+                      `ContactId` INT NOT NULL,
+                      `IsActief` BIT DEFAULT b'1',
+                      `Opmerking` VARCHAR(255) NULL,
+                      `DatumAangemaakt` DATETIME(6) NULL,
+                      `DatumGewijzigd` DATETIME(6) NULL,
+                      FOREIGN KEY (`KlantId`) REFERENCES `klant`(`Id`) ON DELETE CASCADE,
+                      FOREIGN KEY (`ContactId`) REFERENCES `Contact`(`Id`) ON DELETE CASCADE
+                    )
+                ");
+            } else {
+                Schema::create('KlantPerContact', function (Blueprint $table) {
+                    $table->id('Id');
+                    $table->unsignedBigInteger('KlantId');
+                    $table->unsignedBigInteger('ContactId');
+                    $table->boolean('IsActief')->default(true);
+                    $table->string('Opmerking')->nullable();
+                    $table->dateTime('DatumAangemaakt', 6)->nullable();
+                    $table->dateTime('DatumGewijzigd', 6)->nullable();
+                });
+            }
         }
 
-        DB::table('users')->upsert([
+        DB::table('user')->upsert([
             ['id' => 1, 'name' => 'Salon Eigenaar', 'email' => 'eigenaar@kniplokettiko.nl', 'email_verified_at' => null, 'password' => '$2y$10$1S7dpZxfyl4IcQAtIzUklulMSor3EADTAPktFHNcFsg87geQVgrMu', 'rolename' => 'eigenaar', 'remember_token' => null, 'created_at' => '2026-07-02 09:09:30', 'updated_at' => '2026-07-02 09:09:30'],
             ['id' => 2, 'name' => 'Fatima El Amrani', 'email' => 'fatima@kniplokettiko.nl', 'email_verified_at' => null, 'password' => '$2y$10$1S7dpZxfyl4IcQAtIzUklulMSor3EADTAPktFHNcFsg87geQVgrMu', 'rolename' => 'medewerker', 'remember_token' => null, 'created_at' => '2026-07-02 09:09:30', 'updated_at' => '2026-07-02 09:09:30'],
             ['id' => 3, 'name' => 'Sanne de Vries', 'email' => 'sanne.devries@kniplokettiko.nl', 'email_verified_at' => null, 'password' => '$2y$10$1S7dpZxfyl4IcQAtIzUklulMSor3EADTAPktFHNcFsg87geQVgrMu', 'rolename' => 'medewerker', 'remember_token' => null, 'created_at' => '2026-07-02 09:09:30', 'updated_at' => '2026-07-02 09:09:30'],
@@ -84,7 +145,7 @@ return new class extends Migration
             ['id' => 17, 'name' => 'Daan Visser', 'email' => 'daan.visser@live.nl', 'email_verified_at' => null, 'password' => '$2y$10$1S7dpZxfyl4IcQAtIzUklulMSor3EADTAPktFHNcFsg87geQVgrMu', 'rolename' => 'klant', 'remember_token' => null, 'created_at' => '2026-07-02 09:09:30', 'updated_at' => '2026-07-02 09:09:30'],
         ], ['id'], ['name', 'email', 'email_verified_at', 'password', 'rolename', 'remember_token', 'created_at', 'updated_at']);
 
-        DB::table('Klant')->upsert([
+        DB::table('klant')->upsert([
             ['Id' => 1, 'UserId' => 12, 'Voornaam' => 'Piet', 'Tussenvoegsel' => 'van', 'Achternaam' => 'Loenen', 'Relatienummer' => 'KL-2026-001', 'Bijzonderheden' => 'Voorkeur voor ochtendafspraken.', 'IsActief' => 1, 'Opmerking' => null, 'DatumAangemaakt' => '2026-07-02 09:09:30.000000', 'DatumGewijzigd' => '2026-07-02 09:09:30.000000'],
             ['Id' => 2, 'UserId' => 13, 'Voornaam' => 'Jan', 'Tussenvoegsel' => null, 'Achternaam' => 'Jansen', 'Relatienummer' => 'KL-2026-002', 'Bijzonderheden' => 'Allergie voor sterk geparfumeerde producten.', 'IsActief' => 1, 'Opmerking' => null, 'DatumAangemaakt' => '2026-07-02 09:09:30.000000', 'DatumGewijzigd' => '2026-07-02 09:09:30.000000'],
             ['Id' => 3, 'UserId' => 14, 'Voornaam' => 'Saskia', 'Tussenvoegsel' => 'de', 'Achternaam' => 'Boer', 'Relatienummer' => 'KL-2026-003', 'Bijzonderheden' => 'Komt elke zes weken.', 'IsActief' => 1, 'Opmerking' => null, 'DatumAangemaakt' => '2026-07-02 09:09:30.000000', 'DatumGewijzigd' => '2026-07-02 09:09:30.000000'],
@@ -121,19 +182,24 @@ return new class extends Migration
             ['Id' => 6, 'KlantId' => 6, 'ContactId' => 16, 'IsActief' => 1, 'Opmerking' => null, 'DatumAangemaakt' => '2026-07-02 09:09:30.000000', 'DatumGewijzigd' => '2026-07-02 09:09:30.000000'],
         ], ['Id'], ['KlantId', 'ContactId', 'IsActief', 'Opmerking', 'DatumAangemaakt', 'DatumGewijzigd']);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        }
     }
 
     public function down(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        }
 
         Schema::dropIfExists('KlantPerContact');
         Schema::dropIfExists('Contact');
-        Schema::dropIfExists('Klant');
+        Schema::dropIfExists('klant');
+        Schema::dropIfExists('user');
 
-        DB::table('users')->whereIn('id', range(1, 17))->delete();
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        }
     }
 };

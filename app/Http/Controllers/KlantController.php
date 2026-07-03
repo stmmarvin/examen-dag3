@@ -17,7 +17,7 @@ class KlantController extends Controller
 {
     public function index(Request $request): View
     {
-        if (! Schema::hasTable('Klant')) {
+        if (! Schema::hasTable('klant')) {
             return $this->indexFromLaravelTable($request);
         }
 
@@ -46,7 +46,7 @@ class KlantController extends Controller
 
     public function show(int $id): View
     {
-        if (! Schema::hasTable('Klant')) {
+        if (! Schema::hasTable('klant')) {
             $klant = $this->findLaravelKlant($id);
 
             return view('klanten.show', [
@@ -75,7 +75,7 @@ class KlantController extends Controller
 
     public function edit(int $id): View
     {
-        if (! Schema::hasTable('Klant')) {
+        if (! Schema::hasTable('klant')) {
             $klant = $this->findLaravelKlant($id);
 
             return view('klanten.edit', [
@@ -94,7 +94,7 @@ class KlantController extends Controller
 
     public function update(Request $request, int $id): RedirectResponse
     {
-        if (! Schema::hasTable('Klant')) {
+        if (! Schema::hasTable('klant')) {
             return $this->updateLaravelKlant($request, $id);
         }
 
@@ -176,7 +176,7 @@ class KlantController extends Controller
     {
         $postcode = trim((string) $request->query('postcode', ''));
 
-        $query = DB::table('klanten')
+        $query = DB::table('klant')
             ->when($postcode !== '', function ($query) use ($postcode): void {
                 $query->where('postcode', $postcode);
             })
@@ -196,7 +196,7 @@ class KlantController extends Controller
 
     private function findLaravelKlant(int $id): object
     {
-        $klant = DB::table('klanten')->where('id', $id)->first();
+        $klant = DB::table('klant')->where('id', $id)->first();
 
         abort_if(! $klant, 404);
 
@@ -213,7 +213,7 @@ class KlantController extends Controller
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('klanten', 'email')->ignore($id),
+                Rule::unique('klant', 'email')->ignore($id),
             ],
             'straatnaam' => ['required', 'string', 'max:255'],
             'huisnummer' => ['required', 'string', 'max:10'],
@@ -237,7 +237,7 @@ class KlantController extends Controller
             $naam = $this->splitNaam((string) $request->input('naam'));
             $adres = trim($request->input('straatnaam') . ' ' . $request->input('huisnummer') . ' ' . $request->input('toevoeging'));
 
-            DB::table('klanten')
+            DB::table('klant')
                 ->where('id', $id)
                 ->update([
                     'voornaam' => $naam['voornaam'],

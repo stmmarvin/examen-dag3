@@ -37,9 +37,4 @@ class Contact extends Model
     {
         return $this->belongsToMany(Klant::class, 'KlantPerContact', 'ContactId', 'KlantId');
     }
-
-    public function medewerkers()
-    {
-        return $this->belongsToMany(Medewerker::class, 'MedewerkerPerContact', 'ContactId', 'MedewerkerId');
-    }
 }
