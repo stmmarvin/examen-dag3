@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Product Model
+ * Representeert een salon product zoals shampoo, conditioner, etc.
+ */
 class Product extends Model
 {
     use HasFactory;
@@ -25,6 +29,10 @@ class Product extends Model
         'prijs' => 'decimal:2',
     ];
 
+    /**
+     * Many-to-many relatie met Behandeling
+     * Een product kan gebruikt worden in meerdere behandelingen
+     */
     public function behandelingen()
     {
         return $this->belongsToMany(Behandeling::class, 'behandeling_product', 'product_id', 'behandeling_id')

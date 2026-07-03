@@ -28,10 +28,10 @@
                                 <option value="overig" {{ request('filter') == 'overig' ? 'selected' : '' }}>Overig</option>
                             </select>
                         </div>
-                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded text-sm">
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded text-sm transition duration-200">
                             Maak selectie
                         </button>
-                        <a href="{{ route('behandelingen.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1.5 rounded text-sm inline-block">
+                        <a href="{{ route('behandelingen.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1.5 rounded text-sm inline-block transition duration-200">
                             Reset
                         </a>
                     </form>

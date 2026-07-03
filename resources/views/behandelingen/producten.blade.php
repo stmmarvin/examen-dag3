@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-8 bg-gray-50 min-h-screen">
         <div class="max-w-7xl mx-auto px-6">
-            <!-- Breadcrumb -->
+            {{-- Breadcrumb navigatie --}}
             <nav class="text-sm mb-6 text-gray-600">
                 <a href="{{ route('dashboard') }}" class="hover:text-gray-800">Home</a>
                 <span class="mx-2">/</span>
@@ -11,10 +11,11 @@
             </nav>
 
             <div class="bg-white rounded-lg shadow p-8">
+                {{-- Pagina titels --}}
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Producten per behandeling</h1>
                 <h2 class="text-xl text-gray-500 mb-8">{{ $behandeling->naam }}</h2>
 
-                <!-- Table -->
+                {{-- Producten tabel --}}
                 <div class="overflow-x-auto border border-gray-200 rounded">
                     <table class="w-full">
                         <thead>
@@ -55,6 +56,7 @@
                     </table>
                 </div>
 
+                {{-- Terug knop --}}
                 <div class="mt-6">
                     <a href="{{ route('behandelingen.index') }}" 
                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-medium inline-block">
