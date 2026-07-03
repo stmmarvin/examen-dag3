@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-8 bg-gray-50 min-h-screen">
         <div class="max-w-5xl mx-auto px-6">
-            <!-- Success Message -->
+            {{-- Success melding met auto-fade --}}
             @if(session('success'))
                 <div id="success-message" class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
                     {{ session('success') }}
@@ -18,7 +18,7 @@
                 </script>
             @endif
 
-            <!-- Breadcrumb -->
+            {{-- Breadcrumb navigatie --}}
             <nav class="text-sm mb-6 text-gray-600">
                 <a href="{{ route('dashboard') }}" class="text-red-600 hover:text-red-800">Home</a>
                 <span class="mx-2">/</span>
@@ -27,14 +27,14 @@
                 <span class="text-gray-800">Detail</span>
             </nav>
 
-            <!-- Titles outside -->
+            {{-- Pagina titels --}}
             <h1 class="text-3xl font-bold text-red-600 mb-1">Productdetail</h1>
             <h2 class="text-lg text-gray-500 mb-6">{{ $product->naam }}</h2>
 
-            <!-- Single white container with all fields -->
+            {{-- Productdetails in 2 kolommen --}}
             <div class="bg-white rounded shadow-sm p-6 mb-6">
                 <div class="grid grid-cols-2 gap-x-8">
-                    <!-- Left Column -->
+                    {{-- Linker kolom --}}
                     <div>
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Product</div>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <!-- Right Column -->
+                    {{-- Rechter kolom --}}
                     <div>
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Aantal op voorraad</div>
@@ -112,7 +112,7 @@
                 </div>
             </div>
 
-            <!-- Buttons outside container -->
+            {{-- Actie knoppen --}}
             <div class="flex gap-3">
                 <a href="{{ route('behandelingen.product.edit', [$behandeling->id, $product->id]) }}" 
                    class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded text-sm">
