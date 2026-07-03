@@ -9,27 +9,17 @@ class Categorie extends Model
 {
     use HasFactory;
 
-    protected $table = 'Categorie';
-    protected $primaryKey = 'Id';
-    public $timestamps = false;
+    protected $table = 'categorieen';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
-        'Naam',
-        'Omschrijving',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
-    ];
-
-    protected $casts = [
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'naam',
+        'omschrijving',
     ];
 
     public function producten()
     {
-        return $this->hasMany(Product::class, 'CategorieId', 'Id');
+        return $this->hasMany(Product::class, 'categorie_id');
     }
 }
