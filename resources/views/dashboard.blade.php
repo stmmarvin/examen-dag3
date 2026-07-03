@@ -1,7 +1,8 @@
 <x-app-layout>
+    {{-- Main dashboard container --}}
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Grote container kaart -->
+            {{-- Main content card --}}
             <div class="bg-gray-50 rounded-2xl shadow-lg p-12">
                 <div class="mb-6 bg-yellow-400 text-black px-4 py-2 rounded inline-block font-semibold text-sm">
                     Kapsalon applicatie
@@ -12,7 +13,7 @@
                 
                 <p class="text-gray-400 mb-16">Welkom bij Kniploket Tiko - hier regel je eenvoudig klanten, afspraken en planning voor de salon.</p>
 
-                <!-- Grid met cards - 2 rijen van 4 -->
+                {{-- Grid with 8 cards (2 rows x 4 cols) --}}
                 <div class="grid grid-cols-4 gap-6">
                 
                     <!-- Accounts Card -->
@@ -90,6 +91,7 @@
                 </div>
             </div>
 
+            {{-- Footer --}}
             <div class="text-center text-gray-400 text-sm mt-8">
                 © 2025 Kniploket Tiko - Alle rechten voorbehouden
             </div>
