@@ -44,36 +44,36 @@
             <div class="bg-white rounded shadow-sm p-8">
                 <div>
                     
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Product</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->naam }}</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Product</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->naam }}</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Merk</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->merk ?? '-' }}</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Merk</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->merk ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Omschrijving</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->omschrijving ?? '-' }}</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Omschrijving</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->omschrijving ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">EAN-code</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->ean_code ?? '-' }}</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">EAN-code</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->ean_code ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Houdbaarheidsdatum</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Houdbaarheidsdatum</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">
                             {{ $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('d-m-Y') : '-' }}
                         </div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Inkoopprijs</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Inkoopprijs</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">
                             @if($product->inkoop_prijs)
                                 EUR {{ number_format($product->inkoop_prijs, 2, ',', '.') }}
                             @else
@@ -82,9 +82,9 @@
                         </div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Verkoopprijs</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Verkoopprijs</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">
                             @if($product->verkoop_prijs)
                                 EUR {{ number_format($product->verkoop_prijs, 2, ',', '.') }}
                             @else
@@ -93,39 +93,39 @@
                         </div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Aantal op voorraad</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->voorraad->aantal_op_voorraad ?? '-' }}</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Aantal op voorraad</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->voorraad->aantal_op_voorraad ?? '-' }}</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Leverancier</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">BarberCare Nederland</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">BarberCare Nederland</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Postcode leverancier</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">4811AA</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Postcode leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">4811AA</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Plaats leverancier</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">Breda</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Plaats leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">Breda</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">E-mail leverancier</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">bestellingen@barbercare-nederland.nl</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">E-mail leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">bestellingen@barbercare-nederland.nl</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px; border-bottom: 1px solid #000;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Mobiel leverancier</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">+31 623456124</div>
+                    <div class="flex py-4" style="gap: 10px; border-bottom: 1px solid #000;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Mobiel leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">+31 623456124</div>
                     </div>
 
-                    <div class="flex py-3" style="gap: 10px;">
-                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Opmerking</div>
-                        <div style="flex: 1;" class="text-sm text-gray-600">Geschikt voor verkoop na baardtrimbehandelingen.</div>
+                    <div class="flex py-4" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Opmerking</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">Geschikt voor verkoop na baardtrimbehandelingen.</div>
                     </div>
                 </div>
 
