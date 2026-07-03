@@ -115,11 +115,11 @@
             {{-- Actie knoppen --}}
             <div class="flex gap-3">
                 <a href="{{ route('behandelingen.product.edit', [$behandeling->id, $product->id]) }}" 
-                   class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded text-sm">
+                   class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded text-sm transition duration-200">
                     Wijzigen
                 </a>
                 <a href="{{ route('behandelingen.producten', $behandeling->id) }}" 
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded text-sm">
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded text-sm transition duration-200">
                     Terug
                 </a>
             </div>

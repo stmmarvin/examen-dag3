@@ -124,11 +124,11 @@
                 {{-- Actie knoppen --}}
                 <div class="flex gap-3">
                     <button type="submit" 
-                            class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded text-sm">
+                            class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded text-sm transition duration-200">
                         Opslaan
                     </button>
                     <a href="{{ route('behandelingen.product.detail', [$behandeling->id, $product->id]) }}" 
-                       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded text-sm inline-block">
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded text-sm inline-block transition duration-200">
                         Terug
                     </a>
                 </div>

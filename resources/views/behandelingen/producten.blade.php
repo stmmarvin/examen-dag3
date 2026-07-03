@@ -59,7 +59,7 @@
                 {{-- Terug knop --}}
                 <div class="mt-6">
                     <a href="{{ route('behandelingen.index') }}" 
-                       class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-medium inline-block">
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-medium inline-block transition duration-200">
                         Terug
                     </a>
                 </div>
