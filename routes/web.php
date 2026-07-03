@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\Contact;
 use App\Models\Medewerker;
-use Carbon\Carbon;
+use App\Rules\GeenPermanentVoorMinderjarige;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -73,7 +73,7 @@ Route::get('/medewerkers/{medewerker}/wijzigen', function (Medewerker $medewerke
 Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker $medewerker) {
     $validator = Validator::make($request->all(), [
         'naam' => ['required', 'string', 'max:255'],
-        'specialisatie' => ['required', 'string', 'in:Extensions,Kleuren,Knippen,Permanent,Stylen'],
+        'specialisatie' => ['required', 'string', 'in:Extensions,Kleuren,Knippen,Permanent,Stylen', new GeenPermanentVoorMinderjarige($request->input('geboortedatum'))],
         'geboortedatum' => ['required', 'date'],
         'contact_email' => ['required', 'email', 'max:255'],
         'straatnaam' => ['required', 'string', 'max:255'],
@@ -84,19 +84,6 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
         'mobiel' => ['required', 'string', 'max:20'],
         'opmerking' => ['nullable', 'string', 'max:255'],
     ]);
-
-    $validator->after(function ($validator) use ($request) {
-        if ($request->input('specialisatie') !== 'Permanent' || $validator->errors()->has('geboortedatum')) {
-            return;
-        }
-
-        if (Carbon::parse($request->input('geboortedatum'))->greaterThan(now()->subYears(18))) {
-            $validator->errors()->add(
-                'specialisatie',
-                'Minderjarige medewerkers mogen geen specialisatie Permanent toegewezen krijgen vanwege het werken met gevaarlijke stoffen en chemicaliën.'
-            );
-        }
-    });
 
     $data = $validator->validate();
 
