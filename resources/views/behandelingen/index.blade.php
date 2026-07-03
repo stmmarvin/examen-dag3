@@ -69,7 +69,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($behandelingen as $behandeling)
-                                    <tr class="hover:bg-gray-50">
+                                    <tr class="hover:bg-gray-50 transition duration-150">
                                         <td class="px-4 py-3 text-sm">{{ $behandeling->naam }}</td>
                                         <td class="px-4 py-3 text-sm">{{ $behandeling->beschrijving }}</td>
                                         <td class="px-4 py-3 text-sm">{{ $behandeling->duur }} min</td>
