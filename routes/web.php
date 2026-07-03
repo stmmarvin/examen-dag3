@@ -22,7 +22,7 @@ Route::get('/medewerkers', function () {
         })
         ->orderBy('Voornaam')
         ->orderBy('Achternaam')
-        ->paginate(10)
+        ->paginate(4)
         ->withQueryString();
 
     $specialisaties = Medewerker::query()
