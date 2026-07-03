@@ -2,7 +2,7 @@
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Grote container kaart -->
-            <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg shadow-lg p-12">
+            <div class="bg-gray-50 rounded-2xl shadow-lg p-12">
                 <div class="mb-6 bg-yellow-400 text-black px-4 py-2 rounded inline-block font-semibold text-sm">
                     Kapsalon applicatie
                 </div>
@@ -64,18 +64,18 @@
                     <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
                         <h3 class="text-lg font-bold mb-2 text-gray-800">Behandelingen</h3>
                         <p class="text-gray-500 mb-6 text-sm leading-relaxed">Overzicht van behandelingen, duur en prijsinformatie.</p>
-                        <button class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
+                        <a href="{{ route('behandelingen.index') }}" class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
                             Openen
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Producten Card -->
                     <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
                         <h3 class="text-lg font-bold mb-2 text-gray-800">Producten</h3>
                         <p class="text-gray-500 mb-6 text-sm leading-relaxed">Bekijk en beheer producten binnen het assortiment.</p>
-                        <a href="{{ route('producten.index') }}" class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
+                        <button class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
                             Openen
-                        </a>
+                        </button>
                     </div>
 
                     <!-- Bestellingen Card -->
@@ -91,7 +91,7 @@
             </div>
 
             <div class="text-center text-gray-400 text-sm mt-8">
-                © 2025 Kniploket Tiko - Alle rechten voorbehouden
+                Â© 2025 Kniploket Tiko - Alle rechten voorbehouden
             </div>
         </div>
     </div>

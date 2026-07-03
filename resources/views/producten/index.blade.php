@@ -34,13 +34,13 @@
                     </div>
                     <button 
                         type="submit" 
-                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-medium transition"
+                        class="bg-red-600 hover:bg-red-700 text-white px-2 py-0.5 rounded text-xs transition whitespace-nowrap"
                     >
                         Maak selectie
                     </button>
                     <a 
                         href="{{ route('producten.index') }}" 
-                        class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md font-medium transition"
+                        class="bg-gray-500 hover:bg-gray-600 text-white px-2 px-0.5 rounded text-xs transition whitespace-nowrap inline-flex items-center justify-center"
                     >
                         Reset
                     </a>

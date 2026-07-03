@@ -8,150 +8,140 @@
                 <span class="text-gray-400 mx-2">/</span>
                 <a href="{{ route('producten.index') }}" class="text-red-600 hover:text-red-700 font-medium">Producten</a>
                 <span class="text-gray-400 mx-2">/</span>
-                <span class="text-gray-600">{{ $product->Naam }}</span>
+                <span class="text-gray-600">Detail</span>
             </div>
 
             <!-- Header -->
-            <h1 class="text-3xl font-bold text-red-600 mb-6">Product details</h1>
+            <h1 class="text-3xl font-bold mb-6">
+                <span class="text-red-600">Productdetail</span>
+                <span class="text-gray-400">{{ $product->naam }}</span>
+            </h1>
 
-            <!-- Product Details -->
+            <!-- Success Message -->
+            @if(session('success'))
+                <div id="success-message" class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+                    <div class="flex">
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-green-800">{{ session('success') }}</p>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        var msg = document.getElementById('success-message');
+                        if(msg) {
+                            msg.style.transition = 'opacity 0.5s';
+                            msg.style.opacity = '0';
+                            setTimeout(function() {
+                                msg.remove();
+                            }, 500);
+                        }
+                    }, 3000);
+                </script>
+            @endif
+
+            <!-- Product Details Card -->
             <div class="bg-white rounded-lg shadow-sm p-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
                     
-                    <!-- Basis informatie -->
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Basis informatie</h3>
-                        
-                        <div class="space-y-3">
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Product naam:</span>
-                                <p class="text-gray-900">{{ $product->Naam }}</p>
-                            </div>
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Product</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->naam }}</div>
+                    </div>
 
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Categorie:</span>
-                                <p class="text-gray-900">{{ $product->categorie->Naam ?? '-' }}</p>
-                            </div>
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Merk</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->merk ?? '-' }}</div>
+                    </div>
 
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Merk:</span>
-                                <p class="text-gray-900">{{ $product->Merk ?? '-' }}</p>
-                            </div>
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Omschrijving</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->omschrijving ?? '-' }}</div>
+                    </div>
 
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">EAN-code:</span>
-                                <p class="text-gray-900 font-mono">{{ $product->EANcode ?? '-' }}</p>
-                            </div>
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">EAN-code</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->ean_code ?? '-' }}</div>
+                    </div>
 
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Omschrijving:</span>
-                                <p class="text-gray-900">{{ $product->Omschrijving ?? '-' }}</p>
-                            </div>
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Houdbaarheidsdatum</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">
+                            {{ $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('d-m-Y') : '-' }}
                         </div>
                     </div>
 
-                    <!-- Prijs en voorraad -->
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Prijs & Voorraad</h3>
-                        
-                        <div class="space-y-3">
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Inkoopprijs:</span>
-                                <p class="text-gray-900">
-                                    @if($product->InkoopPrijs)
-                                        EUR {{ number_format($product->InkoopPrijs, 2, ',', '.') }}
-                                    @else
-                                        -
-                                    @endif
-                                </p>
-                            </div>
-
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Verkoopprijs:</span>
-                                <p class="text-gray-900 text-lg font-bold">
-                                    @if($product->VerkoopPrijs)
-                                        EUR {{ number_format($product->VerkoopPrijs, 2, ',', '.') }}
-                                    @else
-                                        -
-                                    @endif
-                                </p>
-                            </div>
-
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Houdbaarheidsdatum:</span>
-                                <p class="text-gray-900">
-                                    {{ $product->Houdbaarheidsdatum ? $product->Houdbaarheidsdatum->format('d-m-Y') : '-' }}
-                                </p>
-                            </div>
-
-                            @if($product->voorraad)
-                            <div class="mt-4 p-4 bg-blue-50 rounded-lg">
-                                <h4 class="font-medium text-gray-800 mb-2">Voorraad informatie</h4>
-                                <div class="space-y-1 text-sm">
-                                    <p><span class="font-medium">Op voorraad:</span> {{ $product->voorraad->AantalOpVoorraad }}</p>
-                                    <p><span class="font-medium">Uitgegeven:</span> {{ $product->voorraad->Aantaluitgegeven }}</p>
-                                    <p><span class="font-medium">Bijgekomen:</span> {{ $product->voorraad->Aantalbijgekomen }}</p>
-                                </div>
-                            </div>
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Inkoopprijs</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">
+                            @if($product->inkoop_prijs)
+                                EUR {{ number_format($product->inkoop_prijs, 2, ',', '.') }}
                             @else
-                            <div class="mt-4 p-4 bg-gray-50 rounded-lg">
-                                <p class="text-gray-500 text-sm">Geen voorraad informatie beschikbaar</p>
-                            </div>
+                                -
                             @endif
                         </div>
                     </div>
 
-                    <!-- Aanvullende informatie -->
-                    <div class="md:col-span-2">
-                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Aanvullende informatie</h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Status:</span>
-                                <p class="text-gray-900">
-                                    @if($product->IsActief)
-                                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Actief</span>
-                                    @else
-                                        <span class="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Inactief</span>
-                                    @endif
-                                </p>
-                            </div>
-
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Opmerking:</span>
-                                <p class="text-gray-900">{{ $product->Opmerking ?? '-' }}</p>
-                            </div>
-
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Aangemaakt op:</span>
-                                <p class="text-gray-900">
-                                    {{ $product->DatumAangemaakt ? $product->DatumAangemaakt->format('d-m-Y H:i') : '-' }}
-                                </p>
-                            </div>
-
-                            <div>
-                                <span class="text-sm font-medium text-gray-500">Laatst gewijzigd:</span>
-                                <p class="text-gray-900">
-                                    {{ $product->DatumGewijzigd ? $product->DatumGewijzigd->format('d-m-Y H:i') : '-' }}
-                                </p>
-                            </div>
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Verkoopprijs</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">
+                            @if($product->verkoop_prijs)
+                                EUR {{ number_format($product->verkoop_prijs, 2, ',', '.') }}
+                            @else
+                                -
+                            @endif
                         </div>
+                    </div>
+
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Aantal op voorraad</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">{{ $product->voorraad->aantal_op_voorraad ?? '-' }}</div>
+                    </div>
+
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">BarberCare Nederland</div>
+                    </div>
+
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Postcode leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">4811AA</div>
+                    </div>
+
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Plaats leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">Breda</div>
+                    </div>
+
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">E-mail leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">bestellingen@barbercare-nederland.nl</div>
+                    </div>
+
+                    <div class="flex py-3 border-b border-gray-300" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Mobiel leverancier</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">+31 623456124</div>
+                    </div>
+
+                    <div class="flex py-3" style="gap: 10px;">
+                        <div style="width: 33%;" class="text-sm font-medium text-gray-900">Opmerking</div>
+                        <div style="flex: 1;" class="text-sm text-gray-600">Geschikt voor verkoop na baardtrimbehandelingen.</div>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="mt-8 pt-6 border-t flex gap-4">
+                <div class="mt-8 flex justify-end gap-4">
                     <a 
-                        href="{{ route('producten.index') }}" 
-                        class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md font-medium transition"
+                        href="{{ route('producten.edit', $product->id) }}" 
+                        class="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded-md font-medium transition"
                     >
-                        Terug naar overzicht
+                        Wijzigen
                     </a>
                     <a 
-                        href="{{ route('producten.edit', $product->Id) }}" 
-                        class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium transition"
+                        href="{{ route('producten.index') }}" 
+                        class="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white px-8 py-2 rounded-md font-medium transition"
                     >
-                        Bewerken
+                        Terug
                     </a>
                 </div>
             </div>
