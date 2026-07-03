@@ -3,12 +3,12 @@
         <div style="max-width: 800px; margin-left: 2rem; padding-left: 1.5rem; padding-right: 1.5rem;">
             
             <!-- Breadcrumb -->
-            <div class="mb-6">
-                <a href="{{ route('dashboard') }}" class="text-red-600 hover:text-red-700 font-medium">Home</a>
-                <span class="text-gray-400 mx-2">/</span>
-                <a href="{{ route('producten.index') }}" class="text-red-600 hover:text-red-700 font-medium">Producten</a>
-                <span class="text-gray-400 mx-2">/</span>
-                <span class="text-gray-600">Detail</span>
+            <div class="mb-8">
+                <a href="{{ route('dashboard') }}" class="text-red-600 hover:text-red-700 font-semibold text-sm">Home</a>
+                <span class="text-gray-500 mx-3">/</span>
+                <a href="{{ route('producten.index') }}" class="text-red-600 hover:text-red-700 font-semibold text-sm">Producten</a>
+                <span class="text-gray-500 mx-3">/</span>
+                <span class="text-gray-700 text-sm">Detail</span>
             </div>
 
             <!-- Header -->
