@@ -64,18 +64,18 @@
                     <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
                         <h3 class="text-lg font-bold mb-2 text-gray-800">Behandelingen</h3>
                         <p class="text-gray-500 mb-6 text-sm leading-relaxed">Overzicht van behandelingen, duur en prijsinformatie.</p>
-                        <a href="{{ route('behandelingen.index') }}" class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
+                        <button class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
                             Openen
-                        </a>
+                        </button>
                     </div>
 
                     <!-- Producten Card -->
                     <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
                         <h3 class="text-lg font-bold mb-2 text-gray-800">Producten</h3>
                         <p class="text-gray-500 mb-6 text-sm leading-relaxed">Bekijk en beheer producten binnen het assortiment.</p>
-                        <button class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
+                        <a href="{{ route('producten.index') }}" class="inline-block border-2 border-blue-500 text-blue-500 px-6 py-2 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition">
                             Openen
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Bestellingen Card -->
