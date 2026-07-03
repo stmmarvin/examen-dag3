@@ -3,9 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\Contact;
 use App\Models\Medewerker;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -69,7 +71,7 @@ Route::get('/medewerkers/{medewerker}/wijzigen', function (Medewerker $medewerke
 })->middleware(['auth', 'verified'])->name('medewerkers.edit');
 
 Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker $medewerker) {
-    $data = $request->validate([
+    $validator = Validator::make($request->all(), [
         'naam' => ['required', 'string', 'max:255'],
         'specialisatie' => ['required', 'string', 'in:Extensions,Kleuren,Knippen,Permanent,Stylen'],
         'geboortedatum' => ['required', 'date'],
@@ -82,6 +84,21 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
         'mobiel' => ['required', 'string', 'max:20'],
         'opmerking' => ['nullable', 'string', 'max:255'],
     ]);
+
+    $validator->after(function ($validator) use ($request) {
+        if ($request->input('specialisatie') !== 'Permanent' || $validator->errors()->has('geboortedatum')) {
+            return;
+        }
+
+        if (Carbon::parse($request->input('geboortedatum'))->greaterThan(now()->subYears(18))) {
+            $validator->errors()->add(
+                'specialisatie',
+                'Minderjarige medewerkers mogen geen specialisatie Permanent toegewezen krijgen vanwege het werken met gevaarlijke stoffen en chemicaliën.'
+            );
+        }
+    });
+
+    $data = $validator->validate();
 
     DB::transaction(function () use ($data, $medewerker) {
         $naamdelen = preg_split('/\s+/', trim($data['naam']));
