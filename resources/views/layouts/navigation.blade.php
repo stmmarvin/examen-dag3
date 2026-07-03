@@ -12,12 +12,12 @@
             <!-- Navigation Links - Centered -->
             <div class="flex items-center space-x-8">
                 <span class="text-white text-sm font-medium whitespace-nowrap">Accounts</span>
-                <a href="{{ route('medewerkers.index') }}" class="rounded px-2 py-1 text-sm font-medium text-white transition hover:bg-red-700 whitespace-nowrap">Medewerkers</a>
+                <span class="text-white text-sm font-medium whitespace-nowrap">Medewerkers</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Beschikbaarheid</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Klanten</span>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Afspraken</span>
-                <a href="{{ route('behandelingen.index') }}" class="text-white text-sm font-medium whitespace-nowrap hover:text-red-200 transition">Behandelingen</a>
-                <span class="text-white text-sm font-medium whitespace-nowrap">Producten</span>
+                <span class="text-white text-sm font-medium whitespace-nowrap">Behandelingen</span>
+                <a href="{{ route('producten.index') }}" class="text-white hover:text-red-200 transition text-sm font-medium whitespace-nowrap">Producten</a>
                 <span class="text-white text-sm font-medium whitespace-nowrap">Bestellingen</span>
             </div>
 

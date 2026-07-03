@@ -156,6 +156,15 @@ Route::middleware('auth')->group(function () {
     
     // Werk productprijs bij (minimaal 30% marge)
     Route::put('/behandelingen/{behandelingId}/producten/{productId}', [App\Http\Controllers\BehandelingController::class, 'updateProduct'])->name('behandelingen.product.update');
+
+    // Producten routes
+    Route::get('/producten', [App\Http\Controllers\ProductController::class, 'index'])->name('producten.index');
+    Route::get('/producten/nieuw', [App\Http\Controllers\ProductController::class, 'create'])->name('producten.create');
+    Route::post('/producten', [App\Http\Controllers\ProductController::class, 'store'])->name('producten.store');
+    Route::get('/producten/{product}', [App\Http\Controllers\ProductController::class, 'show'])->name('producten.show');
+    Route::get('/producten/{product}/wijzigen', [App\Http\Controllers\ProductController::class, 'edit'])->name('producten.edit');
+    Route::put('/producten/{product}', [App\Http\Controllers\ProductController::class, 'update'])->name('producten.update');
+    Route::delete('/producten/{product}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('producten.destroy');
 });
 
 require __DIR__.'/auth.php';

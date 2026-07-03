@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['categorie', 'voorraad']);
+        $query = Product::with(['categorie']);
         
         // Filter op categorie indien geselecteerd
         if ($request->filled('categorie')) {
@@ -48,7 +48,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $product->load(['categorie', 'voorraad']);
+        $product->load(['categorie']);
         return view('producten.show', compact('product'));
     }
 
