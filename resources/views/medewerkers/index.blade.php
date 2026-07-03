@@ -34,12 +34,30 @@
             </form>
 
             <section class="overflow-hidden rounded-lg bg-white shadow-sm">
-                <div class="flex flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between">
+                <div class="relative flex flex-col gap-3 px-4 py-4 md:min-h-16 md:justify-center">
                     <p class="text-sm text-slate-500">Gevonden medewerkers - {{ $medewerkers->total() }} medewerker(s)</p>
 
                     @if ($medewerkers->hasPages())
-                        <div class="text-sm">
-                            {{ $medewerkers->links() }}
+                        <div class="flex items-center justify-center gap-2 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+                            @if ($medewerkers->onFirstPage())
+                                <span class="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-sm font-semibold text-slate-300">&lsaquo;</span>
+                            @else
+                                <a href="{{ $medewerkers->previousPageUrl() }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">&lsaquo;</a>
+                            @endif
+
+                            @foreach ($medewerkers->getUrlRange(1, $medewerkers->lastPage()) as $pagina => $url)
+                                @if ($pagina === $medewerkers->currentPage())
+                                    <span class="flex h-8 w-8 items-center justify-center rounded-md bg-red-700 text-sm font-bold text-white">{{ $pagina }}</span>
+                                @else
+                                    <a href="{{ $url }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">{{ $pagina }}</a>
+                                @endif
+                            @endforeach
+
+                            @if ($medewerkers->hasMorePages())
+                                <a href="{{ $medewerkers->nextPageUrl() }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">&rsaquo;</a>
+                            @else
+                                <span class="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-sm font-semibold text-slate-300">&rsaquo;</span>
+                            @endif
                         </div>
                     @endif
                 </div>
