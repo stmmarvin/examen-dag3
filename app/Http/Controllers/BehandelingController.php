@@ -90,7 +90,7 @@ class BehandelingController extends Controller
         // Bereken minimale prijs (inkoopprijs is 50% van huidige verkoopprijs)
         $purchasePrice = $product->prijs * 0.5;
         $minPrice = $purchasePrice * 1.30;
-        $maxPrice = 9999.99; // Database limiet voor DECIMAL(10,2)
+        $maxPrice = 1000.00; // Realistisch maximum voor salonproducten
 
         // Valideer dat nieuwe prijs minimale marge haalt
         $request->validate([
