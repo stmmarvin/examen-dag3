@@ -9,41 +9,34 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'Product';
-    protected $primaryKey = 'Id';
-    public $timestamps = false;
+    protected $table = 'producten';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
-        'CategorieId',
-        'Naam',
-        'Omschrijving',
-        'Merk',
-        'EANcode',
-        'Houdbaarheidsdatum',
-        'InkoopPrijs',
-        'VerkoopPrijs',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'categorie_id',
+        'naam',
+        'omschrijving',
+        'merk',
+        'ean_code',
+        'houdbaarheidsdatum',
+        'inkoop_prijs',
+        'verkoop_prijs',
     ];
 
     protected $casts = [
-        'Houdbaarheidsdatum' => 'date',
-        'InkoopPrijs' => 'decimal:2',
-        'VerkoopPrijs' => 'decimal:2',
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'houdbaarheidsdatum' => 'date',
+        'inkoop_prijs' => 'decimal:2',
+        'verkoop_prijs' => 'decimal:2',
     ];
 
     public function categorie()
     {
-        return $this->belongsTo(Categorie::class, 'CategorieId', 'Id');
+        return $this->belongsTo(Categorie::class, 'categorie_id');
     }
 
     public function voorraad()
     {
-        return $this->hasOne(Voorraad::class, 'ProductId', 'Id');
+        return $this->hasOne(Voorraad::class, 'product_id');
     }
 }
