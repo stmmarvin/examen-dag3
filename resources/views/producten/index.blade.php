@@ -48,8 +48,35 @@
             </div>
 
             <!-- Product Count and Pagination Info -->
-            <div class="mb-4 text-gray-600">
-                <span class="font-medium">Gevonden producten:</span> {{ $producten->total() }} product(en)
+            <div class="relative flex {{ $producten->hasPages() ? 'min-h-20' : 'min-h-12' }} flex-col gap-3 mb-4">
+                <div class="text-gray-600">
+                    <span class="font-medium">Gevonden producten:</span> {{ $producten->total() }} product(en)
+                </div>
+
+                {{-- Paginatie nummers zoals bij medewerkers --}}
+                @if ($producten->hasPages())
+                    <div class="flex items-center justify-center gap-2">
+                        @if ($producten->onFirstPage())
+                            <span class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-gray-300">&lsaquo;</span>
+                        @else
+                            <a href="{{ $producten->previousPageUrl() }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">&lsaquo;</a>
+                        @endif
+
+                        @foreach ($producten->getUrlRange(1, $producten->lastPage()) as $pagina => $url)
+                            @if ($pagina === $producten->currentPage())
+                                <span class="flex h-8 w-8 items-center justify-center rounded-md bg-red-600 text-sm font-bold text-white">{{ $pagina }}</span>
+                            @else
+                                <a href="{{ $url }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">{{ $pagina }}</a>
+                            @endif
+                        @endforeach
+
+                        @if ($producten->hasMorePages())
+                            <a href="{{ $producten->nextPageUrl() }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">&rsaquo;</a>
+                        @else
+                            <span class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-gray-300">&rsaquo;</span>
+                        @endif
+                    </div>
+                @endif
             </div>
 
             <!-- Products Table -->
@@ -129,35 +156,7 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
-            @if($producten->hasPages())
-                <div class="mt-6 flex justify-center">
-                    <nav class="flex items-center gap-2">
-                        {{-- Previous Page Link --}}
-                        @if ($producten->onFirstPage())
-                            <span class="px-3 py-2 text-gray-400 cursor-not-allowed">«</span>
-                        @else
-                            <a href="{{ $producten->previousPageUrl() }}" class="px-3 py-2 text-gray-600 hover:text-red-600">«</a>
-                        @endif
 
-                        {{-- Page Numbers --}}
-                        @for ($i = 1; $i <= $producten->lastPage(); $i++)
-                            @if ($i == $producten->currentPage())
-                                <span class="px-4 py-2 bg-red-600 text-white rounded-md font-medium">{{ $i }}</span>
-                            @else
-                                <a href="{{ $producten->url($i) }}" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md">{{ $i }}</a>
-                            @endif
-                        @endfor
-
-                        {{-- Next Page Link --}}
-                        @if ($producten->hasMorePages())
-                            <a href="{{ $producten->nextPageUrl() }}" class="px-3 py-2 text-gray-600 hover:text-red-600">»</a>
-                        @else
-                            <span class="px-3 py-2 text-gray-400 cursor-not-allowed">»</span>
-                        @endif
-                    </nav>
-                </div>
-            @endif
 
             <!-- Footer -->
             <div class="text-center text-gray-400 text-sm mt-8">

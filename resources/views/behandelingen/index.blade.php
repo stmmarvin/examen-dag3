@@ -44,13 +44,35 @@
                     </div>
                 @else
                     {{-- Resultaat informatie --}}
-                    <p class="text-sm text-gray-600 mb-4">
-                        Gevonden behandelingen - {{ $behandelingen->total() }} behandeling(en)
-                    </p>
+                    <div class="relative flex {{ $behandelingen->hasPages() ? 'min-h-20' : 'min-h-12' }} flex-col gap-3 mb-4">
+                        <p class="text-sm text-gray-600">
+                            Gevonden behandelingen - {{ $behandelingen->total() }} behandeling(en)
+                        </p>
 
-                    {{-- Paginatie boven tabel --}}
-                    <div class="flex justify-center mb-4">
-                        {{ $behandelingen->onEachSide(1)->links() }}
+                        {{-- Paginatie nummers zoals bij medewerkers --}}
+                        @if ($behandelingen->hasPages())
+                            <div class="flex items-center justify-center gap-2">
+                                @if ($behandelingen->onFirstPage())
+                                    <span class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-gray-300">&lsaquo;</span>
+                                @else
+                                    <a href="{{ $behandelingen->previousPageUrl() }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">&lsaquo;</a>
+                                @endif
+
+                                @foreach ($behandelingen->getUrlRange(1, $behandelingen->lastPage()) as $pagina => $url)
+                                    @if ($pagina === $behandelingen->currentPage())
+                                        <span class="flex h-8 w-8 items-center justify-center rounded-md bg-red-600 text-sm font-bold text-white">{{ $pagina }}</span>
+                                    @else
+                                        <a href="{{ $url }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">{{ $pagina }}</a>
+                                    @endif
+                                @endforeach
+
+                                @if ($behandelingen->hasMorePages())
+                                    <a href="{{ $behandelingen->nextPageUrl() }}" class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-red-700 transition hover:border-red-200 hover:bg-red-50">&rsaquo;</a>
+                                @else
+                                    <span class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm font-semibold text-gray-300">&rsaquo;</span>
+                                @endif
+                            </div>
+                        @endif
                     </div>
 
                     {{-- Behandelingen tabel --}}

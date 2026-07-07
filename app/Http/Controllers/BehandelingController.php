@@ -24,7 +24,7 @@ class BehandelingController extends Controller
         }
 
         // Pagineer resultaten en behoud filter parameter
-        $behandelingen = $query->paginate(5)->appends(['filter' => $filter]);
+        $behandelingen = $query->paginate(3)->appends(['filter' => $filter]);
 
         // Haal unieke behandeling namen op voor dropdown
         $behandelingNames = Behandeling::distinct()->pluck('naam');

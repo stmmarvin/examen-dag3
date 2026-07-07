@@ -17,7 +17,7 @@ class ProductController extends Controller
             $query->where('categorie_id', $request->categorie_id);
         }
         
-        $producten = $query->orderBy('naam')->paginate(15)->withQueryString();
+        $producten = $query->orderBy('naam')->paginate(3)->withQueryString();
         $categorieen = Categorie::orderBy('naam')->get();
         
         return view('producten.index', compact('producten', 'categorieen'));
