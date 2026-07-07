@@ -99,7 +99,7 @@
                                         <td class="px-4 py-3 text-sm">{{ DB::table('behandeling_product')->where('behandeling_id', $behandeling->id)->count() }}</td>
                                         <td class="px-4 py-3 text-sm">
                                             <a href="{{ route('behandelingen.producten', $behandeling->id) }}" 
-                                               class="bg-white border-2 border-blue-500 text-blue-500 hover:bg-blue-50 focus:ring-2 focus:ring-blue-300 focus:outline-none px-6 py-2 rounded-full text-sm inline-block font-medium transition duration-200">
+                                               class="bg-white border-2 border-blue-500 text-blue-500 hover:bg-blue-50 focus:ring-2 focus:ring-blue-300 focus:outline-none px-6 py-2 rounded text-sm inline-block font-medium transition duration-200">
                                                 Producten
                                             </a>
                                         </td>
