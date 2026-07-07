@@ -14,67 +14,72 @@ class Contact extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Straatnaam',
-        'Huisnummer',
-        'Toevoeging',
-        'Postcode',
-        'Plaats',
-        'Email',
-        'Mobiel',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'straatnaam',
+        'huisnummer',
+        'toevoeging',
+        'postcode',
+        'plaats',
+        'email',
+        'mobiel',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     public function klanten()
     {
-        return $this->belongsToMany(Klant::class, 'KlantPerContact', 'ContactId', 'KlantId');
+        return $this->belongsToMany(Klant::class, 'klant_per_contact', 'contact_id', 'klant_id');
     }
 
     public function getIdAttribute(): mixed
     {
-        return $this->attributes['Id'] ?? null;
+        return $this->attributes['id'] ?? $this->attributes['Id'] ?? null;
     }
 
     public function getStraatnaamAttribute(): mixed
     {
-        return $this->attributes['Straatnaam'] ?? null;
+        return $this->attributes['straatnaam'] ?? $this->attributes['Straatnaam'] ?? null;
     }
 
     public function getHuisnummerAttribute(): mixed
     {
-        return $this->attributes['Huisnummer'] ?? null;
+        return $this->attributes['huisnummer'] ?? $this->attributes['Huisnummer'] ?? null;
     }
 
     public function getToevoegingAttribute(): mixed
     {
-        return $this->attributes['Toevoeging'] ?? null;
+        return $this->attributes['toevoeging'] ?? $this->attributes['Toevoeging'] ?? null;
     }
 
     public function getPostcodeAttribute(): mixed
     {
-        return $this->attributes['Postcode'] ?? null;
+        return $this->attributes['postcode'] ?? $this->attributes['Postcode'] ?? null;
     }
 
     public function getPlaatsAttribute(): mixed
     {
-        return $this->attributes['Plaats'] ?? null;
+        return $this->attributes['plaats'] ?? $this->attributes['Plaats'] ?? null;
     }
 
     public function getEmailAttribute(): mixed
     {
-        return $this->attributes['Email'] ?? null;
+        return $this->attributes['email'] ?? $this->attributes['Email'] ?? null;
     }
 
     public function getMobielAttribute(): mixed
     {
-        return $this->attributes['Mobiel'] ?? null;
+        return $this->attributes['mobiel'] ?? $this->attributes['Mobiel'] ?? null;
+    }
+
+    public function setDatumGewijzigdAttribute(mixed $value): void
+    {
+        $this->attributes['datum_gewijzigd'] = $value;
     }
 }

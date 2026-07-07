@@ -13,6 +13,8 @@ return new class extends Migration
             DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         }
 
+        $klantTabelBestondAl = Schema::hasTable('klant');
+
         if (! Schema::hasTable('klant')) {
             if (DB::getDriverName() === 'mysql') {
                 DB::statement("
@@ -89,7 +91,7 @@ return new class extends Migration
                 DB::statement("
                     CREATE TABLE `KlantPerContact` (
                       `Id` INT PRIMARY KEY AUTO_INCREMENT,
-                      `KlantId` BIGINT UNSIGNED NOT NULL,
+                      `KlantId` INT NOT NULL,
                       `ContactId` INT NOT NULL,
                       `IsActief` BIT DEFAULT b'1',
                       `Opmerking` VARCHAR(255) NULL,
@@ -102,14 +104,28 @@ return new class extends Migration
             } else {
                 Schema::create('KlantPerContact', function (Blueprint $table) {
                     $table->id('Id');
-                    $table->unsignedBigInteger('KlantId');
-                    $table->unsignedBigInteger('ContactId');
+                    $table->unsignedInteger('KlantId');
+                    $table->unsignedInteger('ContactId');
                     $table->boolean('IsActief')->default(true);
                     $table->string('Opmerking')->nullable();
                     $table->dateTime('DatumAangemaakt', 6)->nullable();
                     $table->dateTime('DatumGewijzigd', 6)->nullable();
                 });
             }
+        }
+
+        if (Schema::hasTable('users') && ! Schema::hasColumn('users', 'rolename')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('rolename', 20)->default('klant')->after('password');
+            });
+        }
+
+        if ($klantTabelBestondAl) {
+            if (DB::getDriverName() === 'mysql') {
+                DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+            }
+
+            return;
         }
 
         DB::table('users')->upsert([

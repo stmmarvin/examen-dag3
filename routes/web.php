@@ -27,10 +27,10 @@ Route::get('/medewerkers', function () {
     $medewerkers = Medewerker::query()
         ->with('contacten')
         ->when($specialisatie, function ($query) use ($specialisatie) {
-            $query->where('Specialisatie', $specialisatie);
+            $query->where('specialisatie', $specialisatie);
         })
-        ->orderBy('Voornaam')
-        ->orderBy('Achternaam')
+        ->orderBy('voornaam')
+        ->orderBy('achternaam')
         ->paginate(4)
         ->withQueryString();
 
@@ -135,7 +135,7 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
     });
 
     return redirect()
-        ->route('medewerkers.show', $medewerker)
+        ->route('medewerkers.show', ['medewerker' => $medewerker->getKey()])
         ->with('status', 'Medewerkergegevens bijgewerkt.');
 })->middleware(['auth', 'verified'])->name('medewerkers.update');
 

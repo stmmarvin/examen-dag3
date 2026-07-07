@@ -20,7 +20,7 @@
                 <span class="text-gray-500">{{ $klant->volledige_naam }}</span>
             </h1>
 
-            <form method="POST" action="{{ route('klanten.update', $klant->Id) }}" class="w-full max-w-3xl rounded-xl bg-white p-5 shadow-sm">
+            <form method="POST" action="{{ route('klanten.update', $klant->id) }}" class="w-full max-w-3xl rounded-xl bg-white p-5 shadow-sm">
                 @csrf
                 @method('PATCH')
 
@@ -38,7 +38,7 @@
 
                     <div>
                         <label for="contact_email" class="mb-1 block text-sm font-semibold text-gray-700">Contact e-mail <span class="text-red-600">*</span></label>
-                        <input id="contact_email" name="contact_email" type="email" value="{{ old('contact_email', $contact->Email) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500 @error('contact_email') border-red-500 @enderror">
+                        <input id="contact_email" name="contact_email" type="email" value="{{ old('contact_email', $contact->email) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500 @error('contact_email') border-red-500 @enderror">
                         <x-input-error :messages="$errors->get('contact_email')" class="mt-2" />
                     </div>
 
@@ -49,38 +49,38 @@
 
                     <div>
                         <label for="straatnaam" class="mb-1 block text-sm font-semibold text-gray-700">Straatnaam <span class="text-red-600">*</span></label>
-                        <input id="straatnaam" name="straatnaam" type="text" value="{{ old('straatnaam', $contact->Straatnaam) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                        <input id="straatnaam" name="straatnaam" type="text" value="{{ old('straatnaam', $contact->straatnaam) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
                         <x-input-error :messages="$errors->get('straatnaam')" class="mt-2" />
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label for="huisnummer" class="mb-1 block text-sm font-semibold text-gray-700">Huisnummer <span class="text-red-600">*</span></label>
-                            <input id="huisnummer" name="huisnummer" type="text" value="{{ old('huisnummer', $contact->Huisnummer) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                            <input id="huisnummer" name="huisnummer" type="text" value="{{ old('huisnummer', $contact->huisnummer) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
                             <x-input-error :messages="$errors->get('huisnummer')" class="mt-2" />
                         </div>
                         <div>
                             <label for="toevoeging" class="mb-1 block text-sm font-semibold text-gray-700">Toevoeging</label>
-                            <input id="toevoeging" name="toevoeging" type="text" value="{{ old('toevoeging', $contact->Toevoeging) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                            <input id="toevoeging" name="toevoeging" type="text" value="{{ old('toevoeging', $contact->toevoeging) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
                             <x-input-error :messages="$errors->get('toevoeging')" class="mt-2" />
                         </div>
                     </div>
 
                     <div>
                         <label for="postcode" class="mb-1 block text-sm font-semibold text-gray-700">Postcode <span class="text-red-600">*</span></label>
-                        <input id="postcode" name="postcode" type="text" value="{{ old('postcode', $contact->Postcode) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                        <input id="postcode" name="postcode" type="text" value="{{ old('postcode', $contact->postcode) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
                         <x-input-error :messages="$errors->get('postcode')" class="mt-2" />
                     </div>
 
                     <div>
                         <label for="plaats" class="mb-1 block text-sm font-semibold text-gray-700">Plaats <span class="text-red-600">*</span></label>
-                        <input id="plaats" name="plaats" type="text" value="{{ old('plaats', $contact->Plaats) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                        <input id="plaats" name="plaats" type="text" value="{{ old('plaats', $contact->plaats) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
                         <x-input-error :messages="$errors->get('plaats')" class="mt-2" />
                     </div>
 
                     <div>
                         <label for="mobiel" class="mb-1 block text-sm font-semibold text-gray-700">Mobiel <span class="text-red-600">*</span></label>
-                        <input id="mobiel" name="mobiel" type="text" value="{{ old('mobiel', $contact->Mobiel) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                        <input id="mobiel" name="mobiel" type="text" value="{{ old('mobiel', $contact->mobiel) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
                         <x-input-error :messages="$errors->get('mobiel')" class="mt-2" />
                     </div>
 
@@ -97,7 +97,7 @@
                     <button type="submit" class="rounded-md bg-red-600 px-5 py-2 text-sm font-bold text-white hover:bg-red-700">
                         Opslaan
                     </button>
-                    <a href="{{ $klant->Id == 5 ? route('klanten.details') : route('klanten.show', $klant->Id) }}" class="rounded-md bg-gray-500 px-5 py-2 text-sm font-bold text-white hover:bg-gray-600">
+                    <a href="{{ $klant->id == 5 ? route('klanten.details') : route('klanten.show', $klant->id) }}" class="rounded-md bg-gray-500 px-5 py-2 text-sm font-bold text-white hover:bg-gray-600">
                         Terug
                     </a>
                 </div>

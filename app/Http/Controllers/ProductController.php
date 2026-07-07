@@ -13,11 +13,11 @@ class ProductController extends Controller
         $query = Product::with(['categorie']);
         
         // Filter op categorie indien geselecteerd
-        if ($request->filled('categorie')) {
-            $query->where('categorie_id', $request->categorie);
+        if ($request->filled('categorie_id')) {
+            $query->where('categorie_id', $request->categorie_id);
         }
         
-        $producten = $query->orderBy('naam')->paginate(15);
+        $producten = $query->orderBy('naam')->paginate(15)->withQueryString();
         $categorieen = Categorie::orderBy('naam')->get();
         
         return view('producten.index', compact('producten', 'categorieen'));

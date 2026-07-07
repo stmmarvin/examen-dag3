@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * Medewerker Model
@@ -14,7 +15,7 @@ class Medewerker extends Model
     use HasFactory;
 
     protected $table = 'medewerker';
-    protected $primaryKey = 'Id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
@@ -31,10 +32,10 @@ class Medewerker extends Model
     ];
 
     protected $casts = [
-        'Geboortedatum' => 'date',
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'geboortedatum' => 'date',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     /**
@@ -42,7 +43,7 @@ class Medewerker extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'UserId');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
@@ -50,7 +51,7 @@ class Medewerker extends Model
      */
     public function contacten()
     {
-        return $this->belongsToMany(Contact::class, 'medewerker_per_contact', 'medewerker_id', 'contact_id', 'Id', 'Id');
+        return $this->belongsToMany(Contact::class, 'medewerker_per_contact', 'medewerker_id', 'contact_id', 'id', 'id');
     }
 
     /**
@@ -68,86 +69,88 @@ class Medewerker extends Model
 
     public function getUserIdAttribute(): mixed
     {
-        return $this->attributes['UserId'] ?? null;
+        return $this->attributes['user_id'] ?? $this->attributes['UserId'] ?? null;
     }
 
     public function setUserIdAttribute(mixed $value): void
     {
-        $this->attributes['UserId'] = $value;
+        $this->attributes['user_id'] = $value;
     }
 
     public function getVoornaamAttribute(): mixed
     {
-        return $this->attributes['Voornaam'] ?? null;
+        return $this->attributes['voornaam'] ?? $this->attributes['Voornaam'] ?? null;
     }
 
     public function setVoornaamAttribute(mixed $value): void
     {
-        $this->attributes['Voornaam'] = $value;
+        $this->attributes['voornaam'] = $value;
     }
 
     public function getTussenvoegselAttribute(): mixed
     {
-        return $this->attributes['Tussenvoegsel'] ?? null;
+        return $this->attributes['tussenvoegsel'] ?? $this->attributes['Tussenvoegsel'] ?? null;
     }
 
     public function setTussenvoegselAttribute(mixed $value): void
     {
-        $this->attributes['Tussenvoegsel'] = $value;
+        $this->attributes['tussenvoegsel'] = $value;
     }
 
     public function getAchternaamAttribute(): mixed
     {
-        return $this->attributes['Achternaam'] ?? null;
+        return $this->attributes['achternaam'] ?? $this->attributes['Achternaam'] ?? null;
     }
 
     public function setAchternaamAttribute(mixed $value): void
     {
-        $this->attributes['Achternaam'] = $value;
+        $this->attributes['achternaam'] = $value;
     }
 
     public function getSpecialisatieAttribute(): mixed
     {
-        return $this->attributes['Specialisatie'] ?? null;
+        return $this->attributes['specialisatie'] ?? $this->attributes['Specialisatie'] ?? null;
     }
 
     public function setSpecialisatieAttribute(mixed $value): void
     {
-        $this->attributes['Specialisatie'] = $value;
+        $this->attributes['specialisatie'] = $value;
     }
 
     public function getGeboortedatumAttribute(): mixed
     {
-        return $this->attributes['Geboortedatum'] ?? null;
+        $datum = $this->attributes['geboortedatum'] ?? $this->attributes['Geboortedatum'] ?? null;
+
+        return $datum ? Carbon::parse($datum) : null;
     }
 
     public function setGeboortedatumAttribute(mixed $value): void
     {
-        $this->attributes['Geboortedatum'] = $value;
+        $this->attributes['geboortedatum'] = $value;
     }
 
     public function getIsActiefAttribute(): mixed
     {
-        return $this->attributes['IsActief'] ?? null;
+        return $this->attributes['is_actief'] ?? $this->attributes['IsActief'] ?? null;
     }
 
     public function setIsActiefAttribute(mixed $value): void
     {
-        $this->attributes['IsActief'] = $value;
+        $this->attributes['is_actief'] = $value;
     }
 
     public function getOpmerkingAttribute(): mixed
     {
-        return $this->attributes['Opmerking'] ?? null;
+        return $this->attributes['opmerking'] ?? $this->attributes['Opmerking'] ?? null;
     }
 
     public function setOpmerkingAttribute(mixed $value): void
     {
-        $this->attributes['Opmerking'] = $value;
+        $this->attributes['opmerking'] = $value;
     }
 
     public function setDatumGewijzigdAttribute(mixed $value): void
     {
-        $this->attributes['DatumGewijzigd'] = $value;
+        $this->attributes['datum_gewijzigd'] = $value;
     }
 }

@@ -76,7 +76,7 @@
                 </table>
 
                 <div class="mt-5 flex justify-end gap-3">
-                    <a href="{{ route('medewerkers.edit', $medewerker) }}" class="rounded-md bg-red-700 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-red-800">
+                    <a href="{{ route('medewerkers.edit', ['medewerker' => $medewerker->getKey()]) }}" class="rounded-md bg-red-700 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-red-800">
                         Wijzigen
                     </a>
                     <a href="{{ route('medewerkers.index') }}" class="rounded-md border border-blue-500 px-4 py-2 text-sm font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white">

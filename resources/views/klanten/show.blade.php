@@ -26,7 +26,7 @@
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Contact e-mail</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $contact->Email }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $contact->email }}</dd>
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Account e-mail</dt>
@@ -34,27 +34,27 @@
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Straatnaam</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $contact->Straatnaam }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $contact->straatnaam }}</dd>
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Huisnummer</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $contact->Huisnummer }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $contact->huisnummer }}</dd>
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Toevoeging</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $contact->Toevoeging ?: '-' }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $contact->toevoeging ?: '-' }}</dd>
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Postcode</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $contact->Postcode }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $contact->postcode }}</dd>
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Plaats</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $contact->Plaats }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $contact->plaats }}</dd>
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Mobiel</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $contact->Mobiel }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $contact->mobiel }}</dd>
                     </div>
                     <div class="grid grid-cols-3 py-2">
                         <dt class="font-bold text-gray-800">Bijzonderheden</dt>
@@ -63,7 +63,7 @@
                 </dl>
 
                 <div class="mt-6 flex justify-end gap-2">
-                    <a href="{{ $klant->Id == 5 ? route('klanten.details.edit') : route('klanten.edit', $klant->Id) }}" class="rounded-md bg-red-600 px-5 py-2 text-sm font-bold text-white hover:bg-red-700">
+                    <a href="{{ $klant->id == 5 ? route('klanten.details.edit') : route('klanten.edit', $klant->id) }}" class="rounded-md bg-red-600 px-5 py-2 text-sm font-bold text-white hover:bg-red-700">
                         Wijzigen
                     </a>
                     <a href="{{ route('klanten.index') }}" class="rounded-md border border-blue-500 px-5 py-2 text-sm font-bold text-blue-600 hover:bg-blue-500 hover:text-white">

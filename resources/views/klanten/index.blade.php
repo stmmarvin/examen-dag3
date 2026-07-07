@@ -83,7 +83,7 @@
                     <tbody>
                         @forelse ($klanten as $klant)
                             @php
-                                $contact = $klant->contact ?? ($klant->contacten->firstWhere('IsActief', true) ?? $klant->contacten->first());
+                                $contact = $klant->contact ?? ($klant->contacten->firstWhere('is_actief', true) ?? $klant->contacten->first());
                                 $adres = trim(($contact?->straatnaam ?? '') . ' ' . ($contact?->huisnummer ?? '') . ' ' . ($contact?->toevoeging ?? ''));
                             @endphp
                             <tr class="border-b border-gray-200 {{ session('updated_klant_id') === $klant->id ? 'bg-gray-200' : '' }}">

@@ -21,7 +21,7 @@
             </h1>
 
             {{-- Dit formulier slaat de wijzigingen echt op in de database. --}}
-            <form method="POST" action="{{ route('medewerkers.update', $medewerker) }}" class="max-w-4xl rounded-lg bg-white p-6 shadow-lg">
+            <form method="POST" action="{{ route('medewerkers.update', ['medewerker' => $medewerker->getKey()]) }}" class="max-w-4xl rounded-lg bg-white p-6 shadow-lg">
                 @csrf
                 @method('PATCH')
 
@@ -113,7 +113,7 @@
                     <button type="submit" class="rounded-md bg-red-700 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-red-800">
                         Opslaan
                     </button>
-                    <a href="{{ route('medewerkers.show', $medewerker) }}" class="rounded-md bg-slate-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-slate-600">
+                    <a href="{{ route('medewerkers.show', ['medewerker' => $medewerker->getKey()]) }}" class="rounded-md bg-slate-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-slate-600">
                         Terug
                     </a>
                 </div>
