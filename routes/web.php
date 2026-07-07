@@ -173,10 +173,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/producten', [ProductController::class, 'index'])->name('producten.index');
     Route::get('/producten/nieuw', [ProductController::class, 'create'])->name('producten.create');
     Route::post('/producten', [ProductController::class, 'store'])->name('producten.store');
-    Route::get('/producten/{product}', [ProductController::class, 'show'])->name('producten.show');
-    Route::get('/producten/{product}/wijzigen', [ProductController::class, 'edit'])->name('producten.edit');
-    Route::put('/producten/{product}', [ProductController::class, 'update'])->name('producten.update');
-    Route::delete('/producten/{product}', [ProductController::class, 'destroy'])->name('producten.destroy');
+    Route::get('/producten/{id}', [ProductController::class, 'show'])->name('producten.show');
+    Route::get('/producten/{id}/wijzigen', [ProductController::class, 'edit'])->name('producten.edit');
+    Route::put('/producten/{id}', [ProductController::class, 'update'])->name('producten.update');
+    Route::delete('/producten/{id}', [ProductController::class, 'destroy'])->name('producten.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -7,50 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Product Model
- * Representeert een salon product uit de Product tabel
+ * Representeert een salon product zoals shampoo, conditioner, etc.
  */
 class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'product';
+    protected $table = 'producten';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
-        'categorie_id',
         'naam',
+        'categorie_id',
         'omschrijving',
         'merk',
         'ean_code',
         'houdbaarheidsdatum',
         'inkoop_prijs',
         'verkoop_prijs',
-        'is_actief',
-        'opmerking',
-        'datum_aangemaakt',
-        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'houdbaarheidsdatum' => 'date',
         'inkoop_prijs' => 'decimal:2',
         'verkoop_prijs' => 'decimal:2',
-        'is_actief' => 'boolean',
-        'datum_aangemaakt' => 'datetime',
-        'datum_gewijzigd' => 'datetime',
+        'houdbaarheidsdatum' => 'date',
     ];
 
     /**
-     * Relatie met Voorraad
-     */
-    public function voorraad()
-    {
-        return $this->hasOne(Voorraad::class, 'product_id', 'id');
-    }
-
-    /**
      * Relatie met Categorie
+     * Een product behoort tot één categorie
      */
     public function categorie()
     {
@@ -58,11 +44,13 @@ class Product extends Model
     }
 
     /**
-     * Relatie met behandelingen via pivot tabel
+     * Many-to-many relatie met Behandeling
+     * Een product kan gebruikt worden in meerdere behandelingen
      */
     public function behandelingen()
     {
         return $this->belongsToMany(Behandeling::class, 'behandeling_product', 'product_id', 'behandeling_id')
-            ->withPivot('aantal');
+                    ->withPivot('aantal')
+                    ->withTimestamps();
     }
 }

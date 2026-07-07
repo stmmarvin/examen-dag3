@@ -10,11 +10,11 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::query();
+        $query = Product::with(['categorie']);
         
         // Filter op categorie indien geselecteerd
-        if ($request->filled('categorie_id')) {
-            $query->where('categorie_id', $request->categorie_id);
+        if ($request->filled('categorie')) {
+            $query->where('categorie_id', $request->categorie);
         }
         
         $producten = $query->orderBy('naam')->paginate(15);
@@ -47,19 +47,23 @@ class ProductController extends Controller
         return redirect()->route('producten.index')->with('success', 'Product succesvol aangemaakt!');
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
+        $product = Product::with(['categorie'])->findOrFail($id);
         return view('producten.show', compact('product'));
     }
 
-    public function edit(Product $product)
+    public function edit($id)
     {
+        $product = Product::findOrFail($id);
         $categorieen = Categorie::orderBy('naam')->get();
         return view('producten.edit', compact('product', 'categorieen'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
+        $product = Product::findOrFail($id);
+        
         // Validate the input - only nieuwe_houdbaarheidsdatum
         $validated = $request->validate([
             'nieuwe_houdbaarheidsdatum' => 'required|date',
@@ -87,8 +91,9 @@ class ProductController extends Controller
         return redirect()->route('producten.show', $product->id)->with('success', 'Houdbaarheidsdatum bijgewerkt');
     }
 
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        $product = Product::findOrFail($id);
         $product->delete();
 
         return redirect()->route('producten.index')->with('success', 'Product succesvol verwijderd!');
