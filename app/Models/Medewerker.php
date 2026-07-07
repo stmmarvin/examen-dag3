@@ -14,7 +14,7 @@ class Medewerker extends Model
     use HasFactory;
 
     protected $table = 'medewerker';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'Id';
     public $timestamps = false;
 
     protected $fillable = [
@@ -31,10 +31,10 @@ class Medewerker extends Model
     ];
 
     protected $casts = [
-        'geboortedatum' => 'date',
-        'is_actief' => 'boolean',
-        'datum_aangemaakt' => 'datetime',
-        'datum_gewijzigd' => 'datetime',
+        'Geboortedatum' => 'date',
+        'IsActief' => 'boolean',
+        'DatumAangemaakt' => 'datetime',
+        'DatumGewijzigd' => 'datetime',
     ];
 
     /**
@@ -42,7 +42,7 @@ class Medewerker extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'UserId');
     }
 
     /**
@@ -50,7 +50,7 @@ class Medewerker extends Model
      */
     public function contacten()
     {
-        return $this->belongsToMany(Contact::class, 'medewerker_per_contact', 'medewerker_id', 'contact_id');
+        return $this->belongsToMany(Contact::class, 'medewerker_per_contact', 'medewerker_id', 'contact_id', 'Id', 'Id');
     }
 
     /**
@@ -64,5 +64,90 @@ class Medewerker extends Model
         }
         $naam .= ' ' . $this->achternaam;
         return $naam;
+    }
+
+    public function getUserIdAttribute(): mixed
+    {
+        return $this->attributes['UserId'] ?? null;
+    }
+
+    public function setUserIdAttribute(mixed $value): void
+    {
+        $this->attributes['UserId'] = $value;
+    }
+
+    public function getVoornaamAttribute(): mixed
+    {
+        return $this->attributes['Voornaam'] ?? null;
+    }
+
+    public function setVoornaamAttribute(mixed $value): void
+    {
+        $this->attributes['Voornaam'] = $value;
+    }
+
+    public function getTussenvoegselAttribute(): mixed
+    {
+        return $this->attributes['Tussenvoegsel'] ?? null;
+    }
+
+    public function setTussenvoegselAttribute(mixed $value): void
+    {
+        $this->attributes['Tussenvoegsel'] = $value;
+    }
+
+    public function getAchternaamAttribute(): mixed
+    {
+        return $this->attributes['Achternaam'] ?? null;
+    }
+
+    public function setAchternaamAttribute(mixed $value): void
+    {
+        $this->attributes['Achternaam'] = $value;
+    }
+
+    public function getSpecialisatieAttribute(): mixed
+    {
+        return $this->attributes['Specialisatie'] ?? null;
+    }
+
+    public function setSpecialisatieAttribute(mixed $value): void
+    {
+        $this->attributes['Specialisatie'] = $value;
+    }
+
+    public function getGeboortedatumAttribute(): mixed
+    {
+        return $this->attributes['Geboortedatum'] ?? null;
+    }
+
+    public function setGeboortedatumAttribute(mixed $value): void
+    {
+        $this->attributes['Geboortedatum'] = $value;
+    }
+
+    public function getIsActiefAttribute(): mixed
+    {
+        return $this->attributes['IsActief'] ?? null;
+    }
+
+    public function setIsActiefAttribute(mixed $value): void
+    {
+        $this->attributes['IsActief'] = $value;
+    }
+
+    public function getOpmerkingAttribute(): mixed
+    {
+        return $this->attributes['Opmerking'] ?? null;
+    }
+
+    public function setOpmerkingAttribute(mixed $value): void
+    {
+        $this->attributes['Opmerking'] = $value;
+    }
+
+    public function setDatumGewijzigdAttribute(mixed $value): void
+    {
+        $this->attributes['DatumGewijzigd'] = $value;
     }
 }

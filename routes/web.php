@@ -27,10 +27,10 @@ Route::get('/medewerkers', function () {
     $medewerkers = Medewerker::query()
         ->with('contacten')
         ->when($specialisatie, function ($query) use ($specialisatie) {
-            $query->where('specialisatie', $specialisatie);
+            $query->where('Specialisatie', $specialisatie);
         })
-        ->orderBy('voornaam')
-        ->orderBy('achternaam')
+        ->orderBy('Voornaam')
+        ->orderBy('Achternaam')
         ->paginate(4)
         ->withQueryString();
 
