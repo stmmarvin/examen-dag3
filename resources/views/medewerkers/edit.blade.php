@@ -36,7 +36,7 @@
                         <span class="mb-1 block text-sm font-bold text-slate-700">Specialisatie <span class="text-red-700">*</span></span>
                         <select name="specialisatie" class="w-full rounded-md text-sm shadow-sm focus:border-red-600 focus:ring-red-600 @error('specialisatie') border-red-500 text-red-700 @else border-slate-300 @enderror">
                             @foreach ($specialisaties as $specialisatie)
-                                <option value="{{ $specialisatie }}" @selected(old('specialisatie', $medewerker->Specialisatie) === $specialisatie)>
+                                <option value="{{ $specialisatie }}" @selected(old('specialisatie', $medewerker->specialisatie) === $specialisatie)>
                                     {{ $specialisatie }}
                                 </option>
                             @endforeach
@@ -46,57 +46,57 @@
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Geboortedatum <span class="text-red-700">*</span></span>
-                        <input type="date" name="geboortedatum" value="{{ old('geboortedatum', $medewerker->Geboortedatum?->format('Y-m-d')) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                        <input type="date" name="geboortedatum" value="{{ old('geboortedatum', $medewerker->geboortedatum?->format('Y-m-d')) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                         @error('geboortedatum') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                     </label>
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Contact e-mail <span class="text-red-700">*</span></span>
-                        <input type="email" name="contact_email" value="{{ old('contact_email', $contact?->Email) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                        <input type="email" name="contact_email" value="{{ old('contact_email', $contact?->email) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                         @error('contact_email') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                     </label>
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Account e-mail</span>
                         {{-- Disabled: tonen mag, aanpassen niet. --}}
-                        <input type="email" value="{{ $medewerker->user?->email ?? $contact?->Email }}" disabled class="w-full rounded-md border-slate-300 bg-slate-100 text-sm text-slate-500 shadow-sm">
+                        <input type="email" value="{{ $medewerker->user?->email ?? $contact?->email }}" disabled class="w-full rounded-md border-slate-300 bg-slate-100 text-sm text-slate-500 shadow-sm">
                     </label>
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Straatnaam <span class="text-red-700">*</span></span>
-                        <input type="text" name="straatnaam" value="{{ old('straatnaam', $contact?->Straatnaam) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                        <input type="text" name="straatnaam" value="{{ old('straatnaam', $contact?->straatnaam) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                         @error('straatnaam') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                     </label>
 
                     <div class="grid gap-4 md:grid-cols-2">
                         <label>
                             <span class="mb-1 block text-sm font-bold text-slate-700">Huisnummer <span class="text-red-700">*</span></span>
-                            <input type="text" name="huisnummer" value="{{ old('huisnummer', $contact?->Huisnummer) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                            <input type="text" name="huisnummer" value="{{ old('huisnummer', $contact?->huisnummer) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                             @error('huisnummer') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                         </label>
 
                         <label>
                             <span class="mb-1 block text-sm font-bold text-slate-700">Toevoeging</span>
-                            <input type="text" name="toevoeging" value="{{ old('toevoeging', $contact?->Toevoeging) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                            <input type="text" name="toevoeging" value="{{ old('toevoeging', $contact?->toevoeging) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                             @error('toevoeging') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                         </label>
                     </div>
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Postcode <span class="text-red-700">*</span></span>
-                        <input type="text" name="postcode" value="{{ old('postcode', $contact?->Postcode) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                        <input type="text" name="postcode" value="{{ old('postcode', $contact?->postcode) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                         @error('postcode') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                     </label>
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Plaats <span class="text-red-700">*</span></span>
-                        <input type="text" name="plaats" value="{{ old('plaats', $contact?->Plaats) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                        <input type="text" name="plaats" value="{{ old('plaats', $contact?->plaats) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                         @error('plaats') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                     </label>
 
                     <label>
                         <span class="mb-1 block text-sm font-bold text-slate-700">Mobiel <span class="text-red-700">*</span></span>
-                        <input type="text" name="mobiel" value="{{ old('mobiel', $contact?->Mobiel) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
+                        <input type="text" name="mobiel" value="{{ old('mobiel', $contact?->mobiel) }}" class="w-full rounded-md border-slate-300 text-sm shadow-sm focus:border-red-600 focus:ring-red-600">
                         @error('mobiel') <span class="mt-1 block text-xs font-semibold text-red-700">{{ $message }}</span> @enderror
                     </label>
 

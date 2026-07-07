@@ -70,13 +70,13 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($behandelingen as $behandeling)
                                     <tr class="hover:bg-gray-50 transition duration-150">
-                                        <td class="px-4 py-3 text-sm">{{ $behandeling->Naam }}</td>
-                                        <td class="px-4 py-3 text-sm">{{ $behandeling->Omschrijving }}</td>
-                                        <td class="px-4 py-3 text-sm">{{ $behandeling->Duurminuten }} min</td>
-                                        <td class="px-4 py-3 text-sm">EUR {{ number_format($behandeling->Prijs, 2) }}</td>
-                                        <td class="px-4 py-3 text-sm">{{ DB::table('BehandelingPerVoorraad')->where('BehandelingId', $behandeling->Id)->count() }}</td>
+                                        <td class="px-4 py-3 text-sm">{{ $behandeling->naam }}</td>
+                                        <td class="px-4 py-3 text-sm">{{ $behandeling->omschrijving }}</td>
+                                        <td class="px-4 py-3 text-sm">{{ $behandeling->duur_minuten }} min</td>
+                                        <td class="px-4 py-3 text-sm">EUR {{ number_format($behandeling->prijs, 2) }}</td>
+                                        <td class="px-4 py-3 text-sm">{{ DB::table('behandeling_product')->where('behandeling_id', $behandeling->id)->count() }}</td>
                                         <td class="px-4 py-3 text-sm">
-                                            <a href="{{ route('behandelingen.producten', $behandeling->Id) }}" 
+                                            <a href="{{ route('behandelingen.producten', $behandeling->id) }}" 
                                                class="bg-white border-2 border-blue-500 text-blue-500 hover:bg-blue-50 focus:ring-2 focus:ring-blue-300 focus:outline-none px-6 py-2 rounded-full text-sm inline-block font-medium transition duration-200">
                                                 Producten
                                             </a>

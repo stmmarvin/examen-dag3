@@ -20,14 +20,14 @@ class BehandelingController extends Controller
 
         // Filter toepassen als specifieke categorie geselecteerd
         if ($filter != 'alle') {
-            $query->where('Naam', $filter);
+            $query->where('naam', $filter);
         }
 
         // Pagineer resultaten en behoud filter parameter
         $behandelingen = $query->paginate(5)->appends(['filter' => $filter]);
 
         // Haal unieke behandeling namen op voor dropdown
-        $behandelingNames = Behandeling::distinct()->pluck('Naam');
+        $behandelingNames = Behandeling::distinct()->pluck('naam');
 
         return view('behandelingen.index', compact('behandelingen', 'behandelingNames', 'filter'));
     }
@@ -38,17 +38,11 @@ class BehandelingController extends Controller
      */
     public function producten($id)
     {
-        // Haal behandeling op
-        $behandeling = Behandeling::findOrFail($id);
+        // Haal behandeling op met producten via pivot tabel
+        $behandeling = Behandeling::with(['producten.voorraad'])->findOrFail($id);
         
-        // Haal producten op via Voorraad relatie (BehandelingPerVoorraad)
-        $producten = DB::select("
-            SELECT p.*, v.AantalOpVoorraad
-            FROM `Product` p
-            INNER JOIN `Voorraad` v ON p.Id = v.ProductId
-            INNER JOIN `BehandelingPerVoorraad` bv ON v.Id = bv.VoorraadId
-            WHERE bv.BehandelingId = ?
-        ", [$id]);
+        // Get producten from the relationship
+        $producten = $behandeling->producten;
 
         return view('behandelingen.producten', compact('behandeling', 'producten'));
     }
@@ -90,7 +84,7 @@ class BehandelingController extends Controller
         $product = Product::findOrFail($productId);
 
         // Bereken minimale prijs (30% marge boven inkoopprijs)
-        $minPrice = $product->InkoopPrijs * 1.30;
+        $minPrice = $product->inkoop_prijs * 1.30;
         $maxPrice = 130.00; // Maximaal EUR 130.00
 
         // Valideer dat nieuwe prijs minimale marge haalt
@@ -114,8 +108,8 @@ class BehandelingController extends Controller
         ]);
 
         // Werk productprijs bij
-        $product->VerkoopPrijs = $request->verkoopprijs;
-        $product->DatumGewijzigd = now();
+        $product->verkoop_prijs = $request->verkoopprijs;
+        $product->datum_gewijzigd = now();
         $product->save();
 
         return redirect()->route('behandelingen.product.detail', [$behandelingId, $productId])

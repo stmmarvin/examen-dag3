@@ -84,19 +84,19 @@
                                     // Pakt het eerste contact dat aan deze medewerker gekoppeld is.
                                     $contact = $medewerker->contacten->first();
                                     $adres = collect([
-                                        $contact?->Straatnaam,
-                                        trim(($contact?->Huisnummer ?? '') . ($contact?->Toevoeging ? ' ' . $contact->Toevoeging : '')),
+                                        $contact?->straatnaam,
+                                        trim(($contact?->huisnummer ?? '') . ($contact?->toevoeging ? ' ' . $contact->toevoeging : '')),
                                     ])->filter()->implode(' ');
                                 @endphp
 
                                 <tr class="transition hover:bg-slate-100">
                                     <td class="break-words px-3 py-3">{{ $medewerker->volledige_naam }}</td>
-                                    <td class="break-words px-3 py-3">{{ $medewerker->Specialisatie ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $medewerker->specialisatie ?? '-' }}</td>
                                     <td class="break-words px-3 py-3">{{ $adres ?: '-' }}</td>
-                                    <td class="break-words px-3 py-3">{{ $contact?->Postcode ?? '-' }}</td>
-                                    <td class="break-words px-3 py-3">{{ $contact?->Plaats ?? '-' }}</td>
-                                    <td class="break-words px-3 py-3">{{ $contact?->Mobiel ?? '-' }}</td>
-                                    <td class="break-words px-3 py-3">{{ $contact?->Email ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $contact?->postcode ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $contact?->plaats ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $contact?->mobiel ?? '-' }}</td>
+                                    <td class="break-words px-3 py-3">{{ $contact?->email ?? '-' }}</td>
                                     <td class="px-3 py-3 text-left">
                                         {{-- Opent de detailpagina van deze medewerker. --}}
                                         <a href="{{ route('medewerkers.show', $medewerker) }}" class="inline-block rounded-md border-2 border-blue-500 px-3 py-1 text-xs font-bold text-blue-600 transition hover:bg-blue-500 hover:text-white hover:border-blue-500">Details</a>

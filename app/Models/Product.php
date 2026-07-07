@@ -13,32 +13,32 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'Product';
-    protected $primaryKey = 'Id';
+    protected $table = 'product';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'CategorieId',
-        'Naam',
-        'Omschrijving',
-        'Merk',
-        'EANcode',
-        'Houdbaarheidsdatum',
-        'InkoopPrijs',
-        'VerkoopPrijs',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'categorie_id',
+        'naam',
+        'omschrijving',
+        'merk',
+        'ean_code',
+        'houdbaarheidsdatum',
+        'inkoop_prijs',
+        'verkoop_prijs',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'Houdbaarheidsdatum' => 'date',
-        'InkoopPrijs' => 'decimal:2',
-        'VerkoopPrijs' => 'decimal:2',
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'houdbaarheidsdatum' => 'date',
+        'inkoop_prijs' => 'decimal:2',
+        'verkoop_prijs' => 'decimal:2',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     /**
@@ -46,6 +46,23 @@ class Product extends Model
      */
     public function voorraad()
     {
-        return $this->hasOne(Voorraad::class, 'ProductId', 'Id');
+        return $this->hasOne(Voorraad::class, 'product_id', 'id');
+    }
+
+    /**
+     * Relatie met Categorie
+     */
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class, 'categorie_id');
+    }
+
+    /**
+     * Relatie met behandelingen via pivot tabel
+     */
+    public function behandelingen()
+    {
+        return $this->belongsToMany(Behandeling::class, 'behandeling_product', 'product_id', 'behandeling_id')
+            ->withPivot('aantal');
     }
 }

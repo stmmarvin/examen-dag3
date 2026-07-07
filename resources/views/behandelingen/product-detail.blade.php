@@ -29,7 +29,7 @@
 
             {{-- Pagina titels --}}
             <h1 class="text-3xl font-bold text-red-600 mb-1">Productdetail</h1>
-            <h2 class="text-lg text-gray-500 mb-6">{{ $product->Naam }}</h2>
+            <h2 class="text-lg text-gray-500 mb-6">{{ $product->naam }}</h2>
 
             {{-- Productdetails in 2 kolommen --}}
             <div class="bg-white rounded shadow-sm p-6 mb-6">
@@ -38,37 +38,37 @@
                     <div>
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Product</div>
-                            <div class="text-sm text-gray-600">{{ $product->Naam }}</div>
+                            <div class="text-sm text-gray-600">{{ $product->naam }}</div>
                         </div>
 
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Merk</div>
-                            <div class="text-sm text-gray-600">{{ $product->Merk }}</div>
+                            <div class="text-sm text-gray-600">{{ $product->merk }}</div>
                         </div>
 
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Omschrijving</div>
-                            <div class="text-sm text-gray-600">{{ $product->Omschrijving }}</div>
+                            <div class="text-sm text-gray-600">{{ $product->omschrijving }}</div>
                         </div>
 
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">EAN-code</div>
-                            <div class="text-sm text-gray-600">{{ $product->EANcode }}</div>
+                            <div class="text-sm text-gray-600">{{ $product->ean_code }}</div>
                         </div>
 
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Houdbaarheidsdatum</div>
-                            <div class="text-sm text-gray-600">{{ $product->Houdbaarheidsdatum ? $product->Houdbaarheidsdatum->format('d-m-Y') : 'N/A' }}</div>
+                            <div class="text-sm text-gray-600">{{ $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('d-m-Y') : 'N/A' }}</div>
                         </div>
 
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Inkoopprijs</div>
-                            <div class="text-sm text-gray-600">EUR {{ number_format($product->InkoopPrijs, 2) }}</div>
+                            <div class="text-sm text-gray-600">EUR {{ number_format($product->inkoop_prijs, 2) }}</div>
                         </div>
 
                         <div class="py-4">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Verkoopprijs</div>
-                            <div class="text-sm text-gray-600">EUR {{ number_format($product->VerkoopPrijs, 2) }}</div>
+                            <div class="text-sm text-gray-600">EUR {{ number_format($product->verkoop_prijs, 2) }}</div>
                         </div>
                     </div>
 
@@ -76,7 +76,7 @@
                     <div>
                         <div class="py-4 border-b border-gray-300">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Aantal op voorraad</div>
-                            <div class="text-sm text-gray-600">{{ $product->voorraad ? $product->voorraad->AantalOpVoorraad : 'N/A' }}</div>
+                            <div class="text-sm text-gray-600">{{ $product->voorraad ? $product->voorraad->aantal_op_voorraad : 'N/A' }}</div>
                         </div>
 
                         <div class="py-4 border-b border-gray-300">
@@ -106,7 +106,7 @@
 
                         <div class="py-4">
                             <div class="text-xs font-semibold text-gray-700 mb-1">Opmerking</div>
-                            <div class="text-sm text-gray-600">{{ $product->Opmerking ?? 'Geschikt voor dagelijks salongebruik.' }}</div>
+                            <div class="text-sm text-gray-600">{{ $product->opmerking ?? 'Geschikt voor dagelijks salongebruik.' }}</div>
                         </div>
                     </div>
                 </div>
@@ -114,11 +114,11 @@
 
             {{-- Actie knoppen --}}
             <div class="flex gap-3">
-                <a href="{{ route('behandelingen.product.edit', [$behandeling->Id, $product->Id]) }}" 
+                <a href="{{ route('behandelingen.product.edit', [$behandeling->id, $product->id]) }}" 
                    class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded text-sm transition duration-200">
                     Wijzigen
                 </a>
-                <a href="{{ route('behandelingen.producten', $behandeling->Id) }}" 
+                <a href="{{ route('behandelingen.producten', $behandeling->id) }}" 
                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded text-sm transition duration-200">
                     Terug
                 </a>

@@ -13,7 +13,7 @@
             <div class="bg-white rounded-lg shadow p-8">
                 {{-- Pagina titels --}}
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Producten per behandeling</h1>
-                <h2 class="text-xl text-gray-500 mb-8">{{ $behandeling->Naam }}</h2>
+                <h2 class="text-xl text-gray-500 mb-8">{{ $behandeling->naam }}</h2>
 
                 {{-- Producten tabel --}}
                 <div class="overflow-x-auto border border-gray-200 rounded">
@@ -24,7 +24,7 @@
                                 <th class="px-4 py-3 text-left font-semibold text-sm">Merk</th>
                                 <th class="px-4 py-3 text-left font-semibold text-sm">Omschrijving</th>
                                 <th class="px-4 py-3 text-left font-semibold text-sm">EAN-code</th>
-                                <th class="px-4 py-3 text-left font-semibold text-sm">Voorraad</th>
+                                <th class="px-4 py-3 text-left font-semibold text-sm">Aantal</th>
                                 <th class="px-4 py-3 text-left font-semibold text-sm">Verkoopprijs</th>
                                 <th class="px-4 py-3 text-left font-semibold text-sm">Actie</th>
                             </tr>
@@ -32,14 +32,14 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($producten as $product)
                                 <tr class="hover:bg-gray-50 transition duration-150">
-                                    <td class="px-4 py-3 text-sm">{{ $product->Naam }}</td>
-                                    <td class="px-4 py-3 text-sm">{{ $product->Merk }}</td>
-                                    <td class="px-4 py-3 text-sm">{{ $product->Omschrijving }}</td>
-                                    <td class="px-4 py-3 text-sm">{{ $product->EANcode }}</td>
-                                    <td class="px-4 py-3 text-sm">{{ $product->AantalOpVoorraad }}</td>
-                                    <td class="px-4 py-3 text-sm">EUR {{ number_format($product->VerkoopPrijs, 2) }}</td>
+                                    <td class="px-4 py-3 text-sm">{{ $product->naam }}</td>
+                                    <td class="px-4 py-3 text-sm">{{ $product->merk }}</td>
+                                    <td class="px-4 py-3 text-sm">{{ $product->omschrijving }}</td>
+                                    <td class="px-4 py-3 text-sm">{{ $product->ean_code }}</td>
+                                    <td class="px-4 py-3 text-sm">{{ $product->aantal ?? $product->pivot->aantal ?? 1 }}</td>
+                                    <td class="px-4 py-3 text-sm">EUR {{ number_format($product->verkoop_prijs, 2) }}</td>
                                     <td class="px-4 py-3 text-sm">
-                                        <a href="{{ route('behandelingen.product.detail', [$behandeling->Id, $product->Id]) }}" 
+                                        <a href="{{ route('behandelingen.product.detail', [$behandeling->id, $product->id]) }}" 
                                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded text-sm inline-block transition duration-200">
                                             Details
                                         </a>

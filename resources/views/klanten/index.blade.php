@@ -84,18 +84,18 @@
                         @forelse ($klanten as $klant)
                             @php
                                 $contact = $klant->contact ?? ($klant->contacten->firstWhere('IsActief', true) ?? $klant->contacten->first());
-                                $adres = trim(($contact?->Straatnaam ?? '') . ' ' . ($contact?->Huisnummer ?? '') . ' ' . ($contact?->Toevoeging ?? ''));
+                                $adres = trim(($contact?->straatnaam ?? '') . ' ' . ($contact?->huisnummer ?? '') . ' ' . ($contact?->toevoeging ?? ''));
                             @endphp
-                            <tr class="border-b border-gray-200 {{ session('updated_klant_id') === $klant->Id ? 'bg-gray-200' : '' }}">
+                            <tr class="border-b border-gray-200 {{ session('updated_klant_id') === $klant->id ? 'bg-gray-200' : '' }}">
                                 <td class="px-4 py-3 text-gray-700">{{ $klant->volledige_naam }}</td>
-                                <td class="px-4 py-3 text-gray-700">{{ $klant->Relatienummer }}</td>
+                                <td class="px-4 py-3 text-gray-700">{{ $klant->relatienummer }}</td>
                                 <td class="px-4 py-3 text-gray-700">{{ $adres }}</td>
-                                <td class="px-4 py-3 text-gray-700">{{ $contact?->Postcode }}</td>
-                                <td class="px-4 py-3 text-gray-700">{{ $contact?->Plaats }}</td>
-                                <td class="px-4 py-3 text-gray-700">{{ $contact?->Mobiel }}</td>
-                                <td class="px-4 py-3 text-gray-700">{{ $contact?->Email }}</td>
+                                <td class="px-4 py-3 text-gray-700">{{ $contact?->postcode }}</td>
+                                <td class="px-4 py-3 text-gray-700">{{ $contact?->plaats }}</td>
+                                <td class="px-4 py-3 text-gray-700">{{ $contact?->mobiel }}</td>
+                                <td class="px-4 py-3 text-gray-700">{{ $contact?->email }}</td>
                                 <td class="px-4 py-3 text-center">
-                                    <a href="{{ $klant->Id == 5 ? route('klanten.details') : route('klanten.show', $klant->Id) }}" class="inline-block rounded-md border border-blue-500 px-4 py-1 text-sm font-semibold text-blue-600 hover:bg-blue-500 hover:text-white">
+                                    <a href="{{ $klant->id == 5 ? route('klanten.details') : route('klanten.show', $klant->id) }}" class="inline-block rounded-md border border-blue-500 px-4 py-1 text-sm font-semibold text-blue-600 hover:bg-blue-500 hover:text-white">
                                         Details
                                     </a>
                                 </td>

@@ -27,10 +27,10 @@ Route::get('/medewerkers', function () {
     $medewerkers = Medewerker::query()
         ->with('contacten')
         ->when($specialisatie, function ($query) use ($specialisatie) {
-            $query->where('Specialisatie', $specialisatie);
+            $query->where('specialisatie', $specialisatie);
         })
-        ->orderBy('Voornaam')
-        ->orderBy('Achternaam')
+        ->orderBy('voornaam')
+        ->orderBy('achternaam')
         ->paginate(4)
         ->withQueryString();
 
@@ -103,35 +103,35 @@ Route::patch('/medewerkers/{medewerker}', function (Request $request, Medewerker
         $tussenvoegsel = $naamdelen ? implode(' ', $naamdelen) : null;
 
         $medewerker->update([
-            'Voornaam' => $voornaam,
-            'Tussenvoegsel' => $tussenvoegsel,
-            'Achternaam' => $achternaam,
-            'Specialisatie' => $data['specialisatie'],
-            'Geboortedatum' => $data['geboortedatum'],
-            'Opmerking' => $data['opmerking'],
-            'DatumGewijzigd' => now(),
+            'voornaam' => $voornaam,
+            'tussenvoegsel' => $tussenvoegsel,
+            'achternaam' => $achternaam,
+            'specialisatie' => $data['specialisatie'],
+            'geboortedatum' => $data['geboortedatum'],
+            'opmerking' => $data['opmerking'],
+            'datum_gewijzigd' => now(),
         ]);
 
         // Gebruikt het bestaande contact, of maakt er een aan als die nog mist.
         $contact = $medewerker->contacten()->first() ?? new Contact([
-            'DatumAangemaakt' => now(),
-            'IsActief' => true,
+            'datum_aangemaakt' => now(),
+            'is_actief' => true,
         ]);
 
         $contact->fill([
-            'Straatnaam' => $data['straatnaam'],
-            'Huisnummer' => $data['huisnummer'],
-            'Toevoeging' => $data['toevoeging'],
-            'Postcode' => $data['postcode'],
-            'Plaats' => $data['plaats'],
-            'Email' => $data['contact_email'],
-            'Mobiel' => $data['mobiel'],
-            'DatumGewijzigd' => now(),
+            'straatnaam' => $data['straatnaam'],
+            'huisnummer' => $data['huisnummer'],
+            'toevoeging' => $data['toevoeging'],
+            'postcode' => $data['postcode'],
+            'plaats' => $data['plaats'],
+            'email' => $data['contact_email'],
+            'mobiel' => $data['mobiel'],
+            'datum_gewijzigd' => now(),
         ]);
 
         $contact->save();
         // Zorgt dat dit contact gekoppeld blijft aan de medewerker.
-        $medewerker->contacten()->syncWithoutDetaching([$contact->Id]);
+        $medewerker->contacten()->syncWithoutDetaching([$contact->id]);
     });
 
     return redirect()

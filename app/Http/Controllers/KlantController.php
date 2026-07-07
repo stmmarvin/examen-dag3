@@ -25,14 +25,14 @@ class KlantController extends Controller
 
         $query = Klant::query()
             ->with(['contacten', 'user'])
-            ->where('IsActief', true)
+            ->where('is_actief', true)
             ->when($postcode !== '', function ($query) use ($postcode): void {
                 $query->whereHas('contacten', function ($contactQuery) use ($postcode): void {
-                    $contactQuery->where('Postcode', $postcode);
+                    $contactQuery->where('postcode', $postcode);
                 });
             })
-            ->orderBy('Achternaam')
-            ->orderBy('Voornaam');
+            ->orderBy('achternaam')
+            ->orderBy('voornaam');
 
         $aantalKlanten = (clone $query)->count();
         $klanten = $query->paginate(4)->withQueryString();
@@ -107,7 +107,7 @@ class KlantController extends Controller
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('Contact', 'Email')->ignore($contact->Id, 'Id'),
+                Rule::unique('contact', 'email')->ignore($contact->id, 'id'),
             ],
             'straatnaam' => ['required', 'string', 'max:255'],
             'huisnummer' => ['required', 'string', 'max:10'],
@@ -132,27 +132,27 @@ class KlantController extends Controller
                 $naam = $this->splitNaam((string) $request->input('naam'));
 
                 $klant->update([
-                    'Voornaam' => $naam['voornaam'],
-                    'Tussenvoegsel' => $naam['tussenvoegsel'],
-                    'Achternaam' => $naam['achternaam'],
-                    'Bijzonderheden' => $request->input('bijzonderheden'),
-                    'DatumGewijzigd' => now(),
+                    'voornaam' => $naam['voornaam'],
+                    'tussenvoegsel' => $naam['tussenvoegsel'],
+                    'achternaam' => $naam['achternaam'],
+                    'bijzonderheden' => $request->input('bijzonderheden'),
+                    'datum_gewijzigd' => now(),
                 ]);
 
                 $contact->update([
-                    'Straatnaam' => $request->input('straatnaam'),
-                    'Huisnummer' => $request->input('huisnummer'),
-                    'Toevoeging' => $request->input('toevoeging'),
-                    'Postcode' => $request->input('postcode'),
-                    'Plaats' => $request->input('plaats'),
-                    'Email' => $request->input('contact_email'),
-                    'Mobiel' => $request->input('mobiel'),
-                    'DatumGewijzigd' => now(),
+                    'straatnaam' => $request->input('straatnaam'),
+                    'huisnummer' => $request->input('huisnummer'),
+                    'toevoeging' => $request->input('toevoeging'),
+                    'postcode' => $request->input('postcode'),
+                    'plaats' => $request->input('plaats'),
+                    'email' => $request->input('contact_email'),
+                    'mobiel' => $request->input('mobiel'),
+                    'datum_gewijzigd' => now(),
                 ]);
             });
         } catch (\Throwable $exception) {
             Log::error('Klantgegevens bijwerken mislukt.', [
-                'klant_id' => $klant->Id,
+                'klant_id' => $klant->id,
                 'message' => $exception->getMessage(),
             ]);
 
@@ -164,7 +164,7 @@ class KlantController extends Controller
         return redirect()
             ->route('klanten.index')
             ->with('success', 'Klantgegevens bijgewerkt')
-            ->with('updated_klant_id', $klant->Id);
+            ->with('updated_klant_id', $klant->id);
     }
 
     private function findKlant(int $id): Klant
@@ -301,7 +301,7 @@ class KlantController extends Controller
 
     private function getContact(Klant $klant): Contact
     {
-        return $klant->contacten->firstWhere('IsActief', true)
+        return $klant->contacten->firstWhere('is_actief', true)
             ?? $klant->contacten->first()
             ?? abort(404);
     }

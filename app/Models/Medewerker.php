@@ -13,28 +13,28 @@ class Medewerker extends Model
 {
     use HasFactory;
 
-    protected $table = 'Medewerker';
-    protected $primaryKey = 'Id';
+    protected $table = 'medewerker';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'UserId',
-        'Voornaam',
-        'Tussenvoegsel',
-        'Achternaam',
-        'Specialisatie',
-        'Geboortedatum',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'user_id',
+        'voornaam',
+        'tussenvoegsel',
+        'achternaam',
+        'specialisatie',
+        'geboortedatum',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'Geboortedatum' => 'date',
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'geboortedatum' => 'date',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     /**
@@ -42,7 +42,7 @@ class Medewerker extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'UserId');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
@@ -50,7 +50,7 @@ class Medewerker extends Model
      */
     public function contacten()
     {
-        return $this->belongsToMany(Contact::class, 'MedewerkerPerContact', 'MedewerkerId', 'ContactId');
+        return $this->belongsToMany(Contact::class, 'medewerker_per_contact', 'medewerker_id', 'contact_id');
     }
 
     /**
@@ -58,11 +58,11 @@ class Medewerker extends Model
      */
     public function getVolledigeNaamAttribute()
     {
-        $naam = $this->Voornaam;
-        if ($this->Tussenvoegsel) {
-            $naam .= ' ' . $this->Tussenvoegsel;
+        $naam = $this->voornaam;
+        if ($this->tussenvoegsel) {
+            $naam .= ' ' . $this->tussenvoegsel;
         }
-        $naam .= ' ' . $this->Achternaam;
+        $naam .= ' ' . $this->achternaam;
         return $naam;
     }
 }

@@ -10,45 +10,45 @@ class Klant extends Model
     use HasFactory;
 
     protected $table = 'klant';
-    protected $primaryKey = 'Id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'UserId',
-        'Voornaam',
-        'Tussenvoegsel',
-        'Achternaam',
-        'Relatienummer',
-        'Bijzonderheden',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'user_id',
+        'voornaam',
+        'tussenvoegsel',
+        'achternaam',
+        'relatienummer',
+        'bijzonderheden',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'UserId');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function contacten()
     {
-        return $this->belongsToMany(Contact::class, 'KlantPerContact', 'KlantId', 'ContactId');
+        return $this->belongsToMany(Contact::class, 'klant_per_contact', 'klant_id', 'contact_id');
     }
 
     public function getVolledigeNaamAttribute()
     {
-        $naam = $this->Voornaam;
-        if ($this->Tussenvoegsel) {
-            $naam .= " {$this->Tussenvoegsel}";
+        $naam = $this->voornaam;
+        if ($this->tussenvoegsel) {
+            $naam .= " {$this->tussenvoegsel}";
         }
-        $naam .= " {$this->Achternaam}";
+        $naam .= " {$this->achternaam}";
         return $naam;
     }
 }

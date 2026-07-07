@@ -22,9 +22,9 @@
 
             {{-- Pagina titels --}}
             <h1 class="text-3xl font-bold text-red-600 mb-1">Product wijzigen</h1>
-            <h2 class="text-lg text-gray-500 mb-6">{{ $product->Naam }}</h2>
+            <h2 class="text-lg text-gray-500 mb-6">{{ $product->naam }}</h2>
 
-            <form method="POST" action="{{ route('behandelingen.product.update', [$behandeling->Id, $product->Id]) }}">
+            <form method="POST" action="{{ route('behandelingen.product.update', [$behandeling->id, $product->id]) }}">
                 @csrf
                 @method('PUT')
 
@@ -35,31 +35,31 @@
                         <div>
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Product</label>
-                                <input type="text" value="{{ $product->Naam }}" disabled 
+                                <input type="text" value="{{ $product->naam }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Omschrijving</label>
-                                <input type="text" value="{{ $product->Omschrijving }}" disabled 
+                                <input type="text" value="{{ $product->omschrijving }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Houdbaarheidsdatum</label>
-                                <input type="text" value="{{ $product->Houdbaarheidsdatum ? $product->Houdbaarheidsdatum->format('d-m-Y') : 'N/A' }}" disabled 
+                                <input type="text" value="{{ $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('d-m-Y') : 'N/A' }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Inkoopprijs</label>
-                                <input type="text" value="EUR {{ number_format($product->InkoopPrijs, 2) }}" disabled 
+                                <input type="text" value="EUR {{ number_format($product->inkoop_prijs, 2) }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Huidige verkoopprijs</label>
-                                <input type="text" value="EUR {{ number_format($product->VerkoopPrijs, 2) }}" disabled 
+                                <input type="text" value="EUR {{ number_format($product->verkoop_prijs, 2) }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
@@ -69,7 +69,7 @@
                                     Nieuwe verkoopprijs <span class="text-red-600">*</span>
                                 </label>
                                 <input type="number" step="0.01" name="verkoopprijs" id="verkoopprijs" 
-                                       value="{{ old('verkoopprijs', number_format($product->VerkoopPrijs, 2, '.', '')) }}" 
+                                       value="{{ old('verkoopprijs', number_format($product->verkoop_prijs, 2, '.', '')) }}" 
                                        class="w-full text-sm border-gray-300 rounded shadow-sm focus:border-red-500 focus:ring-red-500 @error('verkoopprijs') border-red-500 @enderror">
                                 @error('verkoopprijs')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -82,19 +82,19 @@
                         <div>
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Merk</label>
-                                <input type="text" value="{{ $product->Merk }}" disabled 
+                                <input type="text" value="{{ $product->merk }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">EAN-code</label>
-                                <input type="text" value="{{ $product->EANcode }}" disabled 
+                                <input type="text" value="{{ $product->ean_code }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
                             <div class="py-4 border-b border-gray-300">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Aantal op voorraad</label>
-                                <input type="text" value="{{ $product->voorraad ? $product->voorraad->AantalOpVoorraad : 'N/A' }}" disabled 
+                                <input type="text" value="{{ $product->voorraad ? $product->voorraad->aantal_op_voorraad : 'N/A' }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
 
@@ -112,7 +112,7 @@
 
                             <div class="py-4">
                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Opmerking</label>
-                                <input type="text" value="{{ $product->Opmerking ?? 'Geschikt voor dagelijks salongebruik.' }}" disabled 
+                                <input type="text" value="{{ $product->opmerking ?? 'Geschikt voor dagelijks salongebruik.' }}" disabled 
                                        class="w-full text-sm border-gray-300 bg-gray-50 text-gray-500 rounded shadow-sm">
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                             class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded text-sm transition duration-200">
                         Opslaan
                     </button>
-                    <a href="{{ route('behandelingen.product.detail', [$behandeling->Id, $product->Id]) }}" 
+                    <a href="{{ route('behandelingen.product.detail', [$behandeling->id, $product->id]) }}" 
                        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded text-sm inline-block transition duration-200">
                         Terug
                     </a>

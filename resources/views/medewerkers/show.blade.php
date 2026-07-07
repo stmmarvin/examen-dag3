@@ -30,15 +30,15 @@
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Specialisatie</th>
-                            <td class="px-3 py-2">{{ $medewerker->Specialisatie ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $medewerker->specialisatie ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Geboortedatum</th>
-                            <td class="px-3 py-2">{{ $medewerker->Geboortedatum?->format('d-m-Y') ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $medewerker->geboortedatum?->format('d-m-Y') ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Contact e-mail</th>
-                            <td class="px-3 py-2">{{ $contact?->Email ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $contact?->email ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Account e-mail</th>
@@ -46,27 +46,27 @@
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Straatnaam</th>
-                            <td class="px-3 py-2">{{ $contact?->Straatnaam ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $contact?->straatnaam ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Huisnummer</th>
-                            <td class="px-3 py-2">{{ $contact?->Huisnummer ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $contact?->huisnummer ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Toevoeging</th>
-                            <td class="px-3 py-2">{{ $contact?->Toevoeging ?: '-' }}</td>
+                            <td class="px-3 py-2">{{ $contact?->toevoeging ?: '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Postcode</th>
-                            <td class="px-3 py-2">{{ $contact?->Postcode ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $contact?->postcode ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Plaats</th>
-                            <td class="px-3 py-2">{{ $contact?->Plaats ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $contact?->plaats ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Mobiel</th>
-                            <td class="px-3 py-2">{{ $contact?->Mobiel ?? '-' }}</td>
+                            <td class="px-3 py-2">{{ $contact?->mobiel ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th class="px-3 py-2 font-bold text-slate-900">Opmerking</th>

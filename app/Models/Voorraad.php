@@ -13,25 +13,25 @@ class Voorraad extends Model
 {
     use HasFactory;
 
-    protected $table = 'Voorraad';
-    protected $primaryKey = 'Id';
+    protected $table = 'voorraad';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'ProductId',
-        'AantalOpVoorraad',
-        'Aantaluitgegeven',
-        'Aantalbijgekomen',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'product_id',
+        'aantal_op_voorraad',
+        'aantal_uitgegeven',
+        'aantal_bijgekomen',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     /**
@@ -39,6 +39,6 @@ class Voorraad extends Model
      */
     public function product()
     {
-        return $this->belongsTo(Product::class, 'ProductId', 'Id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }

@@ -9,32 +9,32 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $table = 'Contact';
-    protected $primaryKey = 'Id';
+    protected $table = 'contact';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'Straatnaam',
-        'Huisnummer',
-        'Toevoeging',
-        'Postcode',
-        'Plaats',
-        'Email',
-        'Mobiel',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'straatnaam',
+        'huisnummer',
+        'toevoeging',
+        'postcode',
+        'plaats',
+        'email',
+        'mobiel',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     public function klanten()
     {
-        return $this->belongsToMany(Klant::class, 'KlantPerContact', 'ContactId', 'KlantId');
+        return $this->belongsToMany(Klant::class, 'klant_per_contact', 'contact_id', 'klant_id');
     }
 }

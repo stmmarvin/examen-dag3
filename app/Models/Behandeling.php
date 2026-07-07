@@ -13,33 +13,34 @@ class Behandeling extends Model
 {
     use HasFactory;
 
-    protected $table = 'Behandeling';
-    protected $primaryKey = 'Id';
+    protected $table = 'behandeling';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'Naam',
-        'Omschrijving',
-        'Duurminuten',
-        'Prijs',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'naam',
+        'omschrijving',
+        'duur_minuten',
+        'prijs',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'Prijs' => 'decimal:2',
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'prijs' => 'decimal:2',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     /**
-     * Relatie met voorraad via BehandelingPerVoorraad pivot tabel
+     * Relatie met producten via behandeling_product pivot tabel
      */
-    public function voorraadItems()
+    public function producten()
     {
-        return $this->belongsToMany(Voorraad::class, 'BehandelingPerVoorraad', 'BehandelingId', 'VoorraadId');
+        return $this->belongsToMany(Product::class, 'behandeling_product', 'behandeling_id', 'product_id')
+            ->withPivot('aantal');
     }
 }

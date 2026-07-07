@@ -13,23 +13,23 @@ class Categorie extends Model
 {
     use HasFactory;
 
-    protected $table = 'Categorie';
-    protected $primaryKey = 'Id';
+    protected $table = 'categorie';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'Naam',
-        'Omschrijving',
-        'IsActief',
-        'Opmerking',
-        'DatumAangemaakt',
-        'DatumGewijzigd',
+        'naam',
+        'omschrijving',
+        'is_actief',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
     protected $casts = [
-        'IsActief' => 'boolean',
-        'DatumAangemaakt' => 'datetime',
-        'DatumGewijzigd' => 'datetime',
+        'is_actief' => 'boolean',
+        'datum_aangemaakt' => 'datetime',
+        'datum_gewijzigd' => 'datetime',
     ];
 
     /**
@@ -37,6 +37,6 @@ class Categorie extends Model
      */
     public function producten()
     {
-        return $this->hasMany(Product::class, 'CategorieId', 'Id');
+        return $this->hasMany(Product::class, 'categorie_id', 'id');
     }
 }
