@@ -10,7 +10,7 @@ class Klant extends Model
     use HasFactory;
 
     protected $table = 'klant';
-    protected $primaryKey = 'Id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
