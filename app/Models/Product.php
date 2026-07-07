@@ -13,9 +13,9 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'producten';
+    protected $table = 'product';
     protected $primaryKey = 'id';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'naam',
@@ -44,13 +44,21 @@ class Product extends Model
     }
 
     /**
+     * Relatie met Voorraad
+     * Een product heeft één voorraad record
+     */
+    public function voorraad()
+    {
+        return $this->hasOne(Voorraad::class, 'product_id');
+    }
+
+    /**
      * Many-to-many relatie met Behandeling
      * Een product kan gebruikt worden in meerdere behandelingen
      */
     public function behandelingen()
     {
         return $this->belongsToMany(Behandeling::class, 'behandeling_product', 'product_id', 'behandeling_id')
-                    ->withPivot('aantal')
-                    ->withTimestamps();
+                    ->withPivot('aantal');
     }
 }
