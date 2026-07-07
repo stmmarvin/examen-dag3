@@ -26,8 +26,8 @@
                         >
                             <option value="">Alle categorieën</option>
                             @foreach($categorieen as $categorie)
-                                <option value="{{ $categorie->Id }}" {{ request('CategorieId') == $categorie->Id ? 'selected' : '' }}>
-                                    {{ $categorie->Naam }}
+                                <option value="{{ $categorie->id }}" {{ request('categorie_id') == $categorie->id ? 'selected' : '' }}>
+                                    {{ $categorie->naam }}
                                 </option>
                             @endforeach
                         </select>
@@ -84,24 +84,24 @@
                         @forelse($producten as $product)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $product->Naam }}
+                                    {{ $product->naam }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    @if($product->CategorieId)
-                                        {{ \App\Models\Categorie::find($product->CategorieId)?->Naam ?? '-' }}
+                                    @if($product->categorie_id)
+                                        {{ \App\Models\Categorie::find($product->categorie_id)?->naam ?? '-' }}
                                     @else
                                         -
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {{ $product->Merk ?? '-' }}
+                                    {{ $product->merk ?? '-' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {{ $product->EANcode ?? '-' }}
+                                    {{ $product->ean_code ?? '-' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    @if($product->VerkoopPrijs)
-                                        EUR {{ number_format($product->VerkoopPrijs, 2, ',', '.') }}
+                                    @if($product->verkoop_prijs)
+                                        EUR {{ number_format($product->verkoop_prijs, 2, ',', '.') }}
                                     @else
                                         -
                                     @endif
@@ -111,7 +111,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <a 
-                                        href="{{ route('producten.show', $product->Id) }}" 
+                                        href="{{ route('producten.show', $product->id) }}" 
                                         class="inline-block border-2 border-blue-500 text-blue-500 px-4 py-1 rounded text-sm font-medium hover:bg-blue-500 hover:text-white transition"
                                     >
                                         Details

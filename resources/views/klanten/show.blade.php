@@ -22,7 +22,7 @@
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Relatienummer</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $klant->Relatienummer }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $klant->relatienummer }}</dd>
                     </div>
                     <div class="grid grid-cols-3 border-b border-gray-200 py-2">
                         <dt class="font-bold text-gray-800">Contact e-mail</dt>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="grid grid-cols-3 py-2">
                         <dt class="font-bold text-gray-800">Bijzonderheden</dt>
-                        <dd class="col-span-2 text-gray-700">{{ $klant->Bijzonderheden }}</dd>
+                        <dd class="col-span-2 text-gray-700">{{ $klant->bijzonderheden }}</dd>
                     </div>
                 </dl>
 

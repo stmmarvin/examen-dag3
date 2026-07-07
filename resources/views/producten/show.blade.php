@@ -14,7 +14,7 @@
             <!-- Header -->
             <h1 class="text-4xl font-bold mb-8">
                 <span class="text-red-600">Productdetail</span>
-                <span class="text-gray-500">{{ $product->Naam }}</span>
+                <span class="text-gray-500">{{ $product->naam }}</span>
             </h1>
 
             <!-- Success Message -->
@@ -47,36 +47,36 @@
                     
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Product</div>
-                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->Naam }}</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->naam }}</div>
                     </div>
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Merk</div>
-                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->Merk ?? '-' }}</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->merk ?? '-' }}</div>
                     </div>
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Omschrijving</div>
-                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->Omschrijving ?? '-' }}</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->omschrijving ?? '-' }}</div>
                     </div>
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">EAN-code</div>
-                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->EANcode ?? '-' }}</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->ean_code ?? '-' }}</div>
                     </div>
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Houdbaarheidsdatum</div>
                         <div style="flex: 1;" class="text-sm text-gray-700">
-                            {{ $product->Houdbaarheidsdatum ? $product->Houdbaarheidsdatum->format('d-m-Y') : '-' }}
+                            {{ $product->houdbaarheidsdatum ? $product->houdbaarheidsdatum->format('d-m-Y') : '-' }}
                         </div>
                     </div>
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Inkoopprijs</div>
                         <div style="flex: 1;" class="text-sm font-semibold text-green-700">
-                            @if($product->InkoopPrijs)
-                                € {{ number_format($product->InkoopPrijs, 2, ',', '.') }}
+                            @if($product->inkoop_prijs)
+                                € {{ number_format($product->inkoop_prijs, 2, ',', '.') }}
                             @else
                                 -
                             @endif
@@ -86,8 +86,8 @@
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px; border-bottom: 1px solid #000;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Verkoopprijs</div>
                         <div style="flex: 1;" class="text-sm font-semibold text-green-700">
-                            @if($product->VerkoopPrijs)
-                                € {{ number_format($product->VerkoopPrijs, 2, ',', '.') }}
+                            @if($product->verkoop_prijs)
+                                € {{ number_format($product->verkoop_prijs, 2, ',', '.') }}
                             @else
                                 -
                             @endif
@@ -126,14 +126,14 @@
 
                     <div class="flex py-4 hover:bg-gray-50 transition-colors" style="gap: 10px;">
                         <div style="width: 33%;" class="text-sm font-semibold text-gray-800">Opmerking</div>
-                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->Opmerking ?? 'Geschikt voor verkoop na baardtrimbehandelingen.' }}</div>
+                        <div style="flex: 1;" class="text-sm text-gray-700">{{ $product->opmerking ?? 'Geschikt voor verkoop na baardtrimbehandelingen.' }}</div>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="mt-10 flex justify-end gap-4">
                     <a 
-                        href="{{ route('producten.edit', $product->Id) }}" 
+                        href="{{ route('producten.edit', $product->id) }}" 
                         class="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-md font-semibold transition shadow-sm hover:shadow-md"
                     >
                         Wijzigen

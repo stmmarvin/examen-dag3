@@ -33,7 +33,7 @@
 
                     <div>
                         <label for="relatienummer" class="mb-1 block text-sm font-semibold text-gray-700">Relatienummer</label>
-                        <input id="relatienummer" type="text" value="{{ $klant->Relatienummer }}" disabled class="w-full rounded-md border-gray-300 bg-gray-100 text-sm text-gray-500 shadow-sm">
+                        <input id="relatienummer" type="text" value="{{ $klant->relatienummer }}" disabled class="w-full rounded-md border-gray-300 bg-gray-100 text-sm text-gray-500 shadow-sm">
                     </div>
 
                     <div>
@@ -86,7 +86,7 @@
 
                     <div class="col-span-2">
                         <label for="bijzonderheden" class="mb-1 block text-sm font-semibold text-gray-700">Bijzonderheden</label>
-                        <input id="bijzonderheden" name="bijzonderheden" type="text" value="{{ old('bijzonderheden', $klant->Bijzonderheden) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
+                        <input id="bijzonderheden" name="bijzonderheden" type="text" value="{{ old('bijzonderheden', $klant->bijzonderheden) }}" class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
                         <x-input-error :messages="$errors->get('bijzonderheden')" class="mt-2" />
                     </div>
                 </div>

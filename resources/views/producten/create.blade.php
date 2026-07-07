@@ -51,8 +51,8 @@
                             >
                                 <option value="">Selecteer categorie</option>
                                 @foreach($categorieen as $categorie)
-                                    <option value="{{ $categorie->Id }}" {{ old('CategorieId') == $categorie->Id ? 'selected' : '' }}>
-                                        {{ $categorie->Naam }}
+                                    <option value="{{ $categorie->id }}" {{ old('CategorieId') == $categorie->id ? 'selected' : '' }}>
+                                        {{ $categorie->naam }}
                                     </option>
                                 @endforeach
                             </select>
