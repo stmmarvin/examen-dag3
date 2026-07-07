@@ -13,19 +13,6 @@ return new class extends Migration
             DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         }
 
-        if (! Schema::hasTable('user')) {
-            Schema::create('user', function (Blueprint $table) {
-                $table->id();
-                $table->string('name');
-                $table->string('email')->unique();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('password');
-                $table->string('rolename', 20);
-                $table->rememberToken();
-                $table->timestamps();
-            });
-        }
-
         if (! Schema::hasTable('klant')) {
             if (DB::getDriverName() === 'mysql') {
                 DB::statement("
@@ -41,13 +28,13 @@ return new class extends Migration
                       `Opmerking` VARCHAR(255) NULL,
                       `DatumAangemaakt` DATETIME(6) NULL,
                       `DatumGewijzigd` DATETIME(6) NULL,
-                      FOREIGN KEY (`UserId`) REFERENCES `user`(`id`) ON DELETE SET NULL
+                      FOREIGN KEY (`UserId`) REFERENCES `users`(`id`) ON DELETE SET NULL
                     )
                 ");
             } else {
                 Schema::create('klant', function (Blueprint $table) {
                     $table->id('Id');
-                    $table->foreignId('UserId')->nullable()->constrained('user')->nullOnDelete();
+                    $table->foreignId('UserId')->nullable()->constrained('users')->nullOnDelete();
                     $table->string('Voornaam');
                     $table->string('Tussenvoegsel', 50)->nullable();
                     $table->string('Achternaam');
@@ -125,7 +112,7 @@ return new class extends Migration
             }
         }
 
-        DB::table('user')->upsert([
+        DB::table('users')->upsert([
             ['id' => 1, 'name' => 'Salon Eigenaar', 'email' => 'eigenaar@kniplokettiko.nl', 'email_verified_at' => null, 'password' => '$2y$10$1S7dpZxfyl4IcQAtIzUklulMSor3EADTAPktFHNcFsg87geQVgrMu', 'rolename' => 'eigenaar', 'remember_token' => null, 'created_at' => '2026-07-02 09:09:30', 'updated_at' => '2026-07-02 09:09:30'],
             ['id' => 2, 'name' => 'Fatima El Amrani', 'email' => 'fatima@kniplokettiko.nl', 'email_verified_at' => null, 'password' => '$2y$10$1S7dpZxfyl4IcQAtIzUklulMSor3EADTAPktFHNcFsg87geQVgrMu', 'rolename' => 'medewerker', 'remember_token' => null, 'created_at' => '2026-07-02 09:09:30', 'updated_at' => '2026-07-02 09:09:30'],
             ['id' => 3, 'name' => 'Sanne de Vries', 'email' => 'sanne.devries@kniplokettiko.nl', 'email_verified_at' => null, 'password' => '$2y$10$1S7dpZxfyl4IcQAtIzUklulMSor3EADTAPktFHNcFsg87geQVgrMu', 'rolename' => 'medewerker', 'remember_token' => null, 'created_at' => '2026-07-02 09:09:30', 'updated_at' => '2026-07-02 09:09:30'],
@@ -196,7 +183,6 @@ return new class extends Migration
         Schema::dropIfExists('KlantPerContact');
         Schema::dropIfExists('Contact');
         Schema::dropIfExists('klant');
-        Schema::dropIfExists('user');
 
         if (DB::getDriverName() === 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS = 1');

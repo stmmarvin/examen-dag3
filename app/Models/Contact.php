@@ -9,32 +9,72 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $table = 'contact';
-    protected $primaryKey = 'id';
+    protected $table = 'Contact';
+    protected $primaryKey = 'Id';
     public $timestamps = false;
 
     protected $fillable = [
-        'straatnaam',
-        'huisnummer',
-        'toevoeging',
-        'postcode',
-        'plaats',
-        'email',
-        'mobiel',
-        'is_actief',
-        'opmerking',
-        'datum_aangemaakt',
-        'datum_gewijzigd',
+        'Straatnaam',
+        'Huisnummer',
+        'Toevoeging',
+        'Postcode',
+        'Plaats',
+        'Email',
+        'Mobiel',
+        'IsActief',
+        'Opmerking',
+        'DatumAangemaakt',
+        'DatumGewijzigd',
     ];
 
     protected $casts = [
-        'is_actief' => 'boolean',
-        'datum_aangemaakt' => 'datetime',
-        'datum_gewijzigd' => 'datetime',
+        'IsActief' => 'boolean',
+        'DatumAangemaakt' => 'datetime',
+        'DatumGewijzigd' => 'datetime',
     ];
 
     public function klanten()
     {
-        return $this->belongsToMany(Klant::class, 'klant_per_contact', 'contact_id', 'klant_id');
+        return $this->belongsToMany(Klant::class, 'KlantPerContact', 'ContactId', 'KlantId');
+    }
+
+    public function getIdAttribute(): mixed
+    {
+        return $this->attributes['Id'] ?? null;
+    }
+
+    public function getStraatnaamAttribute(): mixed
+    {
+        return $this->attributes['Straatnaam'] ?? null;
+    }
+
+    public function getHuisnummerAttribute(): mixed
+    {
+        return $this->attributes['Huisnummer'] ?? null;
+    }
+
+    public function getToevoegingAttribute(): mixed
+    {
+        return $this->attributes['Toevoeging'] ?? null;
+    }
+
+    public function getPostcodeAttribute(): mixed
+    {
+        return $this->attributes['Postcode'] ?? null;
+    }
+
+    public function getPlaatsAttribute(): mixed
+    {
+        return $this->attributes['Plaats'] ?? null;
+    }
+
+    public function getEmailAttribute(): mixed
+    {
+        return $this->attributes['Email'] ?? null;
+    }
+
+    public function getMobielAttribute(): mixed
+    {
+        return $this->attributes['Mobiel'] ?? null;
     }
 }
