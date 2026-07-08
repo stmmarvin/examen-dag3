@@ -17,12 +17,14 @@ class KlantController extends Controller
 {
     public function index(Request $request): View
     {
+        // Gebruikt de eenvoudige klanttabel als de examen-databasetabellen nog niet bestaan.
         if (! Schema::hasTable('klant')) {
             return $this->indexFromLaravelTable($request);
         }
 
         $postcode = trim((string) $request->query('postcode', ''));
 
+        // Haalt actieve klanten op en filtert optioneel op postcode via de gekoppelde contactgegevens.
         $query = Klant::query()
             ->with(['contacten', 'user'])
             ->where('is_actief', true)
@@ -46,6 +48,7 @@ class KlantController extends Controller
 
     public function show(int $id): View
     {
+        // Toont de klantdetailpagina met het actieve contact van de klant.
         if (! Schema::hasTable('klant')) {
             $klant = $this->findLaravelKlant($id);
 
@@ -75,6 +78,7 @@ class KlantController extends Controller
 
     public function edit(int $id): View
     {
+        // Laadt de bestaande klantgegevens voor het wijzigformulier.
         if (! Schema::hasTable('klant')) {
             $klant = $this->findLaravelKlant($id);
 
@@ -94,6 +98,7 @@ class KlantController extends Controller
 
     public function update(Request $request, int $id): RedirectResponse
     {
+        // Werkt klant- en contactgegevens bij en bewaart alles in een transactie.
         if (! Schema::hasTable('klant')) {
             return $this->updateLaravelKlant($request, $id);
         }
@@ -128,6 +133,7 @@ class KlantController extends Controller
         }
 
         try {
+            // Slaat klant en contact samen op, zodat bij een fout niets half wordt bijgewerkt.
             DB::transaction(function () use ($request, $klant, $contact): void {
                 $naam = $this->splitNaam((string) $request->input('naam'));
 
@@ -176,6 +182,7 @@ class KlantController extends Controller
     {
         $postcode = trim((string) $request->query('postcode', ''));
 
+        // Fallback voor projecten waar klantgegevens in een platte Laravel-tabel staan.
         $query = DB::table('klant')
             ->when($postcode !== '', function ($query) use ($postcode): void {
                 $query->where('postcode', $postcode);
@@ -268,6 +275,7 @@ class KlantController extends Controller
 
     private function normalizeLaravelKlant(object $klant): object
     {
+        // Zet de platte klanttabel om naar dezelfde vorm als het normale klantmodel.
         $adresDelen = preg_split('/\s+/', trim((string) ($klant->adres ?? ''))) ?: [];
         $huisnummer = '';
 
@@ -301,13 +309,14 @@ class KlantController extends Controller
 
     private function getContact(Klant $klant): Contact
     {
+        // Gebruikt eerst het actieve contact en valt anders terug op het eerste gekoppelde contact.
         return $klant->contacten->firstWhere('is_actief', true)
             ?? $klant->contacten->first()
             ?? abort(404);
     }
 
     /**
-     * Split the single wireframe name field back into the Klant table fields.
+     * Splitst het enkele naamveld uit het formulier terug naar klantkolommen.
      */
     private function splitNaam(string $naam): array
     {
